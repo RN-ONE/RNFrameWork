@@ -4,24 +4,17 @@
  * @E-Mail:528489389@qq.com
  * @Describe: 场景配置
  */
-
 import React, {Component} from 'react';
 import {
     ToastAndroid,
 } from 'react-native';
 import * as AppConfig from "./config/AppConfig";
 import {
-    Modal,
     Router,
     Scene,
     Reducer,
     Actions,
-    ActionConst,
-    Switch,
 } from 'react-native-router-flux';
-import {
-    StackNavigator,
-} from 'react-navigation';
 import Main from "./scene/Main";
 import Main2 from "./scene/Main2";
 import LoadingModal from "./modal/LoadingModal";
@@ -29,10 +22,6 @@ import LoadingModal from "./modal/LoadingModal";
 const reducerCreate = params => {
     const defaultReducer = new Reducer(params);
     return (state, action) => {
-        console.log("state:", state);
-        console.log("action:", action);
-        //index
-
         this.isEnd = false;
         this.loading = false;
         if (action.routeName) {
@@ -56,7 +45,6 @@ const exitAppFn = params => {
     this.lastBackPressed = Date.now();
     ToastAndroid.show('再按一次退出应用', ToastAndroid.SHORT);
     return true;
-
 }
 
 

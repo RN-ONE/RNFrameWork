@@ -33,6 +33,8 @@ const reducerCreate = params => {
                 this.isEnd = true;
             }
         }
+
+
         return defaultReducer(state, action);
     };
 };

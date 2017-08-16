@@ -10,8 +10,7 @@ import * as ActionTypes from '../actions/ActionTypes';
 
 export const testGetMoves = (params) => {
     return (dispatch, getState) => {
-        let httpUtil = new HttpUtil();
-        httpUtil.connectGet(params, "movies.json", (data) => {
+        HttpUtil.connectGet(params, "movies.json", (data) => {
             dispatch({
                 type: ActionTypes.ACTION_TEST,
                 payload: {

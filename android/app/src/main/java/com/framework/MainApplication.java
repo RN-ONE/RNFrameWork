@@ -7,6 +7,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.framework.viewpackage.BarColorPackage;
 import com.framework.viewpackage.BarHeightPackage;
 import com.framework.viewpackage.ProgressViewPackage;
 
@@ -31,7 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
                     new ProgressViewPackage(),
-                    new BarHeightPackage()
+                    new BarHeightPackage(),
+                    new BarColorPackage()
             );
         }
     };

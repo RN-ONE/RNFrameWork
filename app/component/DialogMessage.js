@@ -64,12 +64,12 @@ class PopContent extends Component {
     }
 
     render() {
-        let {title, content, btns, contentColor} = this.props;
+        let {title, content, btns, contentColor, titleColor} = this.props;
         let btnNumber = btns.length;
         return (
             <View style={styles.tipBox}>
                 {title && <View style={styles.tipTitleBox}><Text
-                    style={styles.tipTitle}>{title}</Text></View>}
+                    style={[styles.tipTitle, {color: titleColor ? titleColor : AppConfig.COLOR_THEME}]}>{title}</Text></View>}
                 <View style={styles.tipContentBox}>
                     {(() => {
                         let tipContent = [];
@@ -252,6 +252,7 @@ export default class DialogMessage extends Component {
         this._pop({
             title: title,
             content: content,
+            titleColor: args.titleColor,
             contentColor: args.contentColor,
             btns: [
                 {

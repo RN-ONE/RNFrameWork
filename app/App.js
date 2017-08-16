@@ -15,9 +15,13 @@ import {
     Reducer,
     Actions,
 } from 'react-native-router-flux';
+import {connect} from "react-redux";
 import Main from "./scene/Main";
 import Main2 from "./scene/Main2";
 import LoadingModal from "./modal/LoadingModal";
+import * as Const from './config/Const';
+import * as ChangeColorAction from './actions/ChangeColorAction';
+import SaveLocalUtil from "./util/SaveLoaclUtil";
 
 const reducerCreate = params => {
     const defaultReducer = new Reducer(params);
@@ -96,6 +100,16 @@ const getModalStyle = () => {
  * lightbox:才可以让背景透明
  * */
 class App extends Component {
+// 构造
+    constructor(props) {
+        super(props);
+        // 读取主题色
+        SaveLocalUtil.load(Const.COLOR_LOCAL, (data) => {
+            let colors = JSON.parse(data);
+            props.changeColor(colors);
+        })
+    }
+
     render() {
         return (
             <Router
@@ -121,4 +135,6 @@ class App extends Component {
     }
 }
 
-export default App;
+export default connect(state => ({}), dispatch => ({
+    changeColor: (data) => dispatch(ChangeColorAction.changeColor(data)),
+}))(App);

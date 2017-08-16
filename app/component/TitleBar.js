@@ -29,7 +29,11 @@ export default class TitleBar extends Component {
         leftText: PropTypes.string,
         rightText: PropTypes.string,
         showBack: PropTypes.bool,//默认为true
-        onPress: PropTypes.func,
+        onPress: PropTypes.func,//右边文字按钮
+        onPressBack: PropTypes.func,//返回按钮
+        onPressRight: PropTypes.func,//右边的更多按钮
+        colors: PropTypes.Object,
+        showMore: PropTypes.bool,//这个有，才显示更多的按钮,默认false
     };
 
     // 构造
@@ -51,13 +55,13 @@ export default class TitleBar extends Component {
         return (
             <View style={{
                 flexDirection: 'row',
-                backgroundColor: AppConfig.COLOR_THEME,
+                backgroundColor: this.props.colors ? this.props.colors.COLOR_THEME : AppConfig.COLOR_THEME,
                 paddingTop: Platform.OS === 'android' ? this.state.barHeight : 20,
             }}>
                 <View
                     style={{
                         flex: 1,
-                        backgroundColor: AppConfig.COLOR_THEME,
+                        backgroundColor: this.props.colors ? this.props.colors.COLOR_THEME : AppConfig.COLOR_THEME,
                         height: AppConfig.TITLE_HEIGHT,
                         alignItems: 'center',
                         justifyContent: 'center'
@@ -84,7 +88,8 @@ export default class TitleBar extends Component {
                             {
                                 this.state.showBack ?
                                     <TouchableButton onPress={() => {
-                                        Actions.pop();
+                                        this.props.onPressBack ? this.props.onPressBack() :
+                                            Actions.pop();
                                     }}>
                                         <View style={{
                                             flexDirection: 'row',
@@ -96,12 +101,12 @@ export default class TitleBar extends Component {
                                                     height: 30,
                                                     marginLeft: 5
                                                 }}
-                                                source={require('../img/title_back.png')}/>
+                                                source={require('../img/ic_arrow_back_white_36pt.png')}/>
 
                                             <Text
                                                 style={[
                                                     AppStyles.textSmallGray,
-                                                    {color: AppConfig.COLOR_WHITE}
+                                                    {color: this.props.colors ? this.props.colors.COLOR_WHITE : AppConfig.COLOR_WHITE}
                                                 ]}>
                                                 {this.props.leftText}
                                             </Text>
@@ -109,27 +114,53 @@ export default class TitleBar extends Component {
                                     </TouchableButton>
                                     : null
                             }
-                            {
-                                this.props.rightText ?
-                                    <TouchableButton onPress={() => {
-                                        if (this.props.onPress) {
-                                            this.props.onPress();
-                                        }
-                                    }}>
-                                        <Text
-                                            style={[
-                                                AppStyles.textNormalGray,
-                                                {
-                                                    color: AppConfig.COLOR_WHITE,
-                                                    marginRight: 10,
+                            <View style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                paddingRight: AppConfig.DISTANCE_SAFE
+                            }}>
+                                {
+                                    this.props.rightText ?
+                                        <TouchableButton onPress={() => {
+                                            if (this.props.onPress) {
+                                                this.props.onPress();
+                                            }
+                                        }}>
+                                            <Text
+                                                style={[
+                                                    AppStyles.textNormalGray,
+                                                    {
+                                                        color: this.props.colors ? this.props.colors.COLOR_WHITE : AppConfig.COLOR_WHITE,
+                                                    }
+                                                ]}>
+                                                {this.props.rightText}
+                                            </Text>
+                                        </TouchableButton>
+                                        : null
+                                }
+                                {
+                                    this.props.showMore ?
+                                        <TouchableButton
+                                            onPress={() => {
+                                                if (this.props.onPressRight) {
+                                                    this.props.onPressRight();
                                                 }
-                                            ]}>
-                                            {this.props.rightText}
-                                        </Text>
-                                    </TouchableButton>
-                                    : null
-                            }
-
+                                            }}>
+                                            <View
+                                                style={{marginLeft: AppConfig.DISTANCE_SAFE}}
+                                            >
+                                                <Image
+                                                    resizeMode="center"
+                                                    style={{
+                                                        width: 12,
+                                                        height: 20,
+                                                    }}
+                                                    source={require('../img/ic_more_vert_white_48pt.png')}/>
+                                            </View>
+                                        </TouchableButton>
+                                        : null
+                                }
+                            </View>
                         </View>
                     </View>
                 </View>

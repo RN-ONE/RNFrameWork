@@ -6,3 +6,4 @@
  */
 
 export const ACTION_TEST = "app_action_login";
+export const ACTION_COLORCHANGE = "app_action_change_color";

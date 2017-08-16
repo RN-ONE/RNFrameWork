@@ -5,10 +5,7 @@
  * @Describe: 网络请求的工具类
  */
 import {Axios, CancelToken} from 'axios';
-import {
-    ToastAndroid,
-    Platform
-} from 'react-native';
+
 import ToastAI from "../component/ToastAI";
 
 const TIMEOUT = 20 * 1000;
@@ -21,6 +18,9 @@ const instance = new Axios({
     responseType: responseType,
     headers: {'X-Custom-Header': 'foobar'}
 });
+/**
+ * 添加对应的状态码和消息就可以了，0比较特殊，表示网络没连接
+ * */
 const CodeMessages = [
     {code: 400, message: "错误请求"},
     {code: 401, message: "未授权"},
@@ -41,8 +41,8 @@ export default class HttpUtil {
      * @param url 请求地址
      * @param callBack 回调，{success: true, response: response}
      * */
-    connectGet(params, url, callBack) {
-        this.connectHttp(params, url, "get", callBack, null, null);
+    static connectGet(params, url, callBack) {
+        HttpUtil.connectHttp(params, url, "get", callBack, null, null);
     }
 
     /**
@@ -51,19 +51,19 @@ export default class HttpUtil {
      * @param url 请求地址
      * param callBack 回调,{success: true, response: response}
      * */
-    connectPost(params, url, callBack) {
-        this.connectHttp(params, url, "post", callBack, null, null);
+    static connectPost(params, url, callBack) {
+        HttpUtil.connectHttp(params, url, "post", callBack, null, null);
     }
 
     /**
      * @param params 请求的参数
      * @param url 请求地址
      * @param method 请求的方式，post，get
-     * @param onUploadProgress 上传进度
-     * @param onDownloadProgress 下载进度
+     * @param onUploadProgress 上传进度，一般不用传null
+     * @param onDownloadProgress 下载进度，一般不用传null
      * param callBack 回调,{success: true, response: response}
      * */
-    connectHttp(params, url, method, callBack, onUploadProgress, onDownloadProgress) {
+    static connectHttp(params, url, method, callBack, onUploadProgress, onDownloadProgress) {
         instance.request({
             url: url,
             cancelToken: new CancelToken(function executor(c) {

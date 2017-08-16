@@ -26,17 +26,20 @@ import ToastAI from "../component/ToastAI";
 class Main extends Component {
     render() {
         return (
-            <View>
+            <View style={{backgroundColor: this.props.colors.COLOR_BG, flex: 1}}>
                 <TitleBar
                     title="主页"
                     showBack={false}
                     leftText="返回"
                     rightText="确定"
+                    colors={this.props.colors}
                     onPress={() => {
                         this.show();
                     }}/>
 
-                <ThemeButton radius={5} text={this.props.text} onPress={() => {
+                <ThemeButton backgroundColor={this.props.colors.COLOR_THEME}
+                             radius={5}
+                             text={this.props.text} onPress={() => {
                     Actions.loading();
                     this.props.getMoveList({});
                 }}/>
@@ -61,18 +64,19 @@ class Main extends Component {
     show() {
         this.dialogbox.confirm({
             title: '测试',//标题
-            titleColor: AppConfig.COLOR_THEME,
-            contentColor: AppConfig.TEXT_COLOR_GRAY,//内容颜色
+            titleColor: this.props.colors.COLOR_THEME,
+            contentColor: this.props.colors.TEXT_COLOR_GRAY,//内容颜色
             content: ['选择Toast的位置'],//内容
             ok: {
                 text: '居中',
+                color: this.props.colors.COLOR_THEME,
                 callback: () => {
                     ToastAI.showShortCenter("居中位置的Toast");
                 },
             },//右边按钮
             cancel: {
                 text: '上面',
-                color: AppConfig.TEXT_COLOR_GRAY,
+                color: this.props.colors.TEXT_COLOR_GRAY,
                 callback: () => {
                     ToastAI.showShortTop("上面位置的Toast");
                 },
@@ -86,6 +90,7 @@ class Main extends Component {
 
 export default connect(state => ({
     text: state.TestReducer.text,
+    colors: state.ColorReducer.colors,
 }), dispatch => ({
     getMoveList: (data) => dispatch(TestAction.testGetMoves(data)),
 }))(Main);

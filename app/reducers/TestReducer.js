@@ -14,7 +14,6 @@ export default handleActions({
     [ActionTypes.ACTION_TEST]: (state, action) => {
         Actions.pop();
         let response = action.payload.data;
-        console.log(response);
         if (response.success) {
             var movie = response.response.data.movies[0];
             return {

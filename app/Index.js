@@ -8,11 +8,11 @@
 import React, {Component} from 'react';
 import {Provider} from 'react-redux';
 import {NativeModules, Platform} from 'react-native';
-
+import {connect} from "react-redux";
 import App from './App';
 import CreateStore from './CreateStore';
 
-const __DEV__ = false;
+const __DEV__ = true;
 
 const store = CreateStore();
 
@@ -42,6 +42,8 @@ class Index extends Component {
                 global.BARANDROIDHEIGHT = height;
             });
         }
+
+
     }
 
     render() {
@@ -52,6 +54,5 @@ class Index extends Component {
         )
     }
 }
-
 
 export default Index;

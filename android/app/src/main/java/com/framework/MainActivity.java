@@ -10,7 +10,7 @@ import com.facebook.react.ReactActivity;
 import com.framework.util.SystemBarTintManager;
 
 public class MainActivity extends ReactActivity {
-    private SystemBarTintManager tintManager;
+    public static SystemBarTintManager tintManager;
     public static int height = 0;
 
     /**

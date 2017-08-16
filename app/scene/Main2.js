@@ -83,7 +83,7 @@ class Main2 extends Component {
                     menus={["Item1", "Item2", "Item3", "Item4"]}
                     contentStyle={{right: 20}}
                     onMoreMenuSelect={(e) => {
-
+                        ToastAI.showLongBottom(e);
                     }}/>
             </View>
         )

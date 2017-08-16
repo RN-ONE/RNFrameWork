@@ -328,6 +328,7 @@ export default class DialogMessage extends Component {
     }
 
 };
+const MH = Platform.OS === 'android' ? 80 : 40;
 
 let styles = StyleSheet.create({
     popupContainer: {
@@ -356,7 +357,7 @@ let styles = StyleSheet.create({
         backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
-        marginHorizontal: 80,
+        marginHorizontal: MH,
         borderRadius: 8,
         overflow: 'hidden',
     },
@@ -367,7 +368,7 @@ let styles = StyleSheet.create({
         alignItems: 'center',
     },
     tipTitleBox: {
-        marginHorizontal: 80,
+        marginHorizontal: MH,
         justifyContent: 'center',
         alignItems: 'center',
     },

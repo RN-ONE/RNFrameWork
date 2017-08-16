@@ -150,7 +150,7 @@ export default class TitleBar extends Component {
                                                 style={{marginLeft: AppConfig.DISTANCE_SAFE}}
                                             >
                                                 <Image
-                                                    resizeMode="center"
+                                                    resizeMode={Platform.OS === 'android' ? "center" : "contain"}
                                                     style={{
                                                         width: 12,
                                                         height: 20,

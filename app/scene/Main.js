@@ -13,6 +13,7 @@ import {
 import {
     Actions,
 } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/Ionicons';
 import DialogMessage from "../component/DialogMessage";
 import TouchableButton from "../component/TouchableButton";
 import * as AppConfig from "../config/AppConfig";
@@ -51,8 +52,11 @@ class Main extends Component {
                     text="跳转页面"
                     onPress={() => {
                         ToastAI.showShortBottom("自定义的Toast，支持Android和iOS！");
-                        Actions.main2();
+                        Actions.changeTheme();
                     }}/>
+
+
+                <Icon name="ios-person" size={30} color="#4F8EF7" />
 
                 <DialogMessage ref={(dialogbox) => {
                     this.dialogbox = dialogbox;

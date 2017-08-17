@@ -8,6 +8,7 @@ import android.view.WindowManager;
 
 import com.facebook.react.ReactActivity;
 import com.framework.util.SystemBarTintManager;
+import com.reactnativecomponent.splashscreen.RCTSplashScreen;
 
 public class MainActivity extends ReactActivity {
     public static SystemBarTintManager tintManager;
@@ -24,6 +25,7 @@ public class MainActivity extends ReactActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        RCTSplashScreen.openSplashScreen(this);   //open splashscreen
         super.onCreate(savedInstanceState);
         //设置状态栏
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

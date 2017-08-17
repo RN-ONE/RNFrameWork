@@ -14,14 +14,19 @@ import {
     Scene,
     Reducer,
     Actions,
+    TabBar,
+    Route,
 } from 'react-native-router-flux';
 import {connect} from "react-redux";
 import Main from "./scene/Main";
-import Main2 from "./scene/Main2";
+import ChangeTheme from "./scene/ChangeTheme";
 import LoadingModal from "./modal/LoadingModal";
 import * as Const from './config/Const';
 import * as ChangeColorAction from './actions/ChangeColorAction';
 import SaveLocalUtil from "./util/SaveLoaclUtil";
+import TabIcon from "./component/TableIcon";
+import Main2 from "./scene/Main2";
+import Main3 from "./scene/Main3";
 
 const reducerCreate = params => {
     const defaultReducer = new Reducer(params);
@@ -117,12 +122,33 @@ class App extends Component {
                 createReducer={reducerCreate}
                 getSceneStyle={getSceneStyle}>
                 <Scene key="modal" modal initial lightbox>
+                    <Scene key="root">
+                        <Scene key="tabbar">
+                            <Router
+                                tabs
+                                tabBarComponent={TabIcon}
+                                swipeEnabled={false}
+                                tabBarPosition="bottom">
+                                <Route hideNavBar
+                                       key="main" title="main">
+                                    <Scene key="main" component={Main}/>
+                                    <Scene
+                                        hideTabBar
+                                        key="changeTheme"
+                                        component={ChangeTheme}/>
+                                </Route>
 
-                    <Scene key="root" hideTabBar hideNavBar>
+                                <Route hideNavBar
+                                       key="main2" title="main2">
+                                    <Scene key="main2" component={Main2}/>
+                                </Route>
 
-                        <Scene key="main" component={Main}/>
-
-                        <Scene key="main2" component={Main2}/>
+                                <Route hideNavBar
+                                       key="main3" title="main3">
+                                    <Scene key="main3" component={Main3}/>
+                                </Route>
+                            </Router>
+                        </Scene>
                     </Scene>
 
                     <Scene key="loading"

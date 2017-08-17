@@ -29,7 +29,7 @@ class Main extends Component {
         return (
             <View style={{backgroundColor: this.props.colors.COLOR_BG, flex: 1}}>
                 <TitleBar
-                    title="主页2"
+                    title="主页3"
                     showBack={false}
                     leftText="返回"
                     rightText="确定"
@@ -45,9 +45,6 @@ class Main extends Component {
                     this.props.getMoveList({});
                 }}/>
 
-
-
-                <Icon name="ios-person" size={30} color="#4F8EF7" />
 
                 <DialogMessage ref={(dialogbox) => {
                     this.dialogbox = dialogbox;

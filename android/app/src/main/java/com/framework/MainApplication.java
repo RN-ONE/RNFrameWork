@@ -3,6 +3,8 @@ package com.framework;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -10,6 +12,7 @@ import com.facebook.soloader.SoLoader;
 import com.framework.viewpackage.BarColorPackage;
 import com.framework.viewpackage.BarHeightPackage;
 import com.framework.viewpackage.ProgressViewPackage;
+import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,6 +34,8 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+                    new VectorIconsPackage(),
+                    new RCTSplashScreenPackage(),
                     new ProgressViewPackage(),
                     new BarHeightPackage(),
                     new BarColorPackage()

@@ -8,7 +8,6 @@
 import React, {Component} from 'react';
 import {Provider} from 'react-redux';
 import {NativeModules, Platform} from 'react-native';
-import {connect} from "react-redux";
 import App from './App';
 import CreateStore from './CreateStore';
 import SplashScreen from 'react-native-smart-splash-screen'

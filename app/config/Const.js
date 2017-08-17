@@ -5,4 +5,4 @@
  * @Describe: 常量
  */
 
-export const COLOR_LOCAL = "colorlocal";
+export const COLOR_LOCAL = "colorLocal";

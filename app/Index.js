@@ -11,6 +11,7 @@ import {NativeModules, Platform} from 'react-native';
 import {connect} from "react-redux";
 import App from './App';
 import CreateStore from './CreateStore';
+import SplashScreen from 'react-native-smart-splash-screen'
 
 const __DEV__ = true;
 
@@ -44,6 +45,14 @@ class Index extends Component {
         }
 
 
+    }
+
+    componentDidMount () {
+        SplashScreen.close({
+            animationType: SplashScreen.animationType.scale,
+            duration: 2000,
+            delay: 500,
+        })
     }
 
     render() {

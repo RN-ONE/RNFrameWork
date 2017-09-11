@@ -122,12 +122,7 @@ class Main extends Component {
 
 
     _onRefresh = () => {
-        //console.log('outside _onRefresh start...')
-
-        //simulate request data
         setTimeout(() => {
-
-            //console.log('outside _onRefresh end...')
             let addNum = 8;
             let refreshedDataList = [];
             for (let i = 0; i < addNum; i++) {
@@ -146,11 +141,7 @@ class Main extends Component {
     }
 
     _onLoadMore = () => {
-        //console.log('outside _onLoadMore start...')
         setTimeout(() => {
-
-            //console.log('outside _onLoadMore end...')
-
             let length = this.state.dataList.length
             let addNum = 2;
             let addedDataList = [];

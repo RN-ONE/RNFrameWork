@@ -28,7 +28,6 @@ public class BarHeightModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getHeight(Callback callback) {
         int height = MainActivity.height;
-        Log.e("height--->", "" + height);
         callback.invoke(height);
     }
 }

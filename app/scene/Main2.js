@@ -8,7 +8,12 @@
 import React, {Component} from 'react';
 import {
     Text,
-    View
+    ActivityIndicator,
+    View,
+    ProgressBarAndroid,
+    ListView,
+    Platform,
+    StyleSheet
 } from 'react-native';
 import {
     Actions,
@@ -24,7 +29,26 @@ import * as AppStyles from '../config/AppStyles';
 import ThemeButton from "../component/ThemeButton";
 import ToastAI from "../component/ToastAI";
 
+import PullToRefreshListView from 'react-native-smart-pull-to-refresh-listview'
+import RLHeaderAndFooter from "../component/RLHeaderAndFooter";
+
 class Main extends Component {
+    constructor(props) {
+        super(props);
+
+        this._dataSource = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2,
+        });
+
+        let dataList = []
+
+        this.state = {
+            first: true,
+            dataList: dataList,
+            dataSource: this._dataSource.cloneWithRows(dataList),
+        }
+    }
+
     render() {
         return (
             <View style={{backgroundColor: this.props.colors.COLOR_BG, flex: 1}}>
@@ -38,23 +62,28 @@ class Main extends Component {
                         this.show();
                     }}/>
 
-                <ThemeButton backgroundColor={this.props.colors.COLOR_THEME}
-                             radius={5}
-                             text={this.props.text} onPress={() => {
-                    Actions.loading();
-                    this.props.getMoveList({});
-                }}/>
 
+                <PullToRefreshListView
+                    ref={(component) => this._pullToRefreshListView = component}
+                    viewType={PullToRefreshListView.constants.viewType.listView}
+                    initialListSize={20}
+                    enableEmptySections={true}
+                    dataSource={this.state.dataSource}
+                    renderRow={this._renderRow}
+                    renderHeader={(viewState) => RLHeaderAndFooter.renderHeader(viewState)}
+                    renderFooter={(viewState) => RLHeaderAndFooter.renderFooter(viewState)}
+                    onRefresh={this._onRefresh}
+                    onLoadMore={this._onLoadMore}
+                    pullUpDistance={80}
+                    pullUpStayDistance={50}
+                    pullDownDistance={80}
+                    pullDownStayDistance={50}
+                />
 
-
-                <Icon name="ios-person" size={30} color="#4F8EF7" />
-
-                <DialogMessage ref={(dialogbox) => {
-                    this.dialogbox = dialogbox;
-                }}/>
             </View>
         )
     }
+
 
     show() {
         this.dialogbox.confirm({
@@ -81,7 +110,100 @@ class Main extends Component {
     }
 
 
+    _renderRow = (rowData, sectionID, rowID) => {
+        return (
+            <View style={styles.thumbnail}>
+                <View style={styles.textContainer}>
+                    <Text>{rowData.text}</Text>
+                </View>
+            </View>
+        )
+    }
+
+
+    _onRefresh = () => {
+        //console.log('outside _onRefresh start...')
+
+        //simulate request data
+        setTimeout(() => {
+
+            //console.log('outside _onRefresh end...')
+            let addNum = 8;
+            let refreshedDataList = [];
+            for (let i = 0; i < addNum; i++) {
+                refreshedDataList.push({
+                    text: `item-${i}`
+                })
+            }
+
+            this.setState({
+                dataList: refreshedDataList,
+                dataSource: this._dataSource.cloneWithRows(refreshedDataList),
+            })
+            this._pullToRefreshListView.endRefresh()
+
+        }, 3000)
+    }
+
+    _onLoadMore = () => {
+        //console.log('outside _onLoadMore start...')
+        setTimeout(() => {
+
+            //console.log('outside _onLoadMore end...')
+
+            let length = this.state.dataList.length
+            let addNum = 2;
+            let addedDataList = [];
+            if (length >= 10) {
+                addNum = 3
+            }
+            for (let i = length; i < length + addNum; i++) {
+                addedDataList.push({
+                    text: `item-${i}`
+                })
+            }
+            length = length + addNum;
+
+            let newDataList = this.state.dataList.concat(addedDataList)
+            this.setState({
+                dataList: newDataList,
+                dataSource: this._dataSource.cloneWithRows(newDataList),
+            })
+
+            let loadedAll
+            if (length >= 10) {
+                loadedAll = true
+                this._pullToRefreshListView.endLoadMore(loadedAll)
+            }
+            else {
+                loadedAll = false
+                this._pullToRefreshListView.endLoadMore(loadedAll)
+            }
+
+        }, 3000)
+    }
+
 }
+
+
+const styles = StyleSheet.create({
+
+    thumbnail: {
+        padding: 6,
+        flexDirection: 'row',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomColor: '#ccc',
+        overflow: 'hidden',
+    },
+
+    textContainer: {
+        padding: 20,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
+})
+
 
 export default connect(state => ({
     text: state.TestReducer.text,

@@ -8,29 +8,15 @@
 import React, {Component} from 'react';
 import {
     Text,
-    ActivityIndicator,
     View,
-    ProgressBarAndroid,
     ListView,
-    Platform,
     StyleSheet
 } from 'react-native';
-import {
-    Actions,
-} from 'react-native-router-flux';
-import Icon from 'react-native-vector-icons/Ionicons';
-import DialogMessage from "../component/DialogMessage";
-import TouchableButton from "../component/TouchableButton";
-import * as AppConfig from "../config/AppConfig";
-import TitleBar from "../component/TitleBar";
 import {connect} from "react-redux";
-import * as TestAction from "../actions/TestAction";
-import * as AppStyles from '../config/AppStyles';
-import ThemeButton from "../component/ThemeButton";
-import ToastAI from "../component/ToastAI";
-
-import PullToRefreshListView from 'react-native-smart-pull-to-refresh-listview'
+import TitleBar from "../component/TitleBar";
+import PullToRefreshListView from 'react-native-smart-pull-to-refresh-listview';
 import RLHeaderAndFooter from "../component/RLHeaderAndFooter";
+import * as TestAction from "../actions/TestAction";
 
 class Main extends Component {
     constructor(props) {
@@ -59,9 +45,7 @@ class Main extends Component {
                     rightText="确定"
                     colors={this.props.colors}
                     onPress={() => {
-                        this.show();
                     }}/>
-
 
                 <PullToRefreshListView
                     ref={(component) => this._pullToRefreshListView = component}
@@ -82,31 +66,6 @@ class Main extends Component {
 
             </View>
         )
-    }
-
-
-    show() {
-        this.dialogbox.confirm({
-            title: '测试',//标题
-            titleColor: this.props.colors.COLOR_THEME,
-            contentColor: this.props.colors.TEXT_COLOR_GRAY,//内容颜色
-            content: ['选择Toast的位置'],//内容
-            ok: {
-                text: '居中',
-                color: this.props.colors.COLOR_THEME,
-                callback: () => {
-                    ToastAI.showShortCenter("居中位置的Toast");
-                },
-            },//右边按钮
-            cancel: {
-                text: '上面',
-                color: this.props.colors.TEXT_COLOR_GRAY,
-                callback: () => {
-                    ToastAI.showShortTop("上面位置的Toast");
-                },
-            },
-            //左边按钮
-        });
     }
 
 

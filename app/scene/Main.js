@@ -56,7 +56,7 @@ class Main extends Component {
                     }}/>
 
 
-                <Icon name="ios-person" size={30} color="#4F8EF7" />
+                <Icon name="ios-person" size={30} color={this.props.colors.COLOR_THEME} />
 
                 <DialogMessage ref={(dialogbox) => {
                     this.dialogbox = dialogbox;

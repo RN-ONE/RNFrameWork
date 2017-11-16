@@ -107,7 +107,6 @@ export default class MoreMenu extends Component {
                     </TouchableHighlight>
                 })
                 }
-
             </View>
         </Popover>;
         return view;

@@ -113,4 +113,51 @@ export default class HttpUtil {
             }
         }
     }
+
+    /**
+     * @Author: JACK-GU
+     * @Date: ${DATE}
+     * @E-Mail: 528489389@qq.com
+     * @Describe: 上传文件到服务器
+     * @param map 是一个数组，里面存放对象{path:"",key:""}
+     * @param params 参数
+     * @param url 请求的地址
+     */
+    static uploadFilePost(url, map, params) {
+        // 创建一个formData（虚拟表单）
+        var formData = new FormData();
+        map.forEach((item) => {
+            formData = appendToFormData(formData, item.path, item.key);
+        });
+
+        // 请求头文件
+        const config = {
+            Accept: 'Application/json',
+            'Content-Type': 'multipart/form-data',
+            params: params ? params : {},
+            onUploadProgress: (progressEvent) => {
+                console.log(progressEvent);
+            },
+        };
+
+        //然后开始上传
+        instance.post(url, formData, config);
+    }
+
+    /**
+     * @Author: JACK-GU
+     * @Date: ${DATE}
+     * @E-Mail: 528489389@qq.com
+     * @Describe: 将文件拼接成formData
+     * @param formData 需要的
+     * @param fileUri 文件的路径
+     * @param key 关键字
+     * @return formData 返回拼接后的
+     */
+    static appendToFormData(formData, fileUri, key) {
+        // 需要上传的文件
+        var strS = fileUri.split("/");
+        const file = {uri: fileUri, type: 'multipart/form-data', name: strS[strS.length - 1]};   // 这里的key(uri和type和name)不能改变,
+        formData.append(key, file);   // 这里的files就是后台需要的key
+    }
 }

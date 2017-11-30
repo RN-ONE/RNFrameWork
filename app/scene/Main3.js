@@ -23,6 +23,7 @@ import * as TestAction from "../actions/TestAction";
 import * as AppStyles from '../config/AppStyles';
 import ThemeButton from "../component/ThemeButton";
 import ToastAI from "../component/ToastAI";
+import HttpUtil from "../util/HttpUtil";
 
 class Main extends Component {
     render() {
@@ -41,8 +42,8 @@ class Main extends Component {
                 <ThemeButton backgroundColor={this.props.colors.COLOR_THEME}
                              radius={5}
                              text={this.props.text} onPress={() => {
-                    Actions.loading();
-                    this.props.getMoveList({});
+                    var map = [{path: "", key: "file"}];
+                    HttpUtil.uploadFilePost("http://172.10.31.127:8888/home/login.action", map, null);
                 }}/>
 
 

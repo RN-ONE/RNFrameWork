@@ -3,6 +3,7 @@ package com.framework;
 import android.app.Application;
 import android.os.Debug;
 
+import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -45,7 +46,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new BarColorPackage(),
                     new RCTSwipeRefreshLayoutPackage(),
                     new ReactNativeExceptionHandlerPackage(),
-                    new CatchJSPackage()
+                    new CatchJSPackage(),
+                    new ReactNativeRestartPackage()
             );
         }
     };

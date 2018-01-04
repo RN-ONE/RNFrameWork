@@ -53,6 +53,7 @@
 		FC3CF2FF1FFDDC6200E00AD5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3CF2FE1FFDDC6200E00AD5 /* Security.framework */; };
 		FC3CF3011FFDDC7100E00AD5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3CF3001FFDDC7100E00AD5 /* libz.tbd */; };
 		FC3CF3031FFDDC7F00E00AD5 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3CF3021FFDDC7F00E00AD5 /* libc++.tbd */; };
+		FC3CF30A1FFDF6E300E00AD5 /* libRCTRestart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3CF3091FFDF6D200E00AD5 /* libRCTRestart.a */; };
 		FC6763291F45914000D41B06 /* libRCTSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC67631B1F45901200D41B06 /* libRCTSplashScreen.a */; };
 		FC6763461F45920600D41B06 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC6763441F45920600D41B06 /* LaunchScreen.xib */; };
 		FC6763471F45920600D41B06 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = FC6763451F45920600D41B06 /* splash.png */; };
@@ -255,6 +256,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = ReactNativeExceptionHandler;
 		};
+		FC3CF3081FFDF6D200E00AD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FC3CF3041FFDF6D200E00AD5 /* RCTRestart.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3245CDED1BFEE35C00EABF68;
+			remoteInfo = RCTRestart;
+		};
 		FC5397E41FC3BF5700EB2D5C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0DBA9245635946EE95319657 /* RNVectorIcons.xcodeproj */;
@@ -315,6 +323,7 @@
 		FC3CF2FE1FFDDC6200E00AD5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		FC3CF3001FFDDC7100E00AD5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		FC3CF3021FFDDC7F00E00AD5 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		FC3CF3041FFDF6D200E00AD5 /* RCTRestart.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTRestart.xcodeproj; path = "../node_modules/react-native-restart/ios/RCTRestart.xcodeproj"; sourceTree = "<group>"; };
 		FC67630A1F45901200D41B06 /* RCTSplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSplashScreen.xcodeproj; path = "../node_modules/react-native-smart-splash-screen/ios/RCTSplashScreen/RCTSplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		FC6763441F45920600D41B06 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = "../node_modules/react-native-smart-splash-screen/ios/SplashScreenResource/LaunchScreen.xib"; sourceTree = "<group>"; };
 		FC6763451F45920600D41B06 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = splash.png; path = "../node_modules/react-native-smart-splash-screen/ios/SplashScreenResource/splash.png"; sourceTree = "<group>"; };
@@ -333,6 +342,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC3CF30A1FFDF6E300E00AD5 /* libRCTRestart.a in Frameworks */,
 				FC3CF3031FFDDC7F00E00AD5 /* libc++.tbd in Frameworks */,
 				FC3CF3011FFDDC7100E00AD5 /* libz.tbd in Frameworks */,
 				FC3CF2FF1FFDDC6200E00AD5 /* Security.framework in Frameworks */,
@@ -510,6 +520,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				FC3CF3041FFDF6D200E00AD5 /* RCTRestart.xcodeproj */,
 				FC3CF2D31FFDC5B000E00AD5 /* ReactNativeExceptionHandler.xcodeproj */,
 				FC67630A1F45901200D41B06 /* RCTSplashScreen.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -606,6 +617,14 @@
 				FC3CF2F81FFDD92500E00AD5 /* CatchReport.m */,
 			);
 			name = catchPac;
+			sourceTree = "<group>";
+		};
+		FC3CF3051FFDF6D200E00AD5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FC3CF3091FFDF6D200E00AD5 /* libRCTRestart.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		FC5397C71FC3BF5700EB2D5C /* Products */ = {
@@ -769,6 +788,10 @@
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
+				},
+				{
+					ProductGroup = FC3CF3051FFDF6D200E00AD5 /* Products */;
+					ProjectRef = FC3CF3041FFDF6D200E00AD5 /* RCTRestart.xcodeproj */;
 				},
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
@@ -994,6 +1017,13 @@
 			fileType = archive.ar;
 			path = libReactNativeExceptionHandler.a;
 			remoteRef = FC3CF2F11FFDC5B000E00AD5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FC3CF3091FFDF6D200E00AD5 /* libRCTRestart.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTRestart.a;
+			remoteRef = FC3CF3081FFDF6D200E00AD5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		FC5397E51FC3BF5700EB2D5C /* libRNVectorIcons.a */ = {

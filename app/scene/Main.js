@@ -38,9 +38,7 @@ class Main extends Component {
                     rightText="确定"
                     colors={this.props.colors}
                     onPress={() => {
-                        // this.show();
-                        var CatchReport = NativeModules.CatchReport;
-                        CatchReport.addEvent("123", "456", "789");
+                        this.show();
                     }}/>
 
                 <ThemeButton backgroundColor={this.props.colors.COLOR_THEME}

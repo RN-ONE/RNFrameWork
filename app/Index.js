@@ -21,13 +21,19 @@ const store = CreateStore();
 
 const errorHandler = (e, isFatal) => {
     if (isFatal) {
-        let data = {
-            name: e.name,
-            message: e.message,
-            stack: e.stack,
-        };
-        let str = JSON.stringify(data);
-        NativeModules.CatchJSModule.report(str);
+        //Android和ios手机数据
+        if (Platform.OS === 'android') {
+            let data = {
+                name: e.name,
+                message: e.message,
+                stack: e.stack,
+            };
+            let str = JSON.stringify(data);
+            NativeModules.CatchJSModule.report(str);
+        } else {
+            var CatchReport = NativeModules.CatchReport;
+            CatchReport.addEvent(e.name, e.message, e.stack);
+        }
 
         Alert.alert(
             '错误提示！', '软件遇到点小问题，需要重新启动！',

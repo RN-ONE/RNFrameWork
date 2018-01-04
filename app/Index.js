@@ -35,7 +35,6 @@ const errorHandler = (e, isFatal) => {
             CatchReport.addEvent(e.name, e.message, e.stack);
         }
 
-
         Alert.alert(
             '错误提示！', '软件遇到点小问题，需要重新启动！',
             [{

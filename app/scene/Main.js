@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {
     Actions,
+    NativeModules
 } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DialogMessage from "../component/DialogMessage";
@@ -37,7 +38,13 @@ class Main extends Component {
                     rightText="确定"
                     colors={this.props.colors}
                     onPress={() => {
-                        this.show();
+                        let data = {
+                            name: "testName",
+                            message: "testMessage",
+                            stack: "testStack",
+                        };
+                        let str = JSON.stringify(data);
+                        NativeModules.CatchJSModule.report(str);
                     }}/>
 
                 <ThemeButton backgroundColor={this.props.colors.COLOR_THEME}
@@ -61,7 +68,7 @@ class Main extends Component {
                 <Icon name="ios-person" size={30} color={this.props.colors.COLOR_THEME}/>
 
                 {/*<DialogMessage ref={(dialogbox) => {*/}
-                    {/*this.dialogbox = dialogbox;*/}
+                {/*this.dialogbox = dialogbox;*/}
                 {/*}}/>*/}
             </View>
         )

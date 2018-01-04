@@ -12,24 +12,27 @@ import App from './App';
 import CreateStore from './CreateStore';
 import SplashScreen from 'react-native-smart-splash-screen'
 import {setJSExceptionHandler} from 'react-native-exception-handler';
+import RNRestart from 'react-native-restart';
 
 const __DEV__ = true;
 
 const store = CreateStore();
-
-
+// Error: ${(isFatal) ? 'Fatal:' : ''} ${e.name} ${e.message} ${e.stack}
 
 const errorHandler = (e, isFatal) => {
     if (isFatal) {
+        let data = {
+            name: e.name,
+            message: e.message,
+            stack: e.stack,
+        };
+        let str = JSON.stringify(data);
+
+
         Alert.alert(
-            'Unexpected error occurred',
-            `
-        Error: ${(isFatal) ? 'Fatal:' : ''} ${e.name} ${e.message}
- ${e.description}  ${e.fileName}  ${e.lineNumber}  ${e.number}  ${e.stack} 
-        We will need to restart the app.
-        `,
+            '错误提示！', '软件遇到点小问题，需要重新启动！',
             [{
-                text: 'Restart',
+                text: '重启软件',
                 onPress: () => {
                     RNRestart.Restart();
                 }

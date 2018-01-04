@@ -1,6 +1,7 @@
 package com.framework;
 
 import android.app.Application;
+import android.os.Debug;
 
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
@@ -9,11 +10,13 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.framework.viewpackage.BarColorPackage;
 import com.framework.viewpackage.BarHeightPackage;
+import com.framework.viewpackage.CatchJSPackage;
 import com.framework.viewpackage.ProgressViewPackage;
 import com.masteratul.exceptionhandler.ReactNativeExceptionHandlerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import com.reactnativecomponent.swiperefreshlayout.RCTSwipeRefreshLayoutPackage;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +44,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new BarHeightPackage(),
                     new BarColorPackage(),
                     new RCTSwipeRefreshLayoutPackage(),
-                    new ReactNativeExceptionHandlerPackage()
+                    new ReactNativeExceptionHandlerPackage(),
+                    new CatchJSPackage()
             );
         }
     };
@@ -56,5 +60,9 @@ public class MainApplication extends Application implements ReactApplication {
         super.onCreate();
         instance = this;
         SoLoader.init(this, /* native exopackage */ false);
+
+        if (!BuildConfig.DEBUG){
+            CrashReport.initCrashReport(getApplicationContext(), "5a9639836b", false);
+        }
     }
 }

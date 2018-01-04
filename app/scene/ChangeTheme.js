@@ -96,7 +96,7 @@ class Main2 extends Component {
             contentColor: this.props.colors.TEXT_COLOR_GRAY,//内容颜色
             content: ['come on!'],//内容
             ok: {
-                text: 'Y',
+                text: 'Yes',
                 color: this.props.colors.COLOR_THEME,
                 callback: () => {
                     this.dialogbox.alert('Good!');

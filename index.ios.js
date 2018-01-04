@@ -20,3 +20,4 @@ export default class FrameWork extends Component {
 
 
 AppRegistry.registerComponent('FrameWork', () => FrameWork);
+console.disableYellowBox = true;

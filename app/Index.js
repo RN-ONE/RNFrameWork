@@ -7,14 +7,37 @@
 
 import React, {Component} from 'react';
 import {Provider} from 'react-redux';
-import {NativeModules, Platform} from 'react-native';
+import {NativeModules, Alert, Platform} from 'react-native';
 import App from './App';
 import CreateStore from './CreateStore';
 import SplashScreen from 'react-native-smart-splash-screen'
+import {setJSExceptionHandler} from 'react-native-exception-handler';
 
 const __DEV__ = true;
 
 const store = CreateStore();
+
+
+const errorHandler = (e, isFatal) => {
+    if (isFatal) {
+        Alert.alert(
+            'Unexpected error occurred',
+            `
+        Error: ${(isFatal) ? 'Fatal:' : ''} ${e.name} ${e.message}
+
+        We will need to restart the app.
+        `,
+            [{
+                text: 'Restart',
+                onPress: () => {
+                    RNRestart.Restart();
+                }
+            }]
+        );
+    } else {
+        console.log(e); // So that we can see it in the ADB logs in case of Android if needed
+    }
+};
 
 class Index extends Component {
     constructor(props) {
@@ -46,7 +69,7 @@ class Index extends Component {
 
     }
 
-    componentDidMount () {
+    componentDidMount() {
         SplashScreen.close({
             animationType: SplashScreen.animationType.scale,
             duration: 2000,
@@ -62,5 +85,8 @@ class Index extends Component {
         )
     }
 }
+
+
+setJSExceptionHandler(errorHandler);
 
 export default Index;

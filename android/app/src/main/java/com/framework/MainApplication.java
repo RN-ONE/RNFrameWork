@@ -10,6 +10,7 @@ import com.facebook.soloader.SoLoader;
 import com.framework.viewpackage.BarColorPackage;
 import com.framework.viewpackage.BarHeightPackage;
 import com.framework.viewpackage.ProgressViewPackage;
+import com.masteratul.exceptionhandler.ReactNativeExceptionHandlerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import com.reactnativecomponent.swiperefreshlayout.RCTSwipeRefreshLayoutPackage;
@@ -39,7 +40,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new ProgressViewPackage(),
                     new BarHeightPackage(),
                     new BarColorPackage(),
-                    new RCTSwipeRefreshLayoutPackage()
+                    new RCTSwipeRefreshLayoutPackage(),
+                    new ReactNativeExceptionHandlerPackage()
             );
         }
     };

@@ -28,7 +28,7 @@ class Main extends Component {
     render() {
         return (
 
-            
+
             <View style={{backgroundColor: this.props.colors.COLOR_BG, flex: 1}}>
                 <TitleBar
                     title="主页"
@@ -60,9 +60,9 @@ class Main extends Component {
 
                 <Icon name="ios-person" size={30} color={this.props.colors.COLOR_THEME}/>
 
-                <DialogMessage ref={(dialogbox) => {
-                    this.dialogbox = dialogbox;
-                }}/>
+                {/*<DialogMessage ref={(dialogbox) => {*/}
+                    {/*this.dialogbox = dialogbox;*/}
+                {/*}}/>*/}
             </View>
         )
     }

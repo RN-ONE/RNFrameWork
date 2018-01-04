@@ -1,7 +1,6 @@
 package com.framework;
 
 import android.app.Application;
-import android.os.Debug;
 
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.facebook.react.ReactApplication;

@@ -1,19 +1,13 @@
 package com.framework.module;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Build;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.UiThreadUtil;
-import com.framework.MainActivity;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import org.json.JSONObject;
-
-import java.util.Set;
 
 /**
  * @Author: JACK-GU
@@ -46,8 +40,7 @@ public class CatchJSModule extends ReactContextBaseJavaModule {
                 CrashReport.putUserData(context, "name", jsonObject.getString("name"));
                 CrashReport.putUserData(context, "message", jsonObject.getString("message"));
                 CrashReport.putUserData(context, "stack", jsonObject.getString("stack"));
-
-                CrashReport.postCatchedException(new NullPointerException());
+                CrashReport.postCatchedException(new NullPointerException(jsonObject.getString("stack")));
             }
         } catch (Exception e) {
             e.printStackTrace();

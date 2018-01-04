@@ -96,6 +96,25 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+
+    signingConfigs {
+        debug {
+            storeFile file("debug.jks")
+            storePassword "android"
+            keyAlias "cghighway"
+            keyPassword "android"
+
+        }
+
+        release {
+            storeFile file ("./test.jks")
+            storePassword "123456"
+            keyAlias "test"
+            keyPassword "123456"
+        }
+
+    }
+
     splits {
         abi {
             reset()
@@ -108,6 +127,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release

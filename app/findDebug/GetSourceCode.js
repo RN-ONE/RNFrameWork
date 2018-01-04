@@ -19,4 +19,6 @@ fs.readFile('../../ios-release.bundle.map', 'utf8', function (err, data) {
         line: 510,
         column: 1747
     }));
+
+
 });

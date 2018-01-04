@@ -54,6 +54,7 @@
 		FC3CF3011FFDDC7100E00AD5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3CF3001FFDDC7100E00AD5 /* libz.tbd */; };
 		FC3CF3031FFDDC7F00E00AD5 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3CF3021FFDDC7F00E00AD5 /* libc++.tbd */; };
 		FC3CF30A1FFDF6E300E00AD5 /* libRCTRestart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3CF3091FFDF6D200E00AD5 /* libRCTRestart.a */; };
+		FC3CF30E1FFE185000E00AD5 /* GetInfoPlist.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3CF30D1FFE185000E00AD5 /* GetInfoPlist.m */; };
 		FC6763291F45914000D41B06 /* libRCTSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC67631B1F45901200D41B06 /* libRCTSplashScreen.a */; };
 		FC6763461F45920600D41B06 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC6763441F45920600D41B06 /* LaunchScreen.xib */; };
 		FC6763471F45920600D41B06 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = FC6763451F45920600D41B06 /* splash.png */; };
@@ -324,6 +325,8 @@
 		FC3CF3001FFDDC7100E00AD5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		FC3CF3021FFDDC7F00E00AD5 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		FC3CF3041FFDF6D200E00AD5 /* RCTRestart.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTRestart.xcodeproj; path = "../node_modules/react-native-restart/ios/RCTRestart.xcodeproj"; sourceTree = "<group>"; };
+		FC3CF30C1FFE185000E00AD5 /* GetInfoPlist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetInfoPlist.h; sourceTree = "<group>"; };
+		FC3CF30D1FFE185000E00AD5 /* GetInfoPlist.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetInfoPlist.m; sourceTree = "<group>"; };
 		FC67630A1F45901200D41B06 /* RCTSplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSplashScreen.xcodeproj; path = "../node_modules/react-native-smart-splash-screen/ios/RCTSplashScreen/RCTSplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		FC6763441F45920600D41B06 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = "../node_modules/react-native-smart-splash-screen/ios/SplashScreenResource/LaunchScreen.xib"; sourceTree = "<group>"; };
 		FC6763451F45920600D41B06 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = splash.png; path = "../node_modules/react-native-smart-splash-screen/ios/SplashScreenResource/splash.png"; sourceTree = "<group>"; };
@@ -470,6 +473,7 @@
 		13B07FAE1A68108700A75B9A /* FrameWork */ = {
 			isa = PBXGroup;
 			children = (
+				FC3CF30B1FFE183B00E00AD5 /* util */,
 				FC3CF2FA1FFDDC3500E00AD5 /* Bugly.framework */,
 				FC3CF2F61FFDD8F000E00AD5 /* catchPac */,
 				FC6763441F45920600D41B06 /* LaunchScreen.xib */,
@@ -625,6 +629,15 @@
 				FC3CF3091FFDF6D200E00AD5 /* libRCTRestart.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FC3CF30B1FFE183B00E00AD5 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				FC3CF30C1FFE185000E00AD5 /* GetInfoPlist.h */,
+				FC3CF30D1FFE185000E00AD5 /* GetInfoPlist.m */,
+			);
+			name = util;
 			sourceTree = "<group>";
 		};
 		FC5397C71FC3BF5700EB2D5C /* Products */ = {
@@ -1132,6 +1145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				FC3CF30E1FFE185000E00AD5 /* GetInfoPlist.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				FC3CF2F91FFDD92500E00AD5 /* CatchReport.m in Sources */,
 			);

@@ -9,6 +9,7 @@
 #import "CatchReport.h"
 #import <Bugly/BuglyConfig.h>
 #import <Bugly/Bugly.h>
+#import "GetInfoPlist.h"
 
 @implementation CatchReport
 RCT_EXPORT_MODULE();
@@ -20,7 +21,7 @@ RCT_EXPORT_METHOD(addEvent:(NSString *)name message:(NSString *)message stack:(N
   [Bugly setUserValue:name forKey:@"name"];
   [Bugly setUserValue:message forKey:@"message"];
   [Bugly setUserValue:stack forKey:@"stack"];
-  [Bugly startWithAppId:@"66772cbede" config:config];
+  [Bugly startWithAppId:[GetInfoPlist getKeyString:@"BuglyAppID"] config:config];
   
   [Bugly reportException:[[NSException alloc] initWithName:@"JS" reason:stack userInfo:nil]];
 }

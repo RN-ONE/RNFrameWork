@@ -13,11 +13,12 @@
 #import <React/RCTRootView.h>
 #import "RCTSplashScreen.h" //import interface
 #import <Bugly/Bugly.h>
+#import "GetInfoPlist.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [Bugly startWithAppId:@"66772cbede"];
+  [Bugly startWithAppId:[GetInfoPlist getKeyString:@"BuglyAppID"]];
   NSURL *jsCodeLocation;
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];

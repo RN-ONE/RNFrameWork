@@ -27,7 +27,7 @@ const errorHandler = (e, isFatal) => {
             stack: e.stack,
         };
         let str = JSON.stringify(data);
-
+        NativeModules.CatchJSModule.report(str);
 
         Alert.alert(
             '错误提示！', '软件遇到点小问题，需要重新启动！',

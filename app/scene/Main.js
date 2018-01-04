@@ -8,11 +8,11 @@
 import React, {Component} from 'react';
 import {
     Text,
-    View
+    View,
+    NativeModules
 } from 'react-native';
 import {
-    Actions,
-    NativeModules
+    Actions
 } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DialogMessage from "../component/DialogMessage";
@@ -38,13 +38,7 @@ class Main extends Component {
                     rightText="确定"
                     colors={this.props.colors}
                     onPress={() => {
-                        let data = {
-                            name: "testName",
-                            message: "testMessage",
-                            stack: "testStack",
-                        };
-                        let str = JSON.stringify(data);
-                        NativeModules.CatchJSModule.report(str);
+                        this.show();
                     }}/>
 
                 <ThemeButton backgroundColor={this.props.colors.COLOR_THEME}

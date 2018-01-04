@@ -45,35 +45,35 @@ public class CatchJSModule extends ReactContextBaseJavaModule {
 
                 //获取代码错误的行数
                 String reason = jsonObject.getString("stack");
-                //获取行数
-                int lineNumber = -1;
-                //我们只需要前200个字符
-
-                String twoHStr = "";
-                if (reason.length() > 201) {
-                    twoHStr = reason.substring(0, 200);
-                } else {
-                    twoHStr = reason.substring(0, reason.length() - 1);
-                }
-
-                if (!twoHStr.isEmpty()) {
-                    String strs[] = twoHStr.split(":");
-                    try {
-                        lineNumber = Integer.parseInt(strs[1]);
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-
-                //获取到了才进行
-                if (lineNumber >= 0) {
-                    String str = AssetsJSBundleUtil.get(context, lineNumber);
-
-                    if (!str.isEmpty()) {
-                        reason = str;
-                    }
-                }
+//                //获取行数
+//                int lineNumber = -1;
+//                //我们只需要前200个字符
+//
+//                String twoHStr = "";
+//                if (reason.length() > 201) {
+//                    twoHStr = reason.substring(0, 200);
+//                } else {
+//                    twoHStr = reason.substring(0, reason.length() - 1);
+//                }
+//
+//                if (!twoHStr.isEmpty()) {
+//                    String strs[] = twoHStr.split(":");
+//                    try {
+//                        lineNumber = Integer.parseInt(strs[1]);
+//                    } catch (NumberFormatException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//
+//                //获取到了才进行
+//                if (lineNumber >= 0) {
+//                    String str = AssetsJSBundleUtil.get(context, lineNumber);
+//
+//                    if (!str.isEmpty()) {
+//                        reason = str;
+//                    }
+//                }
 
 
                 CrashReport.postCatchedException(new NullPointerException(reason));

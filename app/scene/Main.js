@@ -69,7 +69,6 @@ class Main extends Component {
     }
 
     show() {
-
         this.dialogbox.confirm({
             title: '测试',//标题
             titleColor: this.props.colors.COLOR_THEME,

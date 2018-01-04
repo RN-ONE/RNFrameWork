@@ -44,6 +44,8 @@ import {
 } from 'react-native';
 import * as AppConfig from '../config/AppConfig';
 
+let dontHide = false;
+
 class PopContent extends Component {
 
     static propTypes = {
@@ -154,7 +156,11 @@ class DisplayPopup extends Component {
             return (
                 <TouchableWithoutFeedback onPress={() => {
                     if (this.props.isOverlayClickClose) {
-                        this.close();
+                        if (dontHide) {
+
+                        } else {
+                            this.close();
+                        }
                     }
                 }}>
                     <View style={styles.overlay}></View>
@@ -233,6 +239,7 @@ export default class DialogMessage extends Component {
 
     tip(args) {
         let {title, content, btn,} = args;
+        dontHide = args.dontHide;
         this._pop({
             title: title,
             content: content,
@@ -249,6 +256,7 @@ export default class DialogMessage extends Component {
 
     confirm(args) {
         let {title, content, ok, cancel} = args;
+        dontHide = false;
         this._pop({
             title: title,
             content: content,
@@ -290,7 +298,8 @@ export default class DialogMessage extends Component {
             return (
                 <TouchableWithoutFeedback onPress={() => {
                     if (this.state.isOverlayClickClose) {
-                        this.close();
+                        if (!dontHide)
+                            this.close();
                     }
                 }}>
                     <View style={styles.overlay}></View>
@@ -328,7 +337,7 @@ export default class DialogMessage extends Component {
     }
 
 };
-const MH = Platform.OS === 'android' ? 80 : 40;
+const MH = Platform.OS === 'android' ? 40 : 40;
 
 let styles = StyleSheet.create({
     popupContainer: {

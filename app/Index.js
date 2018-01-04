@@ -7,7 +7,7 @@
 
 import React, {Component} from 'react';
 import {Provider} from 'react-redux';
-import {NativeModules, Alert, Platform} from 'react-native';
+import {NativeModules, Alert, Platform, View} from 'react-native';
 import App from './App';
 import CreateStore from './CreateStore';
 import SplashScreen from 'react-native-smart-splash-screen'
@@ -34,6 +34,7 @@ const errorHandler = (e, isFatal) => {
             var CatchReport = NativeModules.CatchReport;
             CatchReport.addEvent(e.name, e.message, e.stack);
         }
+
 
         Alert.alert(
             '错误提示！', '软件遇到点小问题，需要重新启动！',

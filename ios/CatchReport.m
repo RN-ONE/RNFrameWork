@@ -22,6 +22,6 @@ RCT_EXPORT_METHOD(addEvent:(NSString *)name message:(NSString *)message stack:(N
   [Bugly setUserValue:stack forKey:@"stack"];
   [Bugly startWithAppId:@"66772cbede" config:config];
   
-  [Bugly reportException:[[NSException alloc] initWithName:@"JS" reason:@"js崩溃" userInfo:nil]];
+  [Bugly reportException:[[NSException alloc] initWithName:@"JS" reason:stack userInfo:nil]];
 }
 @end

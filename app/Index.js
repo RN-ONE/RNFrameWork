@@ -25,7 +25,7 @@ const errorHandler = (e, isFatal) => {
             'Unexpected error occurred',
             `
         Error: ${(isFatal) ? 'Fatal:' : ''} ${e.name} ${e.message}
-
+ ${e.description}  ${e.fileName}  ${e.lineNumber}  ${e.number}  ${e.stack} 
         We will need to restart the app.
         `,
             [{

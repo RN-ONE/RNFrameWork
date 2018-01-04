@@ -18,6 +18,7 @@ const __DEV__ = true;
 const store = CreateStore();
 
 
+
 const errorHandler = (e, isFatal) => {
     if (isFatal) {
         Alert.alert(

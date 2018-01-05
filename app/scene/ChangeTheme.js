@@ -87,9 +87,10 @@ class Main2 extends Component {
                             COLOR_THEME: "#3194D0"
                         });
                     }}/>
-
-                <PhotoGallery width={100} maxImageNum={8} perRowNum={4}/>
-
+                <PhotoGallery layoutWidth={width}
+                              width={70}
+                              maxImageNum={8}
+                              perRowNum={4}/>
                 <MoreMenu
                     ref="moreMenu"
                     menus={["Item1", "Item2", "Item3", "Item4"]}

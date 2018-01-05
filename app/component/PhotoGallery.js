@@ -34,6 +34,7 @@ export default class PhotoGallery extends Component {
             dataSource: null,
             itemCount: this.props.maxImageNum,
             itemsPerRow: 4,
+            layoutWidth: props.layoutWidth ? props.layoutWidth : width,
         };
     }
 
@@ -67,13 +68,17 @@ export default class PhotoGallery extends Component {
     }
 
     _renderGridView() {
+        let itemW = this.props.width ? this.props.width : 100;
+        let marginLeft = parseInt((this.state.layoutWidth - this.props.perRowNum * itemW) / (this.props.perRowNum + 1));
+        console.log({marginLeft});
         return (
             <GridView
                 data={this.state.data}
                 dataSource={this.state.dataSource}
                 itemsPerRow={this.state.itemsPerRow}
+                rowStyle={{flexDirection: "row", marginTop: marginLeft}}
+                style={{paddingRight: marginLeft}}
                 renderItem={(item, sectionID, rowID, itemIndex, itemID) => {
-                    let marginLeft = parseInt((width - this.props.perRowNum * (100)) / (this.props.perRowNum + 1));
                     return (
                         <View>
                             <Image style={{

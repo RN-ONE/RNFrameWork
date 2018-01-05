@@ -11,6 +11,7 @@ import {
     StyleSheet,
     Text,
     View,
+    Dimensions,
     ToastAndroid,
 } from 'react-native';
 import {
@@ -30,6 +31,9 @@ import ThemeButton from "../component/ThemeButton";
 import * as ChangeColorAction from "../actions/ChangeColorAction";
 import MoreMenu from "../component/moreMenu/MoreMenu";
 import ToastAI from "../component/ToastAI";
+import PhotoGallery from "../component/PhotoGallery";
+
+let {height, width} = Dimensions.get('window');
 
 class Main2 extends Component {
 
@@ -37,6 +41,13 @@ class Main2 extends Component {
     constructor(props) {
         super(props);
         // 初始状态
+    }
+
+
+    componentDidMount() {
+        console.log('----console----');
+        console.log(width);
+        console.log(parseInt((width - 100) / 100))
     }
 
     render() {
@@ -77,6 +88,7 @@ class Main2 extends Component {
                         });
                     }}/>
 
+                <PhotoGallery width={100} maxImageNum={8} perRowNum={4}/>
 
                 <MoreMenu
                     ref="moreMenu"

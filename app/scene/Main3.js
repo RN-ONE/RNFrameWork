@@ -24,6 +24,7 @@ import * as AppStyles from '../config/AppStyles';
 import ThemeButton from "../component/ThemeButton";
 import ToastAI from "../component/ToastAI";
 import HttpUtil from "../util/HttpUtil";
+import PhotoGallery from "../component/PerRowPhoto";
 
 class Main extends Component {
     render() {
@@ -45,6 +46,7 @@ class Main extends Component {
                     var map = [{path: "", key: "file"}];
                     HttpUtil.uploadFilePost("http://172.10.31.127:8888/home/login.action", map, null);
                 }}/>
+
 
 
                 <DialogMessage ref={(dialogbox) => {

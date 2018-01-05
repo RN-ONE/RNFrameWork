@@ -9,6 +9,7 @@ import React, {Component} from 'react';
 import {
     Text,
     View,
+    Dimensions,
     NativeModules
 } from 'react-native';
 import {
@@ -24,12 +25,14 @@ import * as TestAction from "../actions/TestAction";
 import * as AppStyles from '../config/AppStyles';
 import ThemeButton from "../component/ThemeButton";
 import ToastAI from "../component/ToastAI";
+import PhotoGallery from "../component/PerRowPhoto";
+
+let {height, width} = Dimensions.get('window');
 
 class Main extends Component {
+
     render() {
         return (
-
-
             <View style={{backgroundColor: this.props.colors.COLOR_BG, flex: 1}}>
                 <TitleBar
                     title="主页"
@@ -60,6 +63,8 @@ class Main extends Component {
 
 
                 <Icon name="ios-person" size={30} color={this.props.colors.COLOR_THEME}/>
+
+                {/*<PhotoGallery columnNum={parseInt((width - 120) / 100)} width={100}/>*/}
 
                 {/*<DialogMessage ref={(dialogbox) => {*/}
                 {/*this.dialogbox = dialogbox;*/}

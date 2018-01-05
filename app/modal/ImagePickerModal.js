@@ -131,16 +131,18 @@ export default class ImagePickerModal extends React.Component {
                                         //启动相机拍照
                                         ImagePicker.launchCamera({}, (response) => {
                                             this.dismiss();
-                                            //响应结果处理参考上面样例
-                                            if (this.props.callback) {
-                                                this.props.callback({
-                                                    uri: response.uri,
-                                                    fileSize: response.fileSize,
-                                                    fileName: response.fileName,
-                                                    width: response.width,
-                                                    height: response.height,
-                                                });
+                                            if (!response.error) {
+                                                if (this.props.callback) {
+                                                    this.props.callback({
+                                                        uri: response.uri,
+                                                        fileSize: response.fileSize,
+                                                        fileName: response.fileName,
+                                                        width: response.width,
+                                                        height: response.height,
+                                                    });
+                                                }
                                             }
+
                                         });
                                     }}/>
 
@@ -155,14 +157,17 @@ export default class ImagePickerModal extends React.Component {
                                         ImagePicker.launchImageLibrary({}, (response) => {
                                             this.dismiss();
                                             //响应结果处理参考上面样例
-                                            if (this.props.callback) {
-                                                this.props.callback({
-                                                    uri: response.uri,
-                                                    fileSize: response.fileSize,
-                                                    fileName: response.fileName,
-                                                    width: response.width,
-                                                    height: response.height,
-                                                });
+                                            console.log(response);
+                                            if (!response.error) {
+                                                if (this.props.callback) {
+                                                    this.props.callback({
+                                                        uri: response.uri,
+                                                        fileSize: response.fileSize,
+                                                        fileName: response.fileName,
+                                                        width: response.width,
+                                                        height: response.height,
+                                                    });
+                                                }
                                             }
                                         });
                                     }}/>

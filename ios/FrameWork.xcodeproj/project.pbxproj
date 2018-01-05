@@ -58,7 +58,7 @@
 		FC6763291F45914000D41B06 /* libRCTSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC67631B1F45901200D41B06 /* libRCTSplashScreen.a */; };
 		FC6763461F45920600D41B06 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC6763441F45920600D41B06 /* LaunchScreen.xib */; };
 		FC6763471F45920600D41B06 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = FC6763451F45920600D41B06 /* splash.png */; };
-		FCB1A5A11FFF0B3100FFC434 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCB1A59F1FFF0B2400FFC434 /* libRNImagePicker.a */; };
+		FCB1A5F31FFF516200FFC434 /* ImagePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB1A5F21FFF516200FFC434 /* ImagePickerManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -279,13 +279,6 @@
 			remoteGlobalIDString = 9F90C2241D619E9400F3E238;
 			remoteInfo = RCTSplashScreen;
 		};
-		FCB1A59E1FFF0B2400FFC434 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FCB1A57E1FFF0B2400FFC434 /* RNImagePicker.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
-			remoteInfo = RNImagePicker;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -338,7 +331,8 @@
 		FC67630A1F45901200D41B06 /* RCTSplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSplashScreen.xcodeproj; path = "../node_modules/react-native-smart-splash-screen/ios/RCTSplashScreen/RCTSplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		FC6763441F45920600D41B06 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = "../node_modules/react-native-smart-splash-screen/ios/SplashScreenResource/LaunchScreen.xib"; sourceTree = "<group>"; };
 		FC6763451F45920600D41B06 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = splash.png; path = "../node_modules/react-native-smart-splash-screen/ios/SplashScreenResource/splash.png"; sourceTree = "<group>"; };
-		FCB1A57E1FFF0B2400FFC434 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
+		FCB1A5F11FFF516200FFC434 /* ImagePickerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImagePickerManager.h; path = "../node_modules/react-native-image-picker/ios/ImagePickerManager.h"; sourceTree = "<group>"; };
+		FCB1A5F21FFF516200FFC434 /* ImagePickerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImagePickerManager.m; path = "../node_modules/react-native-image-picker/ios/ImagePickerManager.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -354,7 +348,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCB1A5A11FFF0B3100FFC434 /* libRNImagePicker.a in Frameworks */,
 				FC3CF30A1FFDF6E300E00AD5 /* libRCTRestart.a in Frameworks */,
 				FC3CF3031FFDDC7F00E00AD5 /* libc++.tbd in Frameworks */,
 				FC3CF3011FFDDC7100E00AD5 /* libz.tbd in Frameworks */,
@@ -483,6 +476,9 @@
 		13B07FAE1A68108700A75B9A /* FrameWork */ = {
 			isa = PBXGroup;
 			children = (
+				FCB1A5D21FFF512F00FFC434 /* pic */,
+				FCB1A5F11FFF516200FFC434 /* ImagePickerManager.h */,
+				FCB1A5F21FFF516200FFC434 /* ImagePickerManager.m */,
 				FC3CF30B1FFE183B00E00AD5 /* util */,
 				FC3CF2FA1FFDDC3500E00AD5 /* Bugly.framework */,
 				FC3CF2F61FFDD8F000E00AD5 /* catchPac */,
@@ -534,7 +530,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				FCB1A57E1FFF0B2400FFC434 /* RNImagePicker.xcodeproj */,
 				FC3CF3041FFDF6D200E00AD5 /* RCTRestart.xcodeproj */,
 				FC3CF2D31FFDC5B000E00AD5 /* ReactNativeExceptionHandler.xcodeproj */,
 				FC67630A1F45901200D41B06 /* RCTSplashScreen.xcodeproj */,
@@ -675,12 +670,11 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		FCB1A57F1FFF0B2400FFC434 /* Products */ = {
+		FCB1A5D21FFF512F00FFC434 /* pic */ = {
 			isa = PBXGroup;
 			children = (
-				FCB1A59F1FFF0B2400FFC434 /* libRNImagePicker.a */,
 			);
-			name = Products;
+			name = pic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -852,10 +846,6 @@
 				{
 					ProductGroup = FC3CF2D41FFDC5B000E00AD5 /* Products */;
 					ProjectRef = FC3CF2D31FFDC5B000E00AD5 /* ReactNativeExceptionHandler.xcodeproj */;
-				},
-				{
-					ProductGroup = FCB1A57F1FFF0B2400FFC434 /* Products */;
-					ProjectRef = FCB1A57E1FFF0B2400FFC434 /* RNImagePicker.xcodeproj */;
 				},
 				{
 					ProductGroup = FC5397C71FC3BF5700EB2D5C /* Products */;
@@ -1076,13 +1066,6 @@
 			remoteRef = FC67631A1F45901200D41B06 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		FCB1A59F1FFF0B2400FFC434 /* libRNImagePicker.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNImagePicker.a;
-			remoteRef = FCB1A59E1FFF0B2400FFC434 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1177,6 +1160,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				FC3CF30E1FFE185000E00AD5 /* GetInfoPlist.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				FCB1A5F31FFF516200FFC434 /* ImagePickerManager.m in Sources */,
 				FC3CF2F91FFDD92500E00AD5 /* CatchReport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

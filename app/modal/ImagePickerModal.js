@@ -180,6 +180,7 @@ export default class ImagePickerModal extends React.Component {
         );
     }
 
+
     showPicker() {
         this.setState({visible: true});
     }

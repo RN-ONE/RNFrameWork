@@ -12,6 +12,7 @@ import com.framework.viewpackage.BarColorPackage;
 import com.framework.viewpackage.BarHeightPackage;
 import com.framework.viewpackage.CatchJSPackage;
 import com.framework.viewpackage.ProgressViewPackage;
+import com.imagepicker.ImagePickerPackage;
 import com.masteratul.exceptionhandler.ReactNativeExceptionHandlerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
@@ -46,7 +47,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new RCTSwipeRefreshLayoutPackage(),
                     new ReactNativeExceptionHandlerPackage(),
                     new CatchJSPackage(),
-                    new ReactNativeRestartPackage()
+                    new ReactNativeRestartPackage(),
+                    new ImagePickerPackage()
             );
         }
     };

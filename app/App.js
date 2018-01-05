@@ -27,6 +27,7 @@ import SaveLocalUtil from "./util/SaveLoaclUtil";
 import TabIcon from "./component/TableIcon";
 import Main2 from "./scene/Main2";
 import Main3 from "./scene/Main3";
+import ImageShowModal from "./modal/ImageShowModal";
 
 
 const reducerCreate = params => {
@@ -156,6 +157,11 @@ class App extends Component {
                     <Scene key="loading"
                            hideNavBar
                            component={LoadingModal}
+                           getSceneStyle={getModalStyle}/>
+
+                    <Scene key="imageShowModal"
+                           hideNavBar
+                           component={ImageShowModal}
                            getSceneStyle={getModalStyle}/>
                 </Scene>
             </Router>

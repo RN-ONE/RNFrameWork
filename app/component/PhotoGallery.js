@@ -22,10 +22,10 @@ import * as AppStyles from '../config/AppStyles';
 import {connect} from "react-redux";
 import ToastAI from "./ToastAI";
 
-
+import {Actions} from 'react-native-router-flux';
 import GridView from 'react-native-gridview';
 import ImagePickerModal from "../modal/ImagePickerModal";
-import ImageShowModal from "./ImageShowModal";
+import ImageShowModal from "../modal/ImageShowModal";
 
 let {height, width} = Dimensions.get('window');
 
@@ -126,7 +126,10 @@ class PhotoGallery extends Component {
                                                 this.removeIndex(index);
                                             }}
                                             info={() => {
-                                                this.setState({modalVisible: true, item: item});
+                                                Actions.imageShowModal({
+                                                    item: item
+                                                });
+                                                //this.setState({modalVisible: true, item: item});
                                             }}
                                             widthSeparator={this.props.widthSeparator}/>
                                 }
@@ -168,13 +171,6 @@ class PhotoGallery extends Component {
                         this.setState({data: newData});
                     }}/>
 
-                <ImageShowModal
-                    modalVisible={this.state.modalVisible}
-                    item={this.state.item}
-                    hideModal={() => {
-                        this.setState({modalVisible: false})
-                    }}
-                />
             </View>
         );
     }

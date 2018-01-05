@@ -73,13 +73,11 @@ class ImageShowModal extends React.Component {
                             Actions.pop();
                         }}>
                         <View style={{
-                            backgroundColor: 'white',
-                            height: width,
                             width: width,
-                            justifyContent: 'flex-end'
                         }}>
                             <Image
-                                style={{width: width, height: width}}
+                                resizeMode={"contain"}
+                                style={{width: width, height: height, resizeMode: 'contain'}}
                                 source={{uri: this.props.item.uri}}
                             />
                         </View>

@@ -63,9 +63,23 @@ class Main extends Component {
 
                 <PhotoGallery
                     layoutWidth={width}
-                    width={90}
+                    widthSeparator={5}
                     maxImageNum={8}
+                    callBack={(call) => {
+                        this.photoGalleryCallBack = call;
+                    }}
                     perRowNum={4}/>
+
+                <ThemeButton
+                    textColor={AppConfig.COLOR_BLACK}
+                    backgroundColor={AppConfig.TEXT_COLOR_GRAY}
+                    radius={5}
+                    text="获得图片数据"
+                    onPress={() => {
+                        console.log({
+                            dataS: this.photoGalleryCallBack()
+                        });
+                    }}/>
 
                 <Icon name="ios-person" size={30} color={this.props.colors.COLOR_THEME}/>
 

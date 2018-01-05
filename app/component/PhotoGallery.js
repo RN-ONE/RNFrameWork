@@ -25,6 +25,7 @@ import ToastAI from "./ToastAI";
 
 import GridView from 'react-native-gridview';
 import ImagePickerModal from "../modal/ImagePickerModal";
+import ImageShowModal from "./ImageShowModal";
 
 let {height, width} = Dimensions.get('window');
 
@@ -37,9 +38,10 @@ class PhotoGallery extends Component {
 
     static propTypes = {
         layoutWidth: PropTypes.float,//这个控件的宽度
-        width: PropTypes.float,//每一行的宽度
+        widthSeparator: PropTypes.float,//间隔
         maxImageNum: PropTypes.int,//最多多少个
         perRowNum: PropTypes.int,//每一行的个数
+        callBack: PropTypes.function,//这个是回调，返回的是一个方法，可以来调用获得数据
     };
 
     constructor(props) {
@@ -60,6 +62,8 @@ class PhotoGallery extends Component {
             dataSource: null,
             itemCount: this.props.maxImageNum,
             itemsPerRow: 4,
+            item: {},
+            modalVisible: false,
             layoutWidth: props.layoutWidth ? props.layoutWidth : width,
         };
     }
@@ -72,18 +76,29 @@ class PhotoGallery extends Component {
         );
     }
 
+    getDataS() {
+        let newData = [];
+        for (let item of this.state.data) {
+            if (item.type !== PhotoGallery.TYPE_ADD) {
+                newData.push(item);
+            }
+        }
+        return newData;
+    }
+
     _renderGridView() {
-        let itemW = this.props.width ? this.props.width : 100;
-        let marginLeft = parseInt((this.state.layoutWidth - this.props.perRowNum * itemW) / (this.props.perRowNum + 1));
-        console.log({marginLeft});
+        if (this.props.callBack) {
+            this.props.callBack(this.getDataS.bind(this));
+        }
+        let itemWidth = (this.state.layoutWidth - (this.props.perRowNum + 1) * this.props.widthSeparator) / this.props.perRowNum;
         return (
-            <View style={{paddingBottom: marginLeft, backgroundColor: 'white'}}>
+            <View style={{paddingBottom: this.props.widthSeparator, backgroundColor: 'white'}}>
                 <GridView
                     data={this.state.data}
                     dataSource={this.state.dataSource}
                     itemsPerRow={this.state.itemsPerRow}
-                    rowStyle={{flexDirection: "row", marginTop: marginLeft}}
-                    style={{paddingRight: marginLeft}}
+                    rowStyle={{flexDirection: "row", marginTop: this.props.widthSeparator}}
+                    style={{paddingRight: this.props.widthSeparator}}
                     renderItem={(item, sectionID, rowID, itemIndex, itemID) => {
                         return (
                             <View>
@@ -97,17 +112,23 @@ class PhotoGallery extends Component {
                                             }
                                         }}>
                                             <Image style={{
-                                                width: this.props.width || 100,
-                                                height: this.props.width || 100,
-                                                marginLeft: marginLeft
+                                                width: itemWidth,
+                                                height: itemWidth,
+                                                marginLeft: this.props.widthSeparator
                                             }} source={require('../img/addPic.png')}/>
                                         </TouchableButton>
                                         :
-                                        <Image style={{
-                                            width: this.props.width || 100,
-                                            height: this.props.width || 100,
-                                            marginLeft: marginLeft
-                                        }} source={{uri: item.uri}}/>
+                                        <PicItem
+                                            itemID={itemID}
+                                            itemWidth={itemWidth}
+                                            item={item}
+                                            remove={(index) => {
+                                                this.removeIndex(index);
+                                            }}
+                                            info={() => {
+                                                this.setState({modalVisible: true, item: item});
+                                            }}
+                                            widthSeparator={this.props.widthSeparator}/>
                                 }
 
                             </View>
@@ -146,10 +167,71 @@ class PhotoGallery extends Component {
 
                         this.setState({data: newData});
                     }}/>
+
+                <ImageShowModal
+                    modalVisible={this.state.modalVisible}
+                    item={this.state.item}
+                    hideModal={() => {
+                        this.setState({modalVisible: false})
+                    }}
+                />
             </View>
         );
     }
+
+    removeIndex(index) {
+        let newData = [];
+        for (let i = 0; i < this.state.data.length; i++) {
+            let dataItem = this.state.data[i];
+            if (dataItem.type !== PhotoGallery.TYPE_ADD && index !== i) {
+                newData.push(dataItem);
+            }
+        }
+
+        //加入添加
+        if (newData.length < this.props.maxImageNum) {
+            newData.push(addItem);
+        }
+
+
+        this.setState({data: newData});
+    }
 }
+
+const PicItem = React.createClass({
+    render() {
+        return (
+            <View>
+                <TouchableButton
+                    onPress={() => {
+                        this.props.info();
+                    }}>
+                    <Image style={{
+                        width: this.props.itemWidth,
+                        height: this.props.itemWidth,
+                        marginLeft: this.props.widthSeparator
+                    }} source={{uri: this.props.item.uri}}/>
+                </TouchableButton>
+
+                <View style={{
+                    position: 'absolute',
+                    marginLeft: this.props.itemWidth - 20,
+                    alignItems: 'flex-end',
+                    marginTop: this.props.widthSeparator
+                }}>
+                    <TouchableButton
+                        onPress={() => {
+                            this.props.remove(this.props.itemID);
+                        }}>
+                        <Image
+                            source={require('../img/remove_pic.png')}
+                            style={{height: 20, width: 20}}/>
+                    </TouchableButton>
+                </View>
+            </View>
+        );
+    }
+});
 
 
 export default connect(state => ({

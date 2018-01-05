@@ -22,6 +22,7 @@ import ToastAI from "./ToastAI";
 
 
 import GridView from 'react-native-gridview';
+
 let {height, width} = Dimensions.get('window');
 
 export default class PhotoGallery extends Component {
@@ -70,15 +71,15 @@ export default class PhotoGallery extends Component {
             <GridView
                 data={this.state.data}
                 dataSource={this.state.dataSource}
-                padding={4}
                 itemsPerRow={this.state.itemsPerRow}
                 renderItem={(item, sectionID, rowID, itemIndex, itemID) => {
+                    let marginLeft = parseInt((width - this.props.perRowNum * (100)) / (this.props.perRowNum + 1));
                     return (
                         <View>
                             <Image style={{
                                 width: this.props.width || 100,
                                 height: this.props.width || 100,
-                                marginLeft: 5
+                                marginLeft: marginLeft
                             }} source={require('../img/dog1.jpg')}/>
                         </View>
                     );

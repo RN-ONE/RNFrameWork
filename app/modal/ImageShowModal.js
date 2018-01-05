@@ -80,6 +80,7 @@ class ImageShowModal extends React.Component {
                                 style={{width: width, height: height, resizeMode: 'contain'}}
                                 source={{uri: this.props.item.uri}}
                             />
+
                         </View>
                     </TouchableWithoutFeedback>
                 </View>

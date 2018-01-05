@@ -28,6 +28,7 @@ import TabIcon from "./component/TableIcon";
 import Main2 from "./scene/Main2";
 import Main3 from "./scene/Main3";
 
+
 const reducerCreate = params => {
     const defaultReducer = new Reducer(params);
     return (state, action) => {
@@ -136,6 +137,7 @@ class App extends Component {
                                         hideTabBar
                                         key="changeTheme"
                                         component={ChangeTheme}/>
+
                                 </Route>
 
                                 <Route hideNavBar

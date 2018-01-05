@@ -25,7 +25,7 @@ import * as TestAction from "../actions/TestAction";
 import * as AppStyles from '../config/AppStyles';
 import ThemeButton from "../component/ThemeButton";
 import ToastAI from "../component/ToastAI";
-import PhotoGallery from "../component/PerRowPhoto";
+import PhotoGallery from "../component/PhotoGallery";
 
 let {height, width} = Dimensions.get('window');
 
@@ -61,10 +61,13 @@ class Main extends Component {
                         Actions.changeTheme();
                     }}/>
 
+                <PhotoGallery
+                    layoutWidth={width}
+                    width={90}
+                    maxImageNum={8}
+                    perRowNum={4}/>
 
                 <Icon name="ios-person" size={30} color={this.props.colors.COLOR_THEME}/>
-
-                {/*<PhotoGallery columnNum={parseInt((width - 120) / 100)} width={100}/>*/}
 
                 {/*<DialogMessage ref={(dialogbox) => {*/}
                 {/*this.dialogbox = dialogbox;*/}

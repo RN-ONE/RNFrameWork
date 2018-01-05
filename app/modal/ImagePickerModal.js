@@ -63,7 +63,6 @@ export default class ImagePickerModal extends React.Component {
         super(props);
 
         this.state = {
-            opacity: new Animated.Value(0),
             options: props.options,
             visible: false,
         };
@@ -81,10 +80,6 @@ export default class ImagePickerModal extends React.Component {
     }
 
     componentDidMount() {
-        Animated.timing(this.state.opacity, {
-            duration: 200,
-            toValue: 1
-        }).start();
     }
 
 
@@ -100,12 +95,7 @@ export default class ImagePickerModal extends React.Component {
                     }
                 }}
             >
-                <Animated.View style={[
-                    styles.container,
-                    {
-                        backgroundColor: "rgba(0,0,0,0.8)",
-                        opacity: this.state.opacity,
-                    }]}>
+                <View style={[styles.container, {backgroundColor: 'rgba(0,0,0,0.8)'}]}>
                     <TouchableWithoutFeedback onPress={() => {
                         this.dismiss();
                     }}>
@@ -140,9 +130,18 @@ export default class ImagePickerModal extends React.Component {
                                     <Item text={'相机'} onPress={() => {
                                         //启动相机拍照
                                         ImagePicker.launchCamera({}, (response) => {
+                                            this.dismiss();
                                             //响应结果处理参考上面样例
+                                            if (this.props.callback) {
+                                                this.props.callback({
+                                                    uri: response.uri,
+                                                    fileSize: response.fileSize,
+                                                    fileName: response.fileName,
+                                                    width: response.width,
+                                                    height: response.height,
+                                                });
+                                            }
                                         });
-                                        this.dismiss();
                                     }}/>
 
                                     <View style={{
@@ -154,9 +153,8 @@ export default class ImagePickerModal extends React.Component {
                                     <Item text={'图库'} onPress={() => {
                                         //打开系统相册
                                         ImagePicker.launchImageLibrary({}, (response) => {
-                                            //响应结果处理参考上面样例
-                                            console.log({response});
                                             this.dismiss();
+                                            //响应结果处理参考上面样例
                                             if (this.props.callback) {
                                                 this.props.callback({
                                                     uri: response.uri,
@@ -172,7 +170,7 @@ export default class ImagePickerModal extends React.Component {
                             </TouchableWithoutFeedback>
                         </View>
                     </TouchableWithoutFeedback>
-                </Animated.View>
+                </View>
             </Modal>
         );
     }

@@ -325,6 +325,9 @@ export default class DialogMessage extends Component {
                     transparent={true}
                     visible={this.state.isVisible}
                     onRequestClose={() => {
+                        if (!dontHide) {
+                            this.setState({isVisible: false});
+                        }
                     }}>
                     <View style={styles.popupContainer}>
                         {this._renderOverlay()}

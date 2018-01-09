@@ -18,6 +18,9 @@ const instance = new Axios({
     responseType: responseType,
     headers: {'X-Custom-Header': 'foobar'}
 });
+
+//自定分块下载文件一次的大小
+const FILE_SIZE = 1024 * 1000;
 /**
  * 添加对应的状态码和消息就可以了，0比较特殊，表示网络没连接
  * */
@@ -127,7 +130,7 @@ export default class HttpUtil {
         // 创建一个formData（虚拟表单）
         var formData = new FormData();
         map.forEach((item) => {
-            formData = appendToFormData(formData, item.path, item.key);
+            formData = HttpUtil.appendToFormData(formData, item.path, item.key);
         });
 
         // 请求头文件
@@ -159,5 +162,123 @@ export default class HttpUtil {
         var strS = fileUri.split("/");
         const file = {uri: fileUri, type: 'multipart/form-data', name: strS[strS.length - 1]};   // 这里的key(uri和type和name)不能改变,
         formData.append(key, file);   // 这里的files就是后台需要的key
+    }
+
+
+    /**
+     * @Author: JACK-GU
+     * @Date: ${DATE}
+     * @E-Mail: 528489389@qq.com
+     * @Describe: 暂时不可以用
+     */
+    static downloadFile(url) {
+        HttpUtil.getFileLength(url, (length) => {
+                if (length > 0) {
+                    //长度大于0才可以进行继续操作
+                    HttpUtil.downLoadFileRange(url);
+                    let fromBytes = 0;
+                    let toBytes = 0;
+
+                    HttpUtil.downLoadFileRange(url, fromBytes, toBytes, length, (success, e) => {
+                        console.log({e, success});
+                    });
+                } else {
+                    console.log("获取文件失败！");
+                }
+        })
+    }
+
+
+    static downLoadFileRange(url, fromBytes, toBytes, length, callBack) {
+        if (FILE_SIZE > length) {
+            if (length <= 0) {
+                return;
+            }
+            toBytes = fromBytes + length - 1;
+        } else {
+            toBytes = fromBytes + FILE_SIZE - 1;
+        }
+
+        let range = "Bytes=" + fromBytes + "-" + toBytes;
+        console.log({range});
+        let instance = new Axios({
+            timeout: TIMEOUT,
+            responseType: "arraybuffer",
+            headers: {'Range': range}
+        });
+
+        instance.request({
+            url: url,
+            method: "GET",
+            onUploadProgress: (e) => {
+                console.log({e});
+            },
+            onDownloadProgress: (e) => {
+                if (callBack) {
+                    callBack(true, {loaded: e.loaded, total: e.total});
+                }
+            },
+        }).then(function (response) {
+            if (response.status == 200) {
+                //计算from
+                length -= FILE_SIZE;
+                fromBytes += FILE_SIZE;
+
+                HttpUtil.downLoadFileRange(url, fromBytes, toBytes, length, callBack);
+                if (callBack) {
+                    callBack(true);
+                }
+            } else {
+                if (callBack) {
+                    callBack(false);
+                }
+            }
+        }).catch(function (error) {
+            if (callBack) {
+                callBack(false);
+            }
+        });
+    }
+
+    /**
+     * @Author: JACK-GU
+     * @Date: ${DATE}
+     * @E-Mail: 528489389@qq.com
+     * @Describe:  获取文件的长度
+     */
+    static getFileLength(url, callBack) {
+        //第一步，获取文件的长度
+        let instance = new Axios({
+            timeout: TIMEOUT,
+            headers: {'X-Custom-Header': 'foobar'}
+        });
+
+        instance.request({
+            url: url,
+            method: "HEAD",
+            onUploadProgress: (e) => {
+                console.log({e});
+            },
+            onDownloadProgress: (e) => {
+                console.log({e});
+            },
+        }).then(function (response) {
+            if (response.status == 200) {
+                let str = JSON.stringify(response);
+                str = str.replace("content-length", "contentLength");
+                let json = JSON.parse(str);
+                if (callBack) {
+                    callBack(json.headers.contentLength);
+                }
+            } else {
+                if (callBack) {
+                    callBack(-1);
+                }
+            }
+        }).catch(function (error) {
+            if (callBack) {
+                callBack(-1);
+            }
+        });
     }
 }

@@ -7,6 +7,7 @@
 import React, {Component} from 'react';
 import {
     ToastAndroid,
+    NativeModules
 } from 'react-native';
 import * as AppConfig from "./config/AppConfig";
 import {
@@ -28,7 +29,9 @@ import TabIcon from "./component/TableIcon";
 import Main2 from "./scene/Main2";
 import Main3 from "./scene/Main3";
 import ImageShowModal from "./modal/ImageShowModal";
+import ToastAI from "./component/ToastAI";
 
+this.isEnd = true;
 
 const reducerCreate = params => {
     const defaultReducer = new Reducer(params);
@@ -53,6 +56,8 @@ const reducerCreate = params => {
 const exitAppFn = params => {
     if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
         //最近2秒内按过back键，可以退出应用。
+        //自己写的system.exit(0)，不然不能完全退出软件
+        NativeModules.BarHeightModule.exit();
         return false;
     }
     this.lastBackPressed = Date.now();
@@ -66,6 +71,7 @@ const backAndroidHandler = () => {
     if (this.loading) {
         return true;
     }
+
     if (this.isEnd) {
         if (exitAppFn) {
             return exitAppFn({});

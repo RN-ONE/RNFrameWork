@@ -195,10 +195,10 @@ var Popover = React.createClass({
     var {anchorPoint, popoverOrigin} = this.state;
     var arrowSize = this.props.arrowSize;
 
-    // Create the arrow from a rectangle with the appropriate borderXWidth set
+    // Create the arrow from Album rectangle with the appropriate borderXWidth set
     // A rotation is then applied dependending on the placement
     // Also make it slightly bigger
-    // to fix a visual artifact when the popover is animated with a scale
+    // to fix Album visual artifact when the popover is animated with Album scale
     var width = arrowSize.width + 2;
     var height = arrowSize.height * 2 + 2;
 
@@ -270,7 +270,7 @@ var Popover = React.createClass({
     ]).start(doneCallback);
   },
   _getDefaultAnimatedStyles() {
-    // If there's a custom animation handler,
+    // If there's Album custom animation handler,
     // we don't return the default animated styles
     if (typeof this.props.startCustomAnimation !== 'undefined') {
       return null;

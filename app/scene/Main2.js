@@ -17,6 +17,7 @@ import TitleBar from "../component/TitleBar";
 import PullToRefreshListView from 'react-native-smart-pull-to-refresh-listview';
 import RLHeaderAndFooter from "../component/RLHeaderAndFooter";
 import * as TestAction from "../actions/TestAction";
+import ListViewPullAndLoad from "../component/ListViewPullAndLoad";
 
 class Main extends Component {
     constructor(props) {
@@ -47,22 +48,29 @@ class Main extends Component {
                     onPress={() => {
                     }}/>
 
-                <PullToRefreshListView
+                <ListViewPullAndLoad
+                    dataList={this.state.dataList}
                     ref={(component) => this._pullToRefreshListView = component}
-                    viewType={PullToRefreshListView.constants.viewType.listView}
-                    initialListSize={20}
-                    enableEmptySections={true}
-                    dataSource={this.state.dataSource}
                     renderRow={this._renderRow}
-                    renderHeader={(viewState) => RLHeaderAndFooter.renderHeader(viewState)}
-                    renderFooter={(viewState) => RLHeaderAndFooter.renderFooter(viewState)}
                     onRefresh={this._onRefresh}
                     onLoadMore={this._onLoadMore}
-                    pullUpDistance={80}
-                    pullUpStayDistance={50}
-                    pullDownDistance={80}
-                    pullDownStayDistance={50}
                 />
+                {/*<PullToRefreshListView*/}
+                {/*ref={(component) => this._pullToRefreshListView = component}*/}
+                {/*viewType={PullToRefreshListView.constants.viewType.listView}*/}
+                {/*initialListSize={20}*/}
+                {/*enableEmptySections={true}*/}
+                {/*dataSource={this.state.dataSource}*/}
+                {/*renderRow={this._renderRow}*/}
+                {/*renderHeader={(viewState) => RLHeaderAndFooter.renderHeader(viewState)}*/}
+                {/*renderFooter={(viewState) => RLHeaderAndFooter.renderFooter(viewState)}*/}
+                {/*onRefresh={this._onRefresh}*/}
+                {/*onLoadMore={this._onLoadMore}*/}
+                {/*pullUpDistance={80}*/}
+                {/*pullUpStayDistance={50}*/}
+                {/*pullDownDistance={80}*/}
+                {/*pullDownStayDistance={50}*/}
+                {/*/>*/}
 
             </View>
         )
@@ -82,7 +90,7 @@ class Main extends Component {
 
     _onRefresh = () => {
         setTimeout(() => {
-            let addNum = 8;
+            let addNum = 20;
             let refreshedDataList = [];
             for (let i = 0; i < addNum; i++) {
                 refreshedDataList.push({
@@ -94,8 +102,7 @@ class Main extends Component {
                 dataList: refreshedDataList,
                 dataSource: this._dataSource.cloneWithRows(refreshedDataList),
             })
-            this._pullToRefreshListView.endRefresh()
-
+            this._pullToRefreshListView.endRefresh(true);
         }, 3000)
     }
 

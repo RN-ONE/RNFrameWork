@@ -12,6 +12,7 @@
     "react-native": "0.44.0",
     "react-native-exception-handler": "^2.7.0",
     "react-native-gridview": "^0.1.1",
+    "react-native-image-gallery": "^2.1.4",
     "react-native-image-picker": "^0.26.7",
     "react-native-restart": "0.0.6",
     "react-native-root-siblings": "^1.2.1",

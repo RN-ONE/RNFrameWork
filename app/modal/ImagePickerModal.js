@@ -9,7 +9,6 @@ import {
     View,
     Text,
     StyleSheet,
-    Animated,
     Dimensions,
     Platform,
     ProgressViewIOS,
@@ -24,6 +23,7 @@ import * as AppStyles from '../config/AppStyles';
 import {connect} from "react-redux";
 import SaveLocalUtil from "../util/SaveLoaclUtil";
 import TouchableButton from "../component/TouchableButton";
+import ToastAI from "../component/ToastAI";
 
 let {width, height} = Dimensions.get('window');
 
@@ -79,22 +79,16 @@ export default class ImagePickerModal extends React.Component {
         }
     }
 
-    componentDidMount() {
-    }
-
-
     render() {
         return (
             <Modal
                 animationType={"fade"}
                 transparent={true}
+                hardwareAccelerated={true}
                 visible={this.state.visible}
                 onRequestClose={() => {
-                    if (this.props.cancel) {
-                        this.props.cancel();
-                    }
-                }}
-            >
+                    this.setState({visible: false});
+                }}>
                 <View style={[styles.container, {backgroundColor: 'rgba(0,0,0,0.8)'}]}>
                     <TouchableWithoutFeedback onPress={() => {
                         this.dismiss();

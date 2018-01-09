@@ -50,6 +50,7 @@ export default class RLHeaderAndFooter {
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: backgroundColor,
+                        height: headerHeight
                     }}>
                         <View style={{
                             flexDirection: "row",
@@ -74,6 +75,7 @@ export default class RLHeaderAndFooter {
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: backgroundColor,
+                        height: headerHeight
                     }}>
                         <View style={{
                             flexDirection: "row",
@@ -98,6 +100,7 @@ export default class RLHeaderAndFooter {
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: backgroundColor,
+                        height: headerHeight
                     }}>
                         <View style={{
                             flexDirection: "row",
@@ -123,14 +126,20 @@ export default class RLHeaderAndFooter {
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: backgroundColor,
+                        height: headerHeight
                     }}>
                         <View style={{
                             flexDirection: "row",
                             alignItems: 'center',
                             height: footerHeight
                         }}>
-                            <ProgressView color={AppConfig.TEXT_COLOR_GRAY}
-                                          style={{width: 25, height: 25}}/>
+                            {
+                                Platform.OS === 'android' ?
+                                    <ProgressView color={AppConfig.TEXT_COLOR_GRAY}
+                                                  style={{width: 25, height: 25}}/>
+                                    :
+                                    <ActivityIndicator size={"small"}/>
+                            }
 
                             <Text
                                 style={[AppStyles.textSmallGray, {marginLeft: AppConfig.DISTANCE_SAFE}]}>
@@ -145,6 +154,7 @@ export default class RLHeaderAndFooter {
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: backgroundColor,
+                        height: headerHeight
                     }}>
                         <View style={{
                             flexDirection: "row",
@@ -173,6 +183,7 @@ export default class RLHeaderAndFooter {
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: backgroundColor,
+                        height: headerHeight
                     }}>
                         <View style={{
                             flexDirection: "row",
@@ -197,6 +208,7 @@ export default class RLHeaderAndFooter {
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: backgroundColor,
+                        height: headerHeight
                     }}>
                         <View style={{
                             flexDirection: "row",
@@ -221,6 +233,7 @@ export default class RLHeaderAndFooter {
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: backgroundColor,
+                        height: headerHeight
                     }}>
                         <View style={{
                             flexDirection: "row",
@@ -252,8 +265,14 @@ export default class RLHeaderAndFooter {
                             alignItems: 'center',
                             height: headerHeight
                         }}>
-                            <ProgressView color={AppConfig.TEXT_COLOR_GRAY}
-                                          style={{width: 25, height: 25}}/>
+
+                            {
+                                Platform.OS === 'android' ?
+                                    <ProgressView color={AppConfig.TEXT_COLOR_GRAY}
+                                                  style={{width: 25, height: 25}}/>
+                                    :
+                                    <ActivityIndicator size={"small"}/>
+                            }
 
                             <Text
                                 style={[AppStyles.textSmallGray, {marginLeft: AppConfig.DISTANCE_SAFE}]}>
@@ -261,6 +280,36 @@ export default class RLHeaderAndFooter {
                             </Text>
                         </View>
                     </View>
+                )
+        }
+    }
+
+    static renderFooterEmpty(viewState) {
+        let {pullState, pullDistancePercent} = viewState
+        let {load_more_none, load_more_idle, will_load_more, loading_more, loaded_all,} = PullToRefreshListView.constants.viewState;
+
+        pullDistancePercent = Math.round(pullDistancePercent * 100);
+
+        switch (pullState) {
+            case load_more_none:
+                return (
+                    <View style={{height: 0}}/>
+                )
+            case load_more_idle:
+                return (
+                    <View style={{height: 0}}/>
+                )
+            case will_load_more:
+                return (
+                    <View style={{height: 0}}/>
+                )
+            case loading_more:
+                return (
+                    <View style={{height: 0}}/>
+                )
+            case loaded_all:
+                return (
+                    <View style={{height: 0}}/>
                 )
         }
     }

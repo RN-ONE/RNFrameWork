@@ -26,6 +26,7 @@ import * as AppStyles from '../config/AppStyles';
 import ThemeButton from "../component/ThemeButton";
 import ToastAI from "../component/ToastAI";
 import PhotoGallery from "../component/PhotoGallery";
+import HttpUtil from "../util/HttpUtil";
 
 let {height, width} = Dimensions.get('window');
 
@@ -83,9 +84,9 @@ class Main extends Component {
 
                 <Icon name="ios-person" size={30} color={this.props.colors.COLOR_THEME}/>
 
-                {/*<DialogMessage ref={(dialogbox) => {*/}
-                {/*this.dialogbox = dialogbox;*/}
-                {/*}}/>*/}
+                <DialogMessage ref={(dialogbox) => {
+                this.dialogbox = dialogbox;
+                }}/>
             </View>
         )
     }

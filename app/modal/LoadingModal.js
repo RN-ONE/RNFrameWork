@@ -33,8 +33,7 @@ export default class LoadingModal extends React.Component {
 
         this.state = {
             opacity: new Animated.Value(0),
-        }
-        ;
+        };
     }
 
     componentDidMount() {

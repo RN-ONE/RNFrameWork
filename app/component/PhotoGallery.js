@@ -38,7 +38,7 @@ class PhotoGallery extends Component {
 
     static propTypes = {
         layoutWidth: PropTypes.float,//这个控件的宽度
-        widthSeparator: PropTypes.float,//间隔
+        widthSeparator: PropTypes.float,//每个的间隔
         maxImageNum: PropTypes.int,//最多多少个
         perRowNum: PropTypes.int,//每一行的个数
         callBack: PropTypes.function,//这个是回调，返回的是一个方法，可以来调用获得数据
@@ -126,8 +126,20 @@ class PhotoGallery extends Component {
                                                 this.removeIndex(index);
                                             }}
                                             info={() => {
+                                                let index = 0;
+                                                let items = this.getDataS();
+                                                for (let i = 0; i < items.length; i++) {
+                                                    let itemNew = items[i];
+                                                    if (itemNew.uri === item.uri) {
+                                                        index = i;
+                                                        break;
+                                                    }
+                                                }
+
+
                                                 Actions.imageShowModal({
-                                                    item: item
+                                                    items: items,
+                                                    index: index,
                                                 });
                                                 //this.setState({modalVisible: true, item: item});
                                             }}

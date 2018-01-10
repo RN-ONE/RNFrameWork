@@ -54,10 +54,10 @@ class Main2 extends Component {
         return (
             <View style={{backgroundColor: this.props.colors.COLOR_BG, flex: 1}}>
                 <TitleBar
-                    title="换肤"
+                    title="换肤换肤换肤换肤换肤换肤换肤换肤换肤换肤换肤换肤换肤换肤换肤换肤"
                     showBack={true}
-                    leftText="返回"
-                    rightText="确定"
+                    leftText="返回返回返回返回返回返回"
+                    rightText="确定按钮文字很多的哦"
                     colors={this.props.colors}
                     showMore={true}
                     onPressRight={() => {

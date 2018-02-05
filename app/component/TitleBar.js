@@ -55,12 +55,24 @@ export default class TitleBar extends Component {
         }
     }
 
+    isIphoneX() {
+        let {height, width} = Dimensions.get('window');
+        return (
+            Platform.OS === 'ios' &&
+            !Platform.isPad &&
+            !Platform.isTVOS &&
+            (height === 812 || width === 812)
+        );
+    }
+
+
     render() {
         return (
             <View style={{
                 flexDirection: 'row',
                 backgroundColor: this.props.colors ? this.props.colors.COLOR_THEME : AppConfig.COLOR_THEME,
-                paddingTop: Platform.OS === 'android' ? this.state.barHeight : 20,
+                paddingTop: Platform.OS === 'android' ? this.state.barHeight :
+                    this.isIphoneX() ? 44 : 20,
             }}>
                 <View
                     style={{
@@ -130,7 +142,7 @@ export default class TitleBar extends Component {
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'flex-end',
-                        width: maxItem ,
+                        width: maxItem,
                         marginRight: AppConfig.DISTANCE_SAFE
                     }}>
                         {
@@ -145,8 +157,8 @@ export default class TitleBar extends Component {
                                         style={[
                                             AppStyles.textNormalGray,
                                             {
-                                                width:maxItem -15,
-                                                textAlign:'right',
+                                                width: maxItem - 15,
+                                                textAlign: 'right',
                                                 color: this.props.colors ? this.props.colors.COLOR_WHITE : AppConfig.COLOR_WHITE,
                                             }
                                         ]}>

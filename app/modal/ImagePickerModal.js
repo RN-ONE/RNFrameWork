@@ -65,6 +65,7 @@ export default class ImagePickerModal extends React.Component {
         this.state = {
             options: props.options,
             visible: false,
+            show: false,
         };
     }
 
@@ -98,71 +99,90 @@ export default class ImagePickerModal extends React.Component {
                             alignItems: 'center',
                             justifyContent: 'center',
                         }}>
-                            <TouchableWithoutFeedback onPress={() => {
-                            }}>
-                                <View style={{
-                                    backgroundColor: 'white',
-                                    borderRadius: 5,
-                                    borderWidth: 1,
-                                    borderColor: AppConfig.COLOR_BLACK,
-                                    width: width - 50,
-                                }}>
-                                    <Text style={{
-                                        fontSize: AppConfig.TEXT_SIZE_BIG,
-                                        fontWeight: 'bold',
-                                        padding: AppConfig.DISTANCE_SAFE,
-                                        color: this.props.titleColor ? this.props.titleColor : AppConfig.COLOR_THEME,
-                                        backgroundColor: '#00000000',
-                                    }}>{"请选择获取方式"}</Text>
+                            {
+                                this.state.show ?
+                                    <View>
+                                        {
+                                            Platform.OS === 'android' ?
+                                                <ProgressView color={AppConfig.COLOR_WHITE}
+                                                              style={{width: 30, height: 30}}/>
+                                                :
+                                                <ActivityIndicator
+                                                    size="small"
+                                                    color={AppConfig.COLOR_WHITE}/>
+                                        }
+                                    </View>
+                                    :
+                                    <TouchableWithoutFeedback onPress={() => {
+                                    }}>
+                                        <View style={{
+                                            backgroundColor: 'white',
+                                            borderRadius: 5,
+                                            borderWidth: 1,
+                                            borderColor: AppConfig.COLOR_BLACK,
+                                            width: width - 50,
+                                        }}>
+                                            <Text style={{
+                                                fontSize: AppConfig.TEXT_SIZE_BIG,
+                                                fontWeight: 'bold',
+                                                padding: AppConfig.DISTANCE_SAFE,
+                                                color: this.props.titleColor ? this.props.titleColor : AppConfig.COLOR_THEME,
+                                                backgroundColor: '#00000000',
+                                            }}>{"请选择获取方式"}</Text>
 
-                                    <View style={{
-                                        flexGrow: 1,
-                                        height: AppConfig.LINE_HEIGHT,
-                                        backgroundColor: AppConfig.COLOR_LINE
-                                    }}/>
+                                            <View style={{
+                                                flexGrow: 1,
+                                                height: AppConfig.LINE_HEIGHT,
+                                                backgroundColor: AppConfig.COLOR_LINE
+                                            }}/>
 
-                                    <Item text={'相机'} onPress={() => {
-                                        //启动相机拍照
-                                        ImagePicker.launchCamera({}, (response) => {
-                                            console.log({response});
-                                            this.dismiss();
-                                            if (!response.error && response.uri && this.props.callback) {
-                                                this.props.callback({
-                                                    uri: response.uri,
-                                                    fileSize: response.fileSize,
-                                                    fileName: response.fileName,
-                                                    width: response.width,
-                                                    height: response.height,
+                                            <Item text={'相机'} onPress={() => {
+                                                //启动相机拍照
+                                                ImagePicker.launchCamera({}, (response) => {
+                                                    console.log({response});
+                                                    this.dismiss();
+                                                    if (!response.error && response.uri && this.props.callback) {
+                                                        this.props.callback({
+                                                            uri: response.uri,
+                                                            fileSize: response.fileSize,
+                                                            fileName: response.fileName,
+                                                            width: response.width,
+                                                            height: response.height,
+                                                        });
+                                                    } else {
+                                                        ToastAI.showShortBottom("不能打开照相机！");
+                                                    }
                                                 });
-                                            }
-                                        });
-                                    }}/>
+                                            }}/>
 
-                                    <View style={{
-                                        flexGrow: 1,
-                                        height: AppConfig.LINE_HEIGHT,
-                                        backgroundColor: AppConfig.COLOR_LINE
-                                    }}/>
+                                            <View style={{
+                                                flexGrow: 1,
+                                                height: AppConfig.LINE_HEIGHT,
+                                                backgroundColor: AppConfig.COLOR_LINE
+                                            }}/>
 
-                                    <Item text={'图库'} onPress={() => {
-                                        //打开系统相册
-                                        ImagePicker.launchImageLibrary({}, (response) => {
-                                            this.dismiss();
-                                            //响应结果处理参考上面样例
-                                            console.log(response);
-                                            if (!response.error && response.uri && this.props.callback) {
-                                                this.props.callback({
-                                                    uri: response.uri,
-                                                    fileSize: response.fileSize,
-                                                    fileName: response.fileName,
-                                                    width: response.width,
-                                                    height: response.height,
+                                            <Item text={'图库'} onPress={() => {
+                                                this.setState({show: true});
+                                                //打开系统相册
+                                                ImagePicker.launchImageLibrary({}, (response) => {
+                                                    this.dismiss();
+                                                    //响应结果处理参考上面样例
+                                                    console.log(response);
+                                                    if (!response.error && response.uri && this.props.callback) {
+                                                        this.props.callback({
+                                                            uri: response.uri,
+                                                            fileSize: response.fileSize,
+                                                            fileName: response.fileName,
+                                                            width: response.width,
+                                                            height: response.height,
+                                                        });
+                                                    }
                                                 });
-                                            }
-                                        });
-                                    }}/>
-                                </View>
-                            </TouchableWithoutFeedback>
+                                            }}/>
+                                        </View>
+                                    </TouchableWithoutFeedback>
+                            }
+
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
@@ -172,7 +192,7 @@ export default class ImagePickerModal extends React.Component {
 
 
     showPicker() {
-        this.setState({visible: true});
+        this.setState({visible: true, show: false});
     }
 
     dismiss() {
@@ -195,7 +215,6 @@ const Item = React.createClass({
         );
     }
 });
-
 
 // export default connect(state => ({
 //     colors: state.ColorReducer.colors,

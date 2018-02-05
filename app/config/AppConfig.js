@@ -7,7 +7,7 @@
 //主题色定义
 export const COLOR_THEME = "#00B38A";
 //黑色，不是000000
-export const COLOR_BLACK = "#242424";
+export const COLOR_BLACK = "#333333";
 //白色
 export const COLOR_WHITE = "#FFFFFF";
 //字体灰色
@@ -23,7 +23,7 @@ export const TEXT_SIZE_NORMAL = 16;
 export const TEXT_SIZE_SMALL = 14;
 
 //按钮的透明度
-export const OPACITY = 0.8;
+export const OPACITY = 0.6;
 
 //title高度
 export const TITLE_HEIGHT = 50;

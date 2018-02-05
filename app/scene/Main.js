@@ -27,6 +27,7 @@ import ThemeButton from "../component/ThemeButton";
 import ToastAI from "../component/ToastAI";
 import PhotoGallery from "../component/PhotoGallery";
 import HttpUtil from "../util/HttpUtil";
+import DateUtil from "../util/DateUtil";
 
 let {height, width} = Dimensions.get('window');
 
@@ -62,6 +63,47 @@ class Main extends Component {
                         Actions.changeTheme();
                     }}/>
 
+                <ThemeButton
+                    textColor={AppConfig.COLOR_WHITE}
+                    backgroundColor={this.props.colors.COLOR_THEME}
+                    radius={5}
+                    style={{paddingVertical: 10}}
+                    text="测试按钮"
+                    onPress={() => {
+                        Actions.selectModal({
+                            items: [
+                                {
+                                    text: '按钮1',
+                                    textAlign: 'left',
+                                    color: this.props.colors.COLOR_THEME,
+                                },
+                                {
+                                    text: '按钮2',
+                                    textAlign: 'right',
+                                }
+                                ,
+                                {
+                                    text: '按钮3',
+                                    color: 'red',
+                                }
+                                ,
+                                {
+                                    textAlign: 'left',
+                                    text: '按钮4',
+                                    color: 'red',
+                                    res: require('../img/dog1.jpg'),
+                                }
+                            ],
+                            tips: "*测试的提示类容",
+                            tipsColor: 'red',
+                            title: "测试标题",
+                            onPress: (index) => {
+                                ToastAI.showShortBottom("点击了" + index);
+                            }
+                        });
+                    }}/>
+
+
                 <PhotoGallery
                     layoutWidth={width}
                     widthSeparator={5}
@@ -85,7 +127,7 @@ class Main extends Component {
                 <Icon name="ios-person" size={30} color={this.props.colors.COLOR_THEME}/>
 
                 <DialogMessage ref={(dialogbox) => {
-                this.dialogbox = dialogbox;
+                    this.dialogbox = dialogbox;
                 }}/>
             </View>
         )
@@ -114,9 +156,8 @@ class Main extends Component {
             //左边按钮
         });
     }
-
-
 }
+
 
 export default connect(state => ({
     text: state.TestReducer.text,

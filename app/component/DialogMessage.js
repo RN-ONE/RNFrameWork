@@ -340,7 +340,7 @@ export default class DialogMessage extends Component {
     }
 
 };
-const MH = Platform.OS === 'android' ? 40 : 40;
+const MH = Platform.OS === 'android' ? 20 : 30;
 
 let styles = StyleSheet.create({
     popupContainer: {

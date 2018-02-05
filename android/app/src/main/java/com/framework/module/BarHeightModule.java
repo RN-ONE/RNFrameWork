@@ -15,7 +15,6 @@ import com.framework.MainActivity;
  */
 public class BarHeightModule extends ReactContextBaseJavaModule {
     private final static String NAME = "BarHeightModule";
-
     public BarHeightModule(ReactApplicationContext reactContext) {
         super(reactContext);
     }

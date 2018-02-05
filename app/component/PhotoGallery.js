@@ -187,6 +187,7 @@ class PhotoGallery extends Component {
         );
     }
 
+
     removeIndex(index) {
         let newData = [];
         for (let i = 0; i < this.state.data.length; i++) {

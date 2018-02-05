@@ -30,6 +30,7 @@ import Main2 from "./scene/Main2";
 import Main3 from "./scene/Main3";
 import ImageShowModal from "./modal/ImageShowModal";
 import ToastAI from "./component/ToastAI";
+import SelectModal from "./modal/SelectModal";
 
 this.isEnd = true;
 
@@ -47,7 +48,6 @@ const reducerCreate = params => {
                 this.isEnd = true;
             }
         }
-
 
         return defaultReducer(state, action);
     };
@@ -163,6 +163,11 @@ class App extends Component {
                     <Scene key="loading"
                            hideNavBar
                            component={LoadingModal}
+                           getSceneStyle={getModalStyle}/>
+
+                    <Scene key="selectModal"
+                           hideNavBar
+                           component={SelectModal}
                            getSceneStyle={getModalStyle}/>
 
                     <Scene key="imageShowModal"

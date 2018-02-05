@@ -13,6 +13,7 @@ import CreateStore from './CreateStore';
 import SplashScreen from 'react-native-smart-splash-screen'
 import {setJSExceptionHandler} from 'react-native-exception-handler';
 import RNRestart from 'react-native-restart';
+import ToastAI from "./component/ToastAI";
 
 const __DEV__ = true;
 
@@ -35,7 +36,6 @@ const errorHandler = (e, isFatal) => {
             CatchReport.addEvent(e.name, e.message, e.stack);
         }
 
-
         Alert.alert(
             '错误提示！', '软件遇到点小问题，需要重新启动！',
             [{
@@ -54,7 +54,6 @@ class Index extends Component {
     constructor(props) {
         super(props);
         global.BARANDROIDHEIGHT = Platform.OS === "android" ? -1 : 0;
-
         //保证性能
         if (!__DEV__) {
             global.console = {
@@ -76,8 +75,6 @@ class Index extends Component {
                 global.BARANDROIDHEIGHT = height;
             });
         }
-
-
     }
 
     componentDidMount() {

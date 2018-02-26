@@ -21,7 +21,7 @@ import {
 import {connect} from "react-redux";
 import {Actions} from 'react-native-router-flux';
 import * as AppConfig from '../config/AppConfig';
-import Gallery from 'react-native-image-gallery';
+import Gallery from '../component/gallery/Gallery';
 import TouchableButton from "../component/TouchableButton";
 import ToastAI from "../component/ToastAI";
 

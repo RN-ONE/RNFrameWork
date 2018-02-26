@@ -99,6 +99,7 @@ class Main extends Component {
                             title: "测试标题",
                             onPress: (index) => {
                                 ToastAI.showShortBottom("点击了" + index);
+                                Actions.pop();
                             }
                         });
                     }}/>

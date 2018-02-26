@@ -15,7 +15,6 @@ import {setJSExceptionHandler} from 'react-native-exception-handler';
 import RNRestart from 'react-native-restart';
 import ToastAI from "./component/ToastAI";
 
-const __DEV__ = true;
 
 const store = CreateStore();
 // Error: ${(isFatal) ? 'Fatal:' : ''} ${e.name} ${e.message} ${e.stack}
@@ -55,19 +54,41 @@ class Index extends Component {
         super(props);
         global.BARANDROIDHEIGHT = Platform.OS === "android" ? -1 : 0;
         //保证性能
-        if (!__DEV__) {
-            global.console = {
-                info: () => {
-                },
-                log: () => {
-                },
-                warn: () => {
-                },
-                debug: () => {
-                },
-                error: () => {
-                },
-            };
+        if (Platform.OS === 'android') {
+            NativeModules.NativeUtilsModule.isDebug((isDebug) => {
+                if (!isDebug) {
+                    global.console = {
+                        info: () => {
+                        },
+                        log: () => {
+                        },
+                        warn: () => {
+                        },
+                        debug: () => {
+                        },
+                        error: () => {
+                        },
+                    };
+                }
+            });
+        } else {
+            var Utils = NativeModules.Utils;
+            Utils.addEventIsDebug((isDebug) => {
+                if (!isDebug) {
+                    global.console = {
+                        info: () => {
+                        },
+                        log: () => {
+                        },
+                        warn: () => {
+                        },
+                        debug: () => {
+                        },
+                        error: () => {
+                        },
+                    };
+                }
+            });
         }
 
         if (Platform.OS === "android") {

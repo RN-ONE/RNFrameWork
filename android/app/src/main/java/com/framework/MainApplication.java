@@ -11,6 +11,7 @@ import com.facebook.soloader.SoLoader;
 import com.framework.viewpackage.BarColorPackage;
 import com.framework.viewpackage.BarHeightPackage;
 import com.framework.viewpackage.CatchJSPackage;
+import com.framework.viewpackage.NativeUtilPackage;
 import com.framework.viewpackage.ProgressViewPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.masteratul.exceptionhandler.ReactNativeExceptionHandlerPackage;
@@ -48,7 +49,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new ReactNativeExceptionHandlerPackage(),
                     new CatchJSPackage(),
                     new ReactNativeRestartPackage(),
-                    new ImagePickerPackage()
+                    new ImagePickerPackage(),
+                    new NativeUtilPackage()
             );
         }
     };

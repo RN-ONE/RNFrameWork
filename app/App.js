@@ -57,7 +57,7 @@ const exitAppFn = params => {
     if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
         //最近2秒内按过back键，可以退出应用。
         //自己写的system.exit(0)，不然不能完全退出软件
-        NativeModules.BarHeightModule.exit();
+        NativeModules.NativeUtilsModule.exit();
         return false;
     }
     this.lastBackPressed = Date.now();

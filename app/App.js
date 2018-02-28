@@ -124,7 +124,7 @@ let codePushOptions = {
         optionalIgnoreButtonLabel: '取消',
         optionalInstallButtonLabel: '安装',
         title: '有新版本了',
-        optionalUpdateMessage: '安装方式:热更新\n\n'
+        optionalUpdateMessage: '安装方式:热更新\n'
     }
 };
 

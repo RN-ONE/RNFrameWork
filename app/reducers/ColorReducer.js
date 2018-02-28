@@ -42,7 +42,7 @@ const colorState = {
 
 
 export default handleActions({
-    [ActionTypes.ACTION_COLORCHANGE]: (state, action) => {
+    [ActionTypes.ACTION_CHANGE_COLOR]: (state, action) => {
         let data = action.data;
         let newState = {
             colors: {//主题色

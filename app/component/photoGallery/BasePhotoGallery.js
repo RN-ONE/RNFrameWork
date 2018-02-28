@@ -1,7 +1,10 @@
 /**
- * @Author:hgq
- * @Date:2018/1/5
- * @Describe:
+ *
+ * 图片选择的控件
+ *
+ *@Author: JACK-GU
+ *@Date: 2018/2/28 15:32
+ *@E-Mail: 528489389@qq.com
  */
 import React, {Component, PropTypes} from 'react';
 import {
@@ -17,28 +20,28 @@ import {
     TouchableOpacity,
     NativeModules
 } from 'react-native';
-import TouchableButton from "./TouchableButton";
-import * as AppConfig from "../config/AppConfig";
-import * as AppStyles from '../config/AppStyles';
+import TouchableButton from "../TouchableButton";
+import * as AppConfig from "../../config/AppConfig";
+import * as AppStyles from '../../config/AppStyles';
 import {connect} from "react-redux";
-import ToastAI from "./ToastAI";
+import ToastAI from "../ToastAI";
 
 import {Actions} from 'react-native-router-flux';
 import GridView from 'react-native-gridview';
-import ImagePickerModal from "../modal/ImagePickerModal";
-import ImageShowModal from "../modal/ImageShowModal";
+import ImagePickerModal from "../../modal/ImagePickerModal";
+import ImageShowModal from "../../modal/ImageShowModal";
 
 let {height, width} = Dimensions.get('window');
 
 let addItem = {};
 
-class PhotoGallery extends Component {
+class BasePhotoGallery extends Component {
     static TYPE_PIC = 1;
     static TYPE_VIDEO = 2; //预留
     static TYPE_ADD = 3;
 
     static propTypes = {
-        layoutWidth: PropTypes.float,//这个控件的宽度
+        layoutWidth: PropTypes.float,//这个控件的宽度,不传就是整个屏幕的宽度
         widthSeparator: PropTypes.float,//每个的间隔
         maxImageNum: PropTypes.int,//最多多少个
         perRowNum: PropTypes.int,//每一行的个数
@@ -49,7 +52,7 @@ class PhotoGallery extends Component {
         super(props);
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         addItem = {
-            type: PhotoGallery.TYPE_ADD,
+            type: BasePhotoGallery.TYPE_ADD,
             uri: null,
             fileSize: 0,
             fileName: 'name',
@@ -80,7 +83,7 @@ class PhotoGallery extends Component {
     getDataS() {
         let newData = [];
         for (let item of this.state.data) {
-            if (item.type !== PhotoGallery.TYPE_ADD) {
+            if (item.type !== BasePhotoGallery.TYPE_ADD) {
                 newData.push(item);
             }
         }
@@ -91,7 +94,7 @@ class PhotoGallery extends Component {
         if (this.props.callBack) {
             this.props.callBack(this.getDataS.bind(this));
         }
-        let itemWidth = (this.state.layoutWidth - (this.props.perRowNum + 1) * this.props.widthSeparator) / this.props.perRowNum;
+        let itemWidth = ((this.state.layoutWidth ? this.state.layoutWidth : width) - (this.props.perRowNum + 1) * this.props.widthSeparator) / this.props.perRowNum;
         return (
             <View style={{paddingBottom: this.props.widthSeparator, backgroundColor: 'white'}}>
                 <GridView
@@ -104,7 +107,7 @@ class PhotoGallery extends Component {
                         return (
                             <View>
                                 {
-                                    item.type === PhotoGallery.TYPE_ADD ?
+                                    item.type === BasePhotoGallery.TYPE_ADD ?
                                         <TouchableButton onPress={() => {
                                             if (this.state.data.length <= this.props.maxImageNum) {
                                                 this.imagePickerModal.showPicker();
@@ -116,7 +119,7 @@ class PhotoGallery extends Component {
                                                 width: itemWidth,
                                                 height: itemWidth,
                                                 marginLeft: this.props.widthSeparator
-                                            }} source={require('../img/addPic.png')}/>
+                                            }} source={require('../../img/addPic.png')}/>
                                         </TouchableButton>
                                         :
                                         <PicItem
@@ -161,7 +164,7 @@ class PhotoGallery extends Component {
                         let newData = [];
                         for (let i = 0; i < this.state.data.length; i++) {
                             let dataItem = this.state.data[i];
-                            if (dataItem.type !== PhotoGallery.TYPE_ADD) {
+                            if (dataItem.type !== BasePhotoGallery.TYPE_ADD) {
                                 newData.push(dataItem);
                             }
                         }
@@ -172,7 +175,7 @@ class PhotoGallery extends Component {
                         //     console.log({success, newPath})
                         // });
                         newData.push({
-                            type: PhotoGallery.TYPE_PIC,
+                            type: BasePhotoGallery.TYPE_PIC,
                             path: data.path,
                             uri: data.uri,
                             fileSize: data.fileSize,
@@ -199,7 +202,7 @@ class PhotoGallery extends Component {
         let newData = [];
         for (let i = 0; i < this.state.data.length; i++) {
             let dataItem = this.state.data[i];
-            if (dataItem.type !== PhotoGallery.TYPE_ADD && index !== i) {
+            if (dataItem.type !== BasePhotoGallery.TYPE_ADD && index !== i) {
                 newData.push(dataItem);
             }
         }
@@ -240,7 +243,7 @@ const PicItem = React.createClass({
                             this.props.remove(this.props.itemID);
                         }}>
                         <Image
-                            source={require('../img/remove_pic.png')}
+                            source={require('../../img/remove_pic.png')}
                             style={{height: 20, width: 20}}/>
                     </TouchableButton>
                 </View>
@@ -252,4 +255,4 @@ const PicItem = React.createClass({
 
 export default connect(state => ({
     colors: state.ColorReducer.colors,
-}), dispatch => ({}))(PhotoGallery);
+}), dispatch => ({}))(BasePhotoGallery);

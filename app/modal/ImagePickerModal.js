@@ -2,7 +2,7 @@
  * @Author:JACK-GU
  * @Date:2017/12/28
  * @E-Mail:528489389@qq.com
- * @Describe:
+ * @Describe: 图片选择的modal
  */
 import React, {Component, PropTypes} from 'react';
 import {
@@ -145,7 +145,7 @@ export default class ImagePickerModal extends React.Component {
                                                     if (!response.error && response.uri && this.props.callback) {
                                                         this.props.callback({
                                                             uri: response.uri,
-                                                            path:response.path,
+                                                            path: response.path,
                                                             fileSize: response.fileSize,
                                                             fileName: response.fileName,
                                                             width: response.width,
@@ -173,7 +173,7 @@ export default class ImagePickerModal extends React.Component {
                                                     if (!response.error && response.uri && this.props.callback) {
                                                         this.props.callback({
                                                             uri: response.uri,
-                                                            path:response.path,
+                                                            path: response.path,
                                                             fileSize: response.fileSize,
                                                             fileName: response.fileName,
                                                             width: response.width,

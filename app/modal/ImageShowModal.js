@@ -2,7 +2,7 @@
  * @Author:JACK-GU
  * @Date:2017/12/28
  * @E-Mail:528489389@qq.com
- * @Describe:
+ * @Describe: 查看大图的modal
  */
 import React from 'react';
 import {

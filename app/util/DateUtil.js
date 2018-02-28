@@ -9,11 +9,11 @@
 
 export default class DateUtil {
     /**
-     * @Author: JACK-GU
-     * @Date: ${DATE}
-     * @E-Mail: 528489389@qq.com
-     * @Describe: 获取当前的时间和日期 1999-10-24 04:12:35
+     * 获取时间和日期 1999-10-24 04:12:35
      * @param timeStamp 时间戳
+     * @Author: JACK-GU
+     * @Date: 2018/2/28 15:56
+     * @E-Mail: 528489389@qq.com
      */
     static getDateAndTime(timeStamp) {
         let date = new Date(timeStamp);
@@ -23,12 +23,11 @@ export default class DateUtil {
         return sDate;
     }
 
-
     /**
+     * 获取日期 1999-10-24
      * @Author: JACK-GU
-     * @Date: ${DATE}
+     * @Date: 2018/2/28 15:55
      * @E-Mail: 528489389@qq.com
-     * @Describe: 获取当前的日期 1999-10-24
      * @param timeStamp 时间戳
      */
     static getDate(timeStamp) {
@@ -38,11 +37,12 @@ export default class DateUtil {
         return sDate;
     }
 
+
     /**
+     *  获取时间  04:12:35
      * @Author: JACK-GU
-     * @Date: ${DATE}
+     * @Date: 2018/2/28 15:55
      * @E-Mail: 528489389@qq.com
-     * @Describe: 获取当前的时间  04:12:35
      * @param timeStamp 时间戳
      */
     static getTime(timeStamp) {
@@ -54,10 +54,10 @@ export default class DateUtil {
 
 
     /**
+     * 获取当前的时间和日期 1999-10-24 04:12:35
      * @Author: JACK-GU
-     * @Date: ${DATE}
+     * @Date: 2018/2/28 15:54
      * @E-Mail: 528489389@qq.com
-     * @Describe: 获取当前的时间和日期 1999-10-24 04:12:35
      */
     static getNowDateAndTime() {
         let date = new Date();
@@ -67,43 +67,45 @@ export default class DateUtil {
 
 
     /**
+     *  获取当前的日期 1999-10-24
      * @Author: JACK-GU
-     * @Date: ${DATE}
+     * @Date: 2018/2/28 15:54
      * @E-Mail: 528489389@qq.com
-     * @Describe: 获取当前的日期 1999-10-24
      */
     static getNowDate() {
         let date = new Date();
         return DateUtil.getDate(Date.parse(date));
     }
 
+
     /**
+     * 获取当前的时间  04:12:35
      * @Author: JACK-GU
-     * @Date: ${DATE}
+     * @Date: 2018/2/28 15:54
      * @E-Mail: 528489389@qq.com
-     * @Describe: 获取当前的时间  04:12:35
      */
     static getNowTime() {
         let date = new Date();
         return DateUtil.getTime(Date.parse(date));
     }
 
+
     /**
+     * 获取当前的时间戳
      * @Author: JACK-GU
-     * @Date: ${DATE}
+     * @Date: 2018/2/28 15:53
      * @E-Mail: 528489389@qq.com
-     * @Describe: 获取当前的时间戳
      */
     static getNowTimeStamp() {
         return Number(new Date);
     }
 
     /**
+     * 获取指定的时间戳
      * @Author: JACK-GU
-     * @Date: ${DATE}
+     * @Date: 2018/2/28 15:53
      * @E-Mail: 528489389@qq.com
-     * @Describe: 获取指定的时间戳
-     * @param date 1999-10-24 04:12:35/1999-10-24/04:12:35
+     *  @param date 1999-10-24 04:12:35/1999-10-24/04:12:35
      */
     static getTimeStamp(date) {
         return Date.parse(new Date(date));

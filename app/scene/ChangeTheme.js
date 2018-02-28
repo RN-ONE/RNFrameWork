@@ -31,7 +31,7 @@ import ThemeButton from "../component/ThemeButton";
 import * as ChangeColorAction from "../actions/ChangeColorAction";
 import MoreMenu from "../component/moreMenu/MoreMenu";
 import ToastAI from "../component/ToastAI";
-import PhotoGallery from "../component/PhotoGallery";
+import PhotoGallery from "../component/photoGallery/BasePhotoGallery";
 
 let {height, width} = Dimensions.get('window');
 

@@ -25,13 +25,11 @@ import * as TestAction from "../actions/TestAction";
 import * as AppStyles from '../config/AppStyles';
 import ThemeButton from "../component/ThemeButton";
 import ToastAI from "../component/ToastAI";
-import PhotoGallery from "../component/PhotoGallery";
+import PhotoGallery from "../component/photoGallery/PhotoGallery";
 import HttpUtil from "../util/HttpUtil";
 import DateUtil from "../util/DateUtil";
 
 let {height, width} = Dimensions.get('window');
-
-
 
 
 class Main extends Component {
@@ -48,10 +46,10 @@ class Main extends Component {
                         this.show();
                     }}/>
 
-
-                <ThemeButton backgroundColor={this.props.colors.COLOR_THEME}
-                             radius={5}
-                             text={this.props.text} onPress={() => {
+                <ThemeButton
+                    backgroundColor={this.props.colors.COLOR_THEME}
+                    radius={5}
+                    text={this.props.text} onPress={() => {
                     Actions.loading();
                     this.props.getMoveList({});
                 }}/>
@@ -107,14 +105,13 @@ class Main extends Component {
                         });
                     }}/>
 
-
                 <PhotoGallery
+                    ref={(photoGallery) => {
+                        this.photoGallery = photoGallery;
+                    }}
                     layoutWidth={width}
                     widthSeparator={5}
                     maxImageNum={8}
-                    callBack={(call) => {
-                        this.photoGalleryCallBack = call;
-                    }}
                     perRowNum={4}/>
 
                 <ThemeButton
@@ -124,11 +121,11 @@ class Main extends Component {
                     text="获得图片数据"
                     onPress={() => {
                         console.log({
-                            dataS: this.photoGalleryCallBack()
+                            dataS: this.photoGallery.getDataS()
                         });
                     }}/>
 
-                <Icon name="ios-person" size={30} color={this.props.colors.COLOR_THEME}/>
+                {/*<Icon name="ios-person" size={30} color={this.props.colors.COLOR_THEME}/>*/}
 
                 <DialogMessage ref={(dialogbox) => {
                     this.dialogbox = dialogbox;

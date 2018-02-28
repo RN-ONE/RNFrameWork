@@ -1,11 +1,14 @@
 package com.framework.module;
 
+import android.content.Context;
+
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.framework.BuildConfig;
 import com.framework.MainActivity;
+import com.framework.util.compress.CompressUtil;
 
 /**
  * @Author: JACK-GU
@@ -14,8 +17,11 @@ import com.framework.MainActivity;
  */
 public class NativeUtilsModule extends ReactContextBaseJavaModule {
     private final static String NAME = "NativeUtilsModule";
+    private Context context;
+
     public NativeUtilsModule(ReactApplicationContext reactContext) {
         super(reactContext);
+        context = reactContext;
     }
 
     @Override
@@ -31,5 +37,15 @@ public class NativeUtilsModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void isDebug(Callback callback) {
         callback.invoke(BuildConfig.DEBUG);
+    }
+
+    @ReactMethod
+    public void compress(String path, boolean isDelete, final Callback callback) {
+        CompressUtil.compress(path, context, isDelete, new CompressUtil.CallBack() {
+            @Override
+            public void callBack(boolean success, String path) {
+                callback.invoke(success, path);
+            }
+        });
     }
 }

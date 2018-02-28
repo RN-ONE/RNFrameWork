@@ -7,7 +7,8 @@
 import React, {Component} from 'react';
 import {
     ToastAndroid,
-    NativeModules
+    NativeModules,
+    View,
 } from 'react-native';
 import * as AppConfig from "./config/AppConfig";
 import {
@@ -109,10 +110,67 @@ const getModalStyle = () => {
     return style;
 };
 
+
+//热更新配置
+import codePush from "react-native-code-push";
+import DialogMessage from "./component/DialogMessage";
+import TipMessageModal from "./modal/TipMessageModal";
+
+let codePushOptions = {
+    checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+    updateDialog: {
+        appendReleaseDescription: true,
+        descriptionPrefix: '更新日志:\n',
+        optionalIgnoreButtonLabel: '取消',
+        optionalInstallButtonLabel: '安装',
+        title: '有新版本了',
+        optionalUpdateMessage: '安装方式:热更新\n\n'
+    }
+};
+
+
 /**
  * lightbox:才可以让背景透明
  * */
 class App extends Component {
+    codePushStatusDidChange(status) {
+        console.log({status});
+        switch (status) {
+            case codePush.SyncStatus.CHECKING_FOR_UPDATE:
+                console.log("Checking for updates.");
+                break;
+            case codePush.SyncStatus.DOWNLOADING_PACKAGE:
+                console.log("Downloading package.");
+                Actions.loading({message: "更新中..."});
+                break;
+            case codePush.SyncStatus.INSTALLING_UPDATE:
+                console.log("Installing update.");
+                break;
+            case codePush.SyncStatus.UP_TO_DATE:
+                console.log("Up to date.");
+                break;
+            case codePush.SyncStatus.UNKNOWN_ERROR:
+                Actions.pop();
+                console.log("UNKNOWN_ERROR.");
+                Actions.tipMessage({
+                    message: '更新出错，请联系管理员！', callBack: () => {
+                    }
+                });
+                break;
+            case codePush.SyncStatus.UPDATE_INSTALLED:
+                console.log("Update installed.");
+                Actions.pop();
+
+                Actions.tipMessage({
+                    message: '更新完成！', callBack: () => {
+                        codePush.restartApp(true)
+                    }
+                });
+                break;
+        }
+    }
+
+
 // 构造
     constructor(props) {
         super(props);
@@ -122,6 +180,7 @@ class App extends Component {
             props.changeColor(colors);
         })
     }
+
 
     render() {
         return (
@@ -165,6 +224,11 @@ class App extends Component {
                            component={LoadingModal}
                            getSceneStyle={getModalStyle}/>
 
+                    <Scene key="tipMessage"
+                           hideNavBar
+                           component={TipMessageModal}
+                           getSceneStyle={getModalStyle}/>
+
                     <Scene key="selectModal"
                            hideNavBar
                            component={SelectModal}
@@ -180,6 +244,7 @@ class App extends Component {
     }
 }
 
+App = codePush(codePushOptions)(App);
 export default connect(state => ({}), dispatch => ({
     changeColor: (data) => dispatch(ChangeColorAction.changeColor(data)),
 }))(App);

@@ -15,6 +15,7 @@ import {
     StyleSheet,
     Switch,
     TouchableOpacity,
+    NativeModules
 } from 'react-native';
 import TouchableButton from "./TouchableButton";
 import * as AppConfig from "../config/AppConfig";
@@ -165,8 +166,14 @@ class PhotoGallery extends Component {
                             }
                         }
 
+                        console.log({data});
+
+                        // NativeModules.NativeUtilsModule.compress(data.path, false, (success, newPath) => {
+                        //     console.log({success, newPath})
+                        // });
                         newData.push({
                             type: PhotoGallery.TYPE_PIC,
+                            path: data.path,
                             uri: data.uri,
                             fileSize: data.fileSize,
                             fileName: data.fileName,

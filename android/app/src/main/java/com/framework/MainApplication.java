@@ -15,6 +15,7 @@ import com.framework.viewpackage.NativeUtilPackage;
 import com.framework.viewpackage.ProgressViewPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.masteratul.exceptionhandler.ReactNativeExceptionHandlerPackage;
+import com.microsoft.codepush.react.CodePush;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import com.reactnativecomponent.swiperefreshlayout.RCTSwipeRefreshLayoutPackage;
@@ -50,7 +51,9 @@ public class MainApplication extends Application implements ReactApplication {
                     new CatchJSPackage(),
                     new ReactNativeRestartPackage(),
                     new ImagePickerPackage(),
-                    new NativeUtilPackage()
+                    new NativeUtilPackage(),
+                    new CodePush("w70qnt1Hq1I84m9A_F0zSYCQ8TNA0d30a50d-b6d3-4073-89be" +
+                            "-a3fd7bb5b1bd", MainApplication.this, BuildConfig.DEBUG)
             );
         }
     };
@@ -66,7 +69,7 @@ public class MainApplication extends Application implements ReactApplication {
         instance = this;
         SoLoader.init(this, /* native exopackage */ false);
 
-        if (!BuildConfig.DEBUG){
+        if (!BuildConfig.DEBUG) {
             CrashReport.initCrashReport(getApplicationContext(), "5a9639836b", false);
         }
     }

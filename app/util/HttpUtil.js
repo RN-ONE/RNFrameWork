@@ -173,18 +173,18 @@ export default class HttpUtil {
      */
     static downloadFile(url) {
         HttpUtil.getFileLength(url, (length) => {
-                if (length > 0) {
-                    //长度大于0才可以进行继续操作
-                    HttpUtil.downLoadFileRange(url);
-                    let fromBytes = 0;
-                    let toBytes = 0;
+            if (length > 0) {
+                //长度大于0才可以进行继续操作
+                HttpUtil.downLoadFileRange(url);
+                let fromBytes = 0;
+                let toBytes = 0;
 
-                    HttpUtil.downLoadFileRange(url, fromBytes, toBytes, length, (success, e) => {
-                        console.log({e, success});
-                    });
-                } else {
-                    console.log("获取文件失败！");
-                }
+                HttpUtil.downLoadFileRange(url, fromBytes, toBytes, length, (success, e) => {
+                    console.log({e, success});
+                });
+            } else {
+                console.log("获取文件失败！");
+            }
         })
     }
 

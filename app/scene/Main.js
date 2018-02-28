@@ -31,8 +31,10 @@ import DateUtil from "../util/DateUtil";
 
 let {height, width} = Dimensions.get('window');
 
-class Main extends Component {
 
+
+
+class Main extends Component {
     render() {
         return (
             <View style={{backgroundColor: this.props.colors.COLOR_BG, flex: 1}}>
@@ -45,6 +47,7 @@ class Main extends Component {
                     onPress={() => {
                         this.show();
                     }}/>
+
 
                 <ThemeButton backgroundColor={this.props.colors.COLOR_THEME}
                              radius={5}
@@ -158,7 +161,6 @@ class Main extends Component {
         });
     }
 }
-
 
 export default connect(state => ({
     text: state.TestReducer.text,

@@ -50,6 +50,7 @@ var styles = StyleSheet.create({
             fileName: response.fileName,
             width: response.width,
             height: response.height,
+            path:response.path,
         }
  * */
 
@@ -144,6 +145,7 @@ export default class ImagePickerModal extends React.Component {
                                                     if (!response.error && response.uri && this.props.callback) {
                                                         this.props.callback({
                                                             uri: response.uri,
+                                                            path:response.path,
                                                             fileSize: response.fileSize,
                                                             fileName: response.fileName,
                                                             width: response.width,
@@ -171,6 +173,7 @@ export default class ImagePickerModal extends React.Component {
                                                     if (!response.error && response.uri && this.props.callback) {
                                                         this.props.callback({
                                                             uri: response.uri,
+                                                            path:response.path,
                                                             fileSize: response.fileSize,
                                                             fileName: response.fileName,
                                                             width: response.width,

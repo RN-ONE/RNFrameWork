@@ -128,7 +128,7 @@ class Main extends Component {
                         });
                     }}/>
 
-                {/*<Icon name="ios-person" size={30} color={this.props.colors.COLOR_THEME}/>*/}
+                <Icon name="ios-person" size={30} color={this.props.colors.COLOR_THEME}/>
 
                 <DialogMessage ref={(dialogbox) => {
                     this.dialogbox = dialogbox;

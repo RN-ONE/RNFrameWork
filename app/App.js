@@ -93,6 +93,7 @@ const getSceneStyle = () => {
         shadowOffset: null,
         shadowOpacity: null,
         shadowRadius: null,
+        //paddingBottom: IphoneXUtil.isIphoneX() ? IphoneXUtil.iphoneXBottom() : 0,
     };
     return style;
 };
@@ -111,10 +112,13 @@ const getModalStyle = () => {
 };
 
 
+
 //热更新配置
 import codePush from "react-native-code-push";
 import DialogMessage from "./component/DialogMessage";
 import TipMessageModal from "./modal/TipMessageModal";
+import IphoneXUtil from "./util/IphoneXUtil";
+import Login from "./scene/Login";
 
 let codePushOptions = {
     checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
@@ -188,7 +192,7 @@ class App extends Component {
                 backAndroidHandler={() => backAndroidHandler()}
                 createReducer={reducerCreate}
                 getSceneStyle={getSceneStyle}>
-                <Scene key="modal" modal initial lightbox>
+                <Scene key="modal" modal lightbox >
                     <Scene key="root">
                         <Scene key="tabbar">
                             <Router
@@ -217,6 +221,11 @@ class App extends Component {
                                 </Route>
                             </Router>
                         </Scene>
+
+                        <Scene key="login"
+                               initial
+                               hideNavBar
+                               component={Login}/>
                     </Scene>
 
                     <Scene key="loading"

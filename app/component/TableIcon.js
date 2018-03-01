@@ -19,6 +19,7 @@ import {connect} from "react-redux";
 import * as AppConfig from '../config/AppConfig';
 import * as AppStyles from '../config/AppStyles';
 import ToastAI from "./ToastAI";
+import IphoneXUtil from "../util/IphoneXUtil";
 
 const items = [
     {title: "main", iconName: "home"},
@@ -38,7 +39,11 @@ class TabIcon extends Component {
 
     render() {
         return (
-            <View style={{backgroundColor: this.props.colors.COLOR_WHITE, height: 60}}>
+            <View style={{
+                backgroundColor: this.props.colors.COLOR_WHITE,
+                height: IphoneXUtil.isIphoneX() ? 60 + IphoneXUtil.iphoneXBottom() : 60,
+                paddingBottom: IphoneXUtil.isIphoneX() ? IphoneXUtil.iphoneXBottom() : 0
+            }}>
                 <View style={{flexDirection: 'row'}}>
                     <View
                         style={{

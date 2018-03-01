@@ -22,6 +22,7 @@ import React, {Component, PropTypes} from 'react';
 import * as AppConfig from '../config/AppConfig';
 import * as AppStyles from "../config/AppStyles";
 import TouchableButton from "./TouchableButton";
+import IphoneXUtil from "../util/IphoneXUtil";
 
 let {height, width} = Dimensions.get('window');
 
@@ -55,24 +56,13 @@ export default class TitleBar extends Component {
         }
     }
 
-    isIphoneX() {
-        let {height, width} = Dimensions.get('window');
-        return (
-            Platform.OS === 'ios' &&
-            !Platform.isPad &&
-            !Platform.isTVOS &&
-            (height === 812 || width === 812)
-        );
-    }
-
-
     render() {
         return (
             <View style={{
                 flexDirection: 'row',
                 backgroundColor: this.props.colors ? this.props.colors.COLOR_THEME : AppConfig.COLOR_THEME,
                 paddingTop: Platform.OS === 'android' ? this.state.barHeight :
-                    this.isIphoneX() ? 44 : 20,
+                    IphoneXUtil.isIphoneX() ? 44 : 20,
             }}>
                 <View
                     style={{

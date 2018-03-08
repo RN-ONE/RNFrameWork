@@ -62,7 +62,7 @@ export default handleActions({
 
         if (Platform.OS === "android") {
             //修改原生的
-            NativeModules.BarColorModule.setColor(newState.colors.COLOR_THEME);
+            //NativeModules.BarColorModule.setColor(newState.colors.COLOR_THEME);
         }
 
         //保存到本地

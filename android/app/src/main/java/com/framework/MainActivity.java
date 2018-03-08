@@ -40,7 +40,7 @@ public class MainActivity extends ReactActivity implements OnPermissionCallback 
             tintManager = new SystemBarTintManager(this);
             tintManager.setStatusBarAlpha(1f);
             tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintColor(getResources().getColor(R.color.colorPrimary));
+            tintManager.setStatusBarTintColor(Color.parseColor("#33000000"));
             height = tintManager.getConfig().getStatusBarHeight();
         }
 

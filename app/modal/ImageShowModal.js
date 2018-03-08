@@ -55,6 +55,10 @@ class ImageShowModal extends React.Component {
             images: uris.length,
         };
 
+
+    }
+
+    componentWillMount() {
         if (Platform.OS === "android") {
             //修改原生的
             NativeModules.BarColorModule.setColor('#000000');
@@ -76,8 +80,8 @@ class ImageShowModal extends React.Component {
                 visible={true}
                 onRequestClose={() => {
                     if (Platform.OS === "android") {
-                        //修改原生的
-                        NativeModules.BarColorModule.setColor(this.props.colors.COLOR_THEME);
+                        //修改原生的，默认的颜色就可以了
+                        NativeModules.BarColorModule.setColor('#33000000');
                     }
                     Actions.pop();
                 }}>
@@ -121,7 +125,7 @@ class ImageShowModal extends React.Component {
                 <TouchableButton onPress={() => {
                     if (Platform.OS === "android") {
                         //修改原生的
-                        NativeModules.BarColorModule.setColor(this.props.colors.COLOR_THEME);
+                        NativeModules.BarColorModule.setColor('#33000000');
                     }
                     Actions.pop();
                 }}>

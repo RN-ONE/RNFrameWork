@@ -58,12 +58,14 @@ export default class TitleBar extends Component {
 
     render() {
         return (
-            <View style={{
-                flexDirection: 'row',
-                backgroundColor: this.props.colors ? this.props.colors.COLOR_THEME : AppConfig.COLOR_THEME,
-                paddingTop: Platform.OS === 'android' ? this.state.barHeight :
-                    IphoneXUtil.isIphoneX() ? 44 : 20,
-            }}>
+            <View
+                onLayout={this.props.onLayout}
+                style={{
+                    flexDirection: 'row',
+                    backgroundColor: this.props.colors ? this.props.colors.COLOR_THEME : AppConfig.COLOR_THEME,
+                    paddingTop: Platform.OS === 'android' ? this.state.barHeight :
+                        IphoneXUtil.isIphoneX() ? 44 : 20,
+                }}>
                 <View
                     style={{
                         flex: 1,

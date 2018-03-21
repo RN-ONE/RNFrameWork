@@ -5,19 +5,12 @@
  * @Describe: 网络请求的工具类
  */
 import {Axios, CancelToken} from 'axios';
-
+import SHA1 from 'jssha';
 import ToastAI from "../component/ToastAI";
+import * as Const from "../config/Const";
 
-const TIMEOUT = 20 * 1000;
-const BASEURL = "https://facebook.github.io/react-native/";
+const TIMEOUT = 60 * 1000;
 const responseType = "json";
-
-const instance = new Axios({
-    baseURL: BASEURL,
-    timeout: TIMEOUT,
-    responseType: responseType,
-    headers: {'X-Custom-Header': 'foobar'}
-});
 
 //自定分块下载文件一次的大小
 const FILE_SIZE = 1024 * 1000;
@@ -37,6 +30,15 @@ const CodeMessages = [
 var cancel;
 
 export default class HttpUtil {
+    static BASE = "http://101.207.135.239:31483";
+    static BASE_URL = HttpUtil.BASE + "/controller/";
+    static instance = new Axios({
+        baseURL: HttpUtil.BASE_URL,
+        timeout: TIMEOUT,
+        responseType: responseType,
+        headers: {'Accept': 'application/json'}
+    });
+
 
     /**
      * get请求
@@ -67,27 +69,64 @@ export default class HttpUtil {
      * param callBack 回调,{success: true, response: response}
      * */
     static connectHttp(params, url, method, callBack, onUploadProgress, onDownloadProgress) {
-        instance.request({
+        params.network = 0;
+        params.timestamp = Date.parse(new Date());
+        params.timeZone = "Asia/Shanghai";
+        params.userLocaleId = "zh_CN";
+        if (global.userInfo) {
+            params.userId = global.userInfo.userId;
+            params.userName = global.userInfo.userName;
+        }
+
+
+        let postData = JSON.stringify(params);
+        let map = {};
+        map = {
+            "actionName": params.actionName,
+            "postData": postData,
+            "limit": params.limit ? params.limit : 15,
+            "start": params.start ? params.start : 1
+        };
+
+
+        console.log({map});
+        HttpUtil.instance.request({
             url: url,
             cancelToken: new CancelToken(function executor(c) {
                 cancel = c;
             }),
             method: method,
-            params: params,
+            params: map,
             onUploadProgress: onUploadProgress,
             onDownloadProgress: onDownloadProgress,
         }).then(function (response) {
+            console.log({response});
             //请求的结果
             if (callBack) {
                 if (response.status == 200) {
-                    ToastAI.showShortBottom("获取数据成功");
-                    callBack({success: true, response: response});
+                    if (response.data.errorcode) {
+                        //框架的错误，直接提示
+                        ToastAI.showShortBottom(response.data.error);
+                    } else {
+                        //框架判断,登录的特殊处理
+                        if (map.actionName === 'sys-user-login') {
+                            callBack({success: true, response: response.data});
+                        } else {
+                            if (response.data.code === Const.CODE.success) {
+                                callBack({success: true, response: response.data});
+                            } else {
+                                HttpUtil.showMessage(response.data.codeDesc);
+                                callBack({success: false, response: response.data});
+                            }
+                        }
+                    }
                 } else {
                     callBack({success: false, response: response});
                     HttpUtil.showMessage(response.status);
                 }
             }
         }).catch(function (error) {
+            console.log({error});
             if (callBack) {
                 callBack({success: false, response: error});
             }
@@ -126,7 +165,7 @@ export default class HttpUtil {
      * @param params 参数
      * @param url 请求的地址
      */
-    static uploadFilePost(url, map, params) {
+    static uploadFilePost(url, map, params, callBack) {
         // 创建一个formData（虚拟表单）
         var formData = new FormData();
         map.forEach((item) => {
@@ -143,9 +182,100 @@ export default class HttpUtil {
             },
         };
 
-        //然后开始上传
-        instance.post(url, formData, config);
+        HttpUtil.uploadFile(url, formData, config, callBack);
     }
+
+
+    /**
+     *
+     * 上传文件到服务器,文件是一个数组
+     *
+     * @param map 是一个数组，里面存放对象{path:["",""],key:""}
+     * @param params 参数
+     * @param url 请求的地址
+     * @param callBack 回调
+     *
+     * @Author: JACK-GU
+     * @Date: 2018/3/21 11:01
+     * @E-Mail: 528489389@qq.com
+     */
+    static uploadFileArrayPost(url, map, params, callBack) {
+        // 创建一个formData（虚拟表单）
+        var formData = new FormData();
+        map.forEach((item) => {
+            formData = HttpUtil.appendToFormData(formData, item.path, item.key);
+        });
+
+        // 请求头文件
+        const config = {
+            Accept: 'Application/json',
+            'Content-Type': 'multipart/form-data',
+            params: params ? params : {},
+            onUploadProgress: (progressEvent) => {
+                console.log(progressEvent);
+            },
+        };
+
+        HttpUtil.uploadFile(url, formData, config, callBack);
+    }
+
+
+    /**
+     *
+     * 上传文件
+     * @param url 地址
+     * @param formData 传文件的虚拟表单
+     * @param config 配置
+     * @param callBack 回调
+     *
+     * @Author: JACK-GU
+     * @Date: 2018/3/21 10:55
+     * @E-Mail: 528489389@qq.com
+     */
+    static uploadFile(url, formData, config, callBack) {
+        //然后开始上传
+        HttpUtil.instance.post(url, formData, config)
+            .then(function (response) {
+                console.log({response});
+                //请求的结果
+                if (callBack) {
+                    if (response.status == 200) {
+                        if (response.data.errorcode) {
+                            //框架的错误，直接提示
+                            ToastAI.showShortBottom(response.data.error);
+                        } else {
+                            //框架判断,登录的特殊处理
+                            if (map.actionName === 'sys-user-login') {
+                                callBack({success: true, response: response.data});
+                            } else {
+                                if (response.data.code === Const.CODE.success) {
+                                    callBack({success: true, response: response.data});
+                                } else {
+                                    HttpUtil.showMessage(response.data.codeDesc);
+                                    callBack({success: false, response: response.data});
+                                }
+                            }
+                        }
+                    } else {
+                        callBack({success: false, response: response});
+                        HttpUtil.showMessage(response.status);
+                    }
+                }
+            }).catch(function (error) {
+            console.log({error});
+            if (callBack) {
+                callBack({success: false, response: error});
+            }
+            if (error.response) {
+                // 请求已发出，但服务器响应的状态码不在 2xx 范围内
+                HttpUtil.showMessage(error.response.status);
+            } else {
+                //显示错误消息
+                HttpUtil.showMessage(0);
+            }
+        });
+    }
+
 
     /**
      * @Author: JACK-GU
@@ -162,6 +292,29 @@ export default class HttpUtil {
         var strS = fileUri.split("/");
         const file = {uri: fileUri, type: 'multipart/form-data', name: strS[strS.length - 1]};   // 这里的key(uri和type和name)不能改变,
         formData.append(key, file);   // 这里的files就是后台需要的key
+    }
+
+    /**
+     *
+     * 放入一个数组
+     * @param formData 需要的
+     * @param fileUriS 文件的路径的数组
+     * @param key 关键字
+     * @return formData 返回拼接后的
+     *
+     * @Author: JACK-GU
+     * @Date: 2018/3/21 10:50
+     * @E-Mail: 528489389@qq.com
+     */
+    static appendArrayToFromData(formData, fileUriS, key) {
+        let dataS = [];
+        for (let fileUri of fileUriS) {
+            var strS = fileUri.split("/");
+            const file = {uri: fileUri, type: 'multipart/form-data', name: strS[strS.length - 1]};   // 这里的key(uri和type和name)不能改变,
+            dataS.push(file);
+        }
+
+        formData.append(key, dataS);
     }
 
 
@@ -281,4 +434,25 @@ export default class HttpUtil {
             }
         });
     }
+
+    /**
+     *
+     * 获取加密过后的密码
+     *
+     * @Author: JACK-GU
+     * @Date: 2018/3/6 15:05
+     * @E-Mail: 528489389@qq.com
+     */
+    static getEncryptedPassword(userPwd) {
+        var psw1 = HttpUtil.SHA1(userPwd);
+        var pswHash = HttpUtil.SHA1(psw1 + "sMarT cLOud dEveLoPmEnT plAtForM");
+        return pswHash;
+    }
+
+    static SHA1(input) {
+        var hash = new SHA1('SHA-1', 'TEXT');
+        hash.update(input);
+        return hash.getHash('HEX');
+    }
+
 }

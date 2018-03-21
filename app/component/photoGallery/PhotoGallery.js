@@ -16,7 +16,13 @@ export default class PhotoGallery extends Component {
         widthSeparator: PropTypes.float,//每个的间隔
         maxImageNum: PropTypes.int,//最多多少个
         perRowNum: PropTypes.int,//每一行的个数
+        callBack: PropTypes.function,//这个是回调，返回的是一个方法，可以来调用获得数据
+        imgs: PropTypes.array,//传入图片的uri，是一个string
+        notShowRemove: PropTypes.bool,//不显示移除图标
+        notShowLRSeparator: PropTypes.bool,//不显示左右的间隔
     };
+
+
 
     render() {
         return (

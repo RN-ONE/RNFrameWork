@@ -6,17 +6,22 @@
  * @E-Mail:528489389@qq.com
  */
 
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {
     View,
     Dimensions
 } from 'react-native';
 import {connect} from "react-redux";
 import IphoneXUtil from "../util/IphoneXUtil";
+import * as AppConfig from '../config/AppConfig';
 
 let {height, width} = Dimensions.get('window');
 
 class IphoneXView extends Component {
+    static propTypes = {
+        bottomColor: PropTypes.color,
+    };
+
     render() {
         return (
             <View style={[this.props.style, {
@@ -29,10 +34,20 @@ class IphoneXView extends Component {
                 {
                     IphoneXUtil.isIphoneX() ?
                         <View style={{
-                            height: IphoneXUtil.iphoneXBottom(),
                             width: width,
-                            backgroundColor: this.props.bottomColor ? this.props.bottomColor : 'white',
-                        }}/>
+                            height: IphoneXUtil.iphoneXBottom(),
+                        }}>
+                            <View style={{
+                                height: 2,
+                                width: width,
+                                backgroundColor: AppConfig.COLOR_BG
+                            }}/>
+                            <View style={{
+                                width: width,
+                                height: IphoneXUtil.iphoneXBottom() - 2,
+                                backgroundColor: this.props.bottomColor ? this.props.bottomColor : 'white',
+                            }}/>
+                        </View>
                         : null
                 }
             </View>

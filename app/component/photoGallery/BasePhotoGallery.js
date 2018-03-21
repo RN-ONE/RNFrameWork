@@ -16,7 +16,7 @@ import {
     Platform,
     Slider,
     StyleSheet,
-    Switch,
+    FlatList,
     TouchableOpacity,
     NativeModules
 } from 'react-native';
@@ -30,6 +30,7 @@ import {Actions} from 'react-native-router-flux';
 import GridView from 'react-native-gridview';
 import ImagePickerModal from "../../modal/ImagePickerModal";
 import ImageShowModal from "../../modal/ImageShowModal";
+import MyImage from "../MyImage";
 
 let {height, width} = Dimensions.get('window');
 
@@ -46,11 +47,13 @@ class BasePhotoGallery extends Component {
         maxImageNum: PropTypes.int,//最多多少个
         perRowNum: PropTypes.int,//每一行的个数
         callBack: PropTypes.function,//这个是回调，返回的是一个方法，可以来调用获得数据
+        imgs: PropTypes.array,//传入图片的uri，是一个string
+        notShowRemove: PropTypes.bool,//不显示移除图标
+        notShowLRSeparator: PropTypes.bool,//不显示左右的间隔
     };
 
     constructor(props) {
         super(props);
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         addItem = {
             type: BasePhotoGallery.TYPE_ADD,
             uri: null,
@@ -60,7 +63,22 @@ class BasePhotoGallery extends Component {
             height: 0,
         };
 
-        let data = [addItem];
+        let data = [];
+
+        if (props.imgs) {
+            //传入的是一个地址
+            for (let item of props.imgs) {
+                data.push({
+                    type: BasePhotoGallery.TYPE_PIC,
+                    path: item,
+                    uri: item,
+                });
+            }
+        } else {
+            data.push(addItem);
+        }
+
+
         this.state = {
             data: data,
             dataSource: null,
@@ -94,16 +112,24 @@ class BasePhotoGallery extends Component {
         if (this.props.callBack) {
             this.props.callBack(this.getDataS.bind(this));
         }
-        let itemWidth = ((this.state.layoutWidth ? this.state.layoutWidth : width) - (this.props.perRowNum + 1) * this.props.widthSeparator) / this.props.perRowNum;
+        let number = this.props.notShowLRSeparator ? (this.props.perRowNum - 1) : (this.props.perRowNum + 1);
+        let itemWidth = ((this.state.layoutWidth ? this.state.layoutWidth : width) - number * this.props.widthSeparator) / this.props.perRowNum;
         return (
             <View style={{paddingBottom: this.props.widthSeparator, backgroundColor: 'white'}}>
-                <GridView
+                <FlatList
                     data={this.state.data}
-                    dataSource={this.state.dataSource}
-                    itemsPerRow={this.state.itemsPerRow}
-                    rowStyle={{flexDirection: "row", marginTop: this.props.widthSeparator}}
-                    style={{paddingRight: this.props.widthSeparator}}
-                    renderItem={(item, sectionID, rowID, itemIndex, itemID) => {
+                    numColumns={this.props.perRowNum}
+                    columnWrapperStyle={{marginTop: this.props.widthSeparator}}
+                    rowStyle={{flexDirection: "row"}}
+                    style={{
+                        paddingRight: this.props.notShowLRSeparator ? 0 : this.props.widthSeparator,
+                    }}
+                    renderItem={({item, index}) => {
+                        //index，用来当不显示左右的距离的时候计算，如果是每一行的第一个就不设置marginLeft
+                        let notShowLRSeparator = false;
+                        if ((index + 1) % this.props.perRowNum === 1 && this.props.notShowLRSeparator) {
+                            notShowLRSeparator = true;
+                        }
                         return (
                             <View>
                                 {
@@ -123,9 +149,11 @@ class BasePhotoGallery extends Component {
                                         </TouchableButton>
                                         :
                                         <PicItem
-                                            itemID={itemID}
+                                            itemID={index}
                                             itemWidth={itemWidth}
+                                            notShowLRSeparator={notShowLRSeparator}
                                             item={item}
+                                            notShowRemove={this.props.notShowRemove}
                                             remove={(index) => {
                                                 this.removeIndex(index);
                                             }}
@@ -219,34 +247,41 @@ class BasePhotoGallery extends Component {
 
 const PicItem = React.createClass({
     render() {
+
         return (
             <View>
                 <TouchableButton
                     onPress={() => {
                         this.props.info();
                     }}>
-                    <Image style={{
+                    <MyImage style={{
                         width: this.props.itemWidth,
                         height: this.props.itemWidth,
-                        marginLeft: this.props.widthSeparator
+                        marginLeft: this.props.notShowLRSeparator ? 0 : this.props.widthSeparator
                     }} source={{uri: this.props.item.uri}}/>
                 </TouchableButton>
 
-                <View style={{
-                    position: 'absolute',
-                    marginLeft: this.props.itemWidth - 20,
-                    alignItems: 'flex-end',
-                    marginTop: this.props.widthSeparator
-                }}>
-                    <TouchableButton
-                        onPress={() => {
-                            this.props.remove(this.props.itemID);
+                {
+                    this.props.notShowRemove ?
+                        null
+                        :
+                        <View style={{
+                            position: 'absolute',
+                            marginLeft: this.props.itemWidth - 20,
+                            alignItems: 'flex-end',
+                            marginTop: this.props.widthSeparator
                         }}>
-                        <Image
-                            source={require('../../img/remove_pic.png')}
-                            style={{height: 20, width: 20}}/>
-                    </TouchableButton>
-                </View>
+                            <TouchableButton
+                                onPress={() => {
+                                    this.props.remove(this.props.itemID);
+                                }}>
+                                <Image
+                                    source={require('../../img/remove_pic.png')}
+                                    style={{height: 20, width: 20}}/>
+                            </TouchableButton>
+                        </View>
+                }
+
             </View>
         );
     }

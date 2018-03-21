@@ -12,19 +12,20 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {
     Text,
     View,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Dimensions
 } from 'react-native';
-import ThemeButton from "./ThemeButton";
 import {connect} from "react-redux";
 import * as AppConfig from '../config/AppConfig';
 import * as AppStyles from '../config/AppStyles';
-import ToastAI from "./ToastAI";
 import IphoneXUtil from "../util/IphoneXUtil";
 
+let {height, width} = Dimensions.get('window');
+
 const items = [
-    {title: "main", iconName: "home"},
-    {title: "main2", iconName: "bug"},
-    {title: "main3", iconName: "cog"},
+    {title: "主页", iconName: "home"},
+    {title: "消息", iconName: "comments"},
+    {title: "设置", iconName: "cog"},
 ];
 
 
@@ -33,8 +34,7 @@ class TabIcon extends Component {
     constructor(props) {
         super(props);
         // 初始状态
-        this.state = {selectIndex: 0};
-        console.log(props);
+        this.state = {selectIndex: global.tableIndex};
     }
 
     render() {
@@ -42,7 +42,6 @@ class TabIcon extends Component {
             <View style={{
                 backgroundColor: this.props.colors.COLOR_WHITE,
                 height: IphoneXUtil.isIphoneX() ? 60 + IphoneXUtil.iphoneXBottom() : 60,
-                paddingBottom: IphoneXUtil.isIphoneX() ? IphoneXUtil.iphoneXBottom() : 0
             }}>
                 <View style={{flexDirection: 'row'}}>
                     <View
@@ -53,7 +52,7 @@ class TabIcon extends Component {
                         }}/>
                 </View>
 
-                <View style={{flexDirection: 'row', flex: 1}}>
+                <View style={{flexDirection: 'row', flexGrow: 1,}}>
                     {
                         (() => {
                             let btnContent = [];
@@ -61,6 +60,7 @@ class TabIcon extends Component {
                                 btnContent.push(
                                     <TouchableWithoutFeedback style={{flex: 1}} onPress={() => {
                                         this.props.jumpToIndex(index);
+                                        global.tableIndex = index;
                                         this.setState({selectIndex: index});
                                     }}>
                                         <View style={{
@@ -74,7 +74,10 @@ class TabIcon extends Component {
                                                       iconStyle={{padding: 0, margin: 0}}/>
 
                                                 <Text
-                                                    style={[AppStyles.textNormalGray, {color: this.state.selectIndex === index ? this.props.colors.COLOR_THEME : this.props.colors.TEXT_COLOR_GRAY}]}>
+                                                    style={[AppStyles.textNormalGray, {
+                                                        color: this.state.selectIndex === index ? this.props.colors.COLOR_THEME : this.props.colors.TEXT_COLOR_GRAY,
+                                                        marginTop: 3
+                                                    }]}>
                                                     {btn.title}
                                                 </Text>
                                             </View>
@@ -86,6 +89,25 @@ class TabIcon extends Component {
                         })()
                     }
                 </View>
+                {
+                    IphoneXUtil.isIphoneX() ?
+                        <View style={{
+                            width: width,
+                            height: IphoneXUtil.iphoneXBottom(),
+                        }}>
+                            <View style={{
+                                height: 2,
+                                width: width,
+                                backgroundColor: AppConfig.COLOR_BG
+                            }}/>
+                            <View style={{
+                                width: width,
+                                height: IphoneXUtil.iphoneXBottom() - 2,
+                                backgroundColor: 'white',
+                            }}/>
+                        </View>
+                        : null
+                }
             </View>
         );
     }

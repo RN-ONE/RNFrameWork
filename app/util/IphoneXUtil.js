@@ -25,6 +25,10 @@ export default class IphoneXUtil {
     }
 
     static iphoneXBottom() {
-        return 34;
+        if (IphoneXUtil.isIphoneX()) {
+            return 34;
+        } else {
+            return 0;
+        }
     }
 }

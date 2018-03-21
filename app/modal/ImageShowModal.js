@@ -24,6 +24,7 @@ import * as AppConfig from '../config/AppConfig';
 import Gallery from '../component/gallery/Gallery';
 import TouchableButton from "../component/TouchableButton";
 import ToastAI from "../component/ToastAI";
+import IphoneXUtil from "../util/IphoneXUtil";
 
 let {width, height} = Dimensions.get('window');
 
@@ -116,7 +117,8 @@ class ImageShowModal extends React.Component {
         return (
             <View style={{
                 top: 10,
-                paddingTop: Platform.OS === 'android' ? global.BARANDROIDHEIGHT / PixelRatio.get() : 20,
+                paddingTop: Platform.OS === 'android' ? global.BARANDROIDHEIGHT / PixelRatio.get() :
+                    IphoneXUtil.isIphoneX() ? 44 : 20,
                 width: '100%',
                 position: 'absolute',
                 flexDirection: 'row',

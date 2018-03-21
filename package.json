@@ -20,7 +20,7 @@
     "react-native-root-toast": "^3.0.1",
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-native-scroller": "0.0.6",
-    "react-native-smart-pull-to-refresh-listview": "^1.6.10",
+    "react-native-smart-pull-to-refresh-listview": "^1.6.11-beta.2",
     "react-native-smart-splash-screen": "^2.3.4",
     "react-native-storage": "^0.2.2",
     "react-native-vector-icons": "^4.5.0",

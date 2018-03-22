@@ -138,6 +138,7 @@ export default class ImagePickerModal extends React.Component {
                                             }}/>
 
                                             <Item text={'相机'} onPress={() => {
+                                                this.setState({show: true});
                                                 //启动相机拍照
                                                 ImagePicker.launchCamera({}, (response) => {
                                                     console.log({response});
@@ -210,7 +211,11 @@ const Item = React.createClass({
             <TouchableButton onPress={this.props.onPress ? this.props.onPress : () => {
             }}>
                 <View style={{paddingVertical: AppConfig.DISTANCE_SAFE}}>
-                    <Text style={{fontSize: AppConfig.TEXT_SIZE_NORMAL, textAlign: 'center'}}>
+                    <Text style={{
+                        fontSize: AppConfig.TEXT_SIZE_NORMAL,
+                        color: AppConfig.TEXT_COLOR_GRAY,
+                        textAlign: 'center'
+                    }}>
                         {this.props.text}
                     </Text>
                 </View>

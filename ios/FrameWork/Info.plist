@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CodePushDeploymentKey</key>
-	<string>vtv3sH1AWJUU_ykI_ZbIY8L14n9o0d30a50d-b6d3-4073-89be-a3fd7bb5b1bd</string>
 	<key>BuglyAppID</key>
 	<string>66772cbede</string>
 	<key>BuglyDebugEnable</key>
@@ -28,12 +26,16 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>CodePushDeploymentKey</key>
+	<string>vtv3sH1AWJUU_ykI_ZbIY8L14n9o0d30a50d-b6d3-4073-89be-a3fd7bb5b1bd</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>localhost</key>

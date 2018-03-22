@@ -21,10 +21,10 @@ import {
 import {connect} from "react-redux";
 import {Actions} from 'react-native-router-flux';
 import * as AppConfig from '../config/AppConfig';
-import Gallery from '../component/gallery/Gallery';
 import TouchableButton from "../component/TouchableButton";
 import ToastAI from "../component/ToastAI";
 import IphoneXUtil from "../util/IphoneXUtil";
+import Gallery from '../component/swipe/Gallery';
 
 let {width, height} = Dimensions.get('window');
 
@@ -47,16 +47,16 @@ class ImageShowModal extends React.Component {
 
         let uris = [];
         for (let item of props.items) {
-            uris.push({source: {uri: item.uri}});
+            uris.push(item.uri);
         }
 
         this.state = {
             uris: uris,
-            index: Platform.OS === 'android' ? 0 : props.index,
+            index: 0,
             images: uris.length,
         };
 
-
+        console.log({props});
     }
 
     componentWillMount() {
@@ -66,14 +66,15 @@ class ImageShowModal extends React.Component {
         }
     }
 
-    componentWillReceiveProps(next) {
+    componentDidMount() {
+        this.setState({index: this.props.index});
+    }
 
+    componentWillReceiveProps(next) {
     }
 
 
     render() {
-        console.log({uris: this.state.uris});
-
         return (
             <Modal
                 animationType={"slide"}
@@ -89,7 +90,7 @@ class ImageShowModal extends React.Component {
                 <View style={[
                     styles.container,
                     {
-                        backgroundColor: "rgba(0,0,0,0.8)"
+                        backgroundColor: "rgba(0,0,0,1)"
                     }]}>
                     <View style={{alignItems: 'center'}}>
                         <View style={{
@@ -97,12 +98,12 @@ class ImageShowModal extends React.Component {
                             height: height,
                         }}>
                             <Gallery
-                                initialPage={Platform.OS === 'android' ? 0 : this.props.index}
+                                onPageSelected={(page) => {
+                                    this.setState({index: page});
+                                }}
+                                initialPage={this.state.index}
                                 style={{flex: 1, backgroundColor: 'black'}}
                                 images={this.state.uris}
-                                onPageSelected={(index) => {
-                                    this.setState({index: index});
-                                }}
                             />
 
                             {this.galleryCount}
@@ -110,6 +111,16 @@ class ImageShowModal extends React.Component {
                     </View>
                 </View>
             </Modal>
+        );
+    }
+
+    renderItem({itemIndex, currentIndex, item, animatedValue}) {
+        console.log({itemIndex, currentIndex, item, animatedValue});
+        return (
+            <Image
+                source={item.source}
+                resizeMode={'contain'}
+                style={{height: height, width: width, resizeMode: 'contain'}}/>
         );
     }
 

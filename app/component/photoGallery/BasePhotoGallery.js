@@ -267,7 +267,7 @@ const PicItem = React.createClass({
                         :
                         <View style={{
                             position: 'absolute',
-                            marginLeft: this.props.itemWidth - 20,
+                            marginLeft: this.props.itemWidth - (this.props.notShowLRSeparator ? (20 + this.props.widthSeparator) : 20),
                             alignItems: 'flex-end',
                             marginTop: this.props.widthSeparator
                         }}>

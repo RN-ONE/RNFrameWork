@@ -9,29 +9,12 @@ import React, {Component, PropTypes} from 'react';
 import {
     View,
     Text,
-    ListView,
-    Dimensions,
     Image,
     Platform,
-    Slider,
-    StyleSheet,
-    FlatList,
-    TouchableOpacity,
-    NativeModules, ActivityIndicator
+    ActivityIndicator
 } from 'react-native';
-import TouchableButton from "./TouchableButton";
 import ProgressView from '../native/ProgressView';
 import * as AppConfig from "../config/AppConfig";
-import * as AppStyles from '../config/AppStyles';
-import {connect} from "react-redux";
-import ToastAI from "./ToastAI";
-
-import {Actions} from 'react-native-router-flux';
-import GridView from 'react-native-gridview';
-import ImagePickerModal from "../modal/ImagePickerModal";
-import ImageShowModal from "../modal/ImageShowModal";
-
-let {height, width} = Dimensions.get('window');
 
 export default class MyImage extends Component {
     STATUS_LOADING = 0;
@@ -39,11 +22,19 @@ export default class MyImage extends Component {
     STATUS_FAIL = 2;
     success = false;
 
+    static propTypes = {
+        ...Image.propTypes,
+        total: PropTypes.number.isRequired,//总共条数
+        onRefresh: PropTypes.func,//刷新回调,不传不显示指示器
+        onLoadMore: PropTypes.func,//加载更多回调，携带参数，true表示没有更多了,不传不显示指示器
+        backgroundColor: PropTypes.string,//背景色
+    };
+
     // 构造
     constructor(props) {
         super(props);
         // 初始状态
-        this.state = {status: this.STATUS_LOADING, width: 1, height: 1};
+        this.state = {status: this.STATUS_LOADING};
         success = false;
     }
 
@@ -53,7 +44,7 @@ export default class MyImage extends Component {
     render() {
         return (
             <View style={[this.props.style, {
-                backgroundColor: AppConfig.COLOR_BG,
+                backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : AppConfig.COLOR_BG,
                 alignItems: 'center',
                 justifyContent: 'center'
             }]}>
@@ -62,28 +53,28 @@ export default class MyImage extends Component {
                         Platform.OS === 'android' ?
                             <ProgressView
                                 color={AppConfig.TEXT_COLOR_GRAY}
-                                style={{width: 30, height: 30}}/>
+                                style={{width: 20, height: 20}}/>
                             :
                             <ActivityIndicator
                                 size="small"
                                 color={AppConfig.TEXT_COLOR_GRAY}/>
                         :
                         this.state.status === this.STATUS_FAIL ?
-                            <Text style={{
-                                fontSize: AppConfig.TEXT_SIZE_SMALL,
-                                color: AppConfig.TEXT_COLOR_GRAY
-                            }}>
-                                加载失败
-                            </Text>
+                            <Image
+                                source={require('../img/img_load_fail.png')}
+                                style={{
+                                    width: this.props.style.width,
+                                    height: this.props.style.height
+                                }}/>
                             : null
                 }
 
                 <Image
                     {...this.props}
                     style={[this.props.style, {
-                        height: this.state.height,
-                        width: this.state.width,
                         marginLeft: 0,
+                        opacity: this.state.status === this.STATUS_SUCCESS ? 1 : 0,
+                        position: 'absolute'
                     }]}
                     onLoad={() => {
                         this.success = true;
@@ -91,8 +82,6 @@ export default class MyImage extends Component {
                     onLoadEnd={() => {
                         this.setState({
                             status: this.success ? this.STATUS_SUCCESS : this.STATUS_FAIL,
-                            height: this.success ? this.props.style.height : 0,
-                            width: this.success ? this.props.style.width : 0
                         });
                     }}
                 />

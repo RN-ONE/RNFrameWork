@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "jssha": "^2.3.1",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.47.0",
     "react-native-code-push": "^5.2.2",
@@ -24,6 +25,7 @@
     "react-native-smart-splash-screen": "^2.3.4",
     "react-native-storage": "^0.2.2",
     "react-native-vector-icons": "^4.5.0",
+    "react-native-view-transformer": "0.0.28",
     "react-navigation": "^1.5.0",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",

@@ -53,6 +53,14 @@ class Index extends Component {
     constructor(props) {
         super(props);
         global.BARANDROIDHEIGHT = Platform.OS === "android" ? -1 : 0;
+
+        if (Platform.OS === "android") {
+            NativeModules.BarHeightModule.getHeight((height) => {
+                global.BARANDROIDHEIGHT = height;
+            });
+        }
+
+
         //保证性能
         if (Platform.OS === 'android') {
             NativeModules.NativeUtilsModule.isDebug((isDebug) => {
@@ -88,12 +96,6 @@ class Index extends Component {
                         },
                     };
                 }
-            });
-        }
-
-        if (Platform.OS === "android") {
-            NativeModules.BarHeightModule.getHeight((height) => {
-                global.BARANDROIDHEIGHT = height;
             });
         }
     }

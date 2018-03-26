@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@ldn0x7dc/react-native-view-pager": "0.0.9",
     "axios": "^0.16.2",
     "jssha": "^2.3.1",
     "react": "16.0.0-alpha.12",
@@ -22,7 +23,6 @@
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-native-scroller": "0.0.6",
     "react-native-smart-pull-to-refresh-listview": "^1.6.11-beta.2",
-    "react-native-smart-splash-screen": "^2.3.4",
     "react-native-storage": "^0.2.2",
     "react-native-vector-icons": "^4.5.0",
     "react-native-view-transformer": "0.0.28",

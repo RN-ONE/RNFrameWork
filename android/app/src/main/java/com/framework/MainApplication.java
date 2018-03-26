@@ -18,7 +18,6 @@ import com.masteratul.exceptionhandler.ReactNativeExceptionHandlerPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
-import com.reactnativecomponent.swiperefreshlayout.RCTSwipeRefreshLayoutPackage;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.Arrays;
@@ -51,7 +50,6 @@ public class MainApplication extends Application implements ReactApplication {
                     new ProgressViewPackage(),
                     new BarHeightPackage(),
                     new BarColorPackage(),
-                    new RCTSwipeRefreshLayoutPackage(),
                     new ReactNativeExceptionHandlerPackage(),
                     new CatchJSPackage(),
                     new ReactNativeRestartPackage(),

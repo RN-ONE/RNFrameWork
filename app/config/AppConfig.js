@@ -5,7 +5,8 @@
  * @Describe: 定义一些基本的参数，如颜色啊，字体啊神马的
  */
 //主题色定义
-export const COLOR_THEME = "#00B38A";
+export const COLOR_THEME = "#1AA7F2";
+
 //黑色，不是000000
 export const COLOR_BLACK = "#333333";
 //白色

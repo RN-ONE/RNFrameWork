@@ -5,8 +5,8 @@ import android.content.Context;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.framework.BuildConfig;
 import com.framework.util.AssetsJSBundleUtil;
-import com.reactnativecomponent.swiperefreshlayout.BuildConfig;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import org.json.JSONObject;

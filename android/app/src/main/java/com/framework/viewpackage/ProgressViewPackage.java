@@ -24,13 +24,6 @@ public class ProgressViewPackage implements ReactPackage {
 
     }
 
-    //一般情况createJSModules（）的返回值都是空集合。
-    @Override
-    public List<Class<? extends JavaScriptModule>> createJSModules() {
-        return Collections.emptyList();
-
-    }
-
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {

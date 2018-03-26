@@ -2,6 +2,7 @@ package com.framework;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,9 +39,9 @@ public class MainActivity extends ReactActivity implements OnPermissionCallback 
             setTranslucentStatus(true);
 
             tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarAlpha(1f);
+            tintManager.setStatusBarAlpha(0.5f);
             tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintColor(Color.parseColor("#33000000"));
+            tintManager.setStatusBarTintColor(Color.parseColor("#22000000"));
             height = tintManager.getConfig().getStatusBarHeight();
         }
 

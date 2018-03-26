@@ -154,7 +154,6 @@ dependencies {
     // From node_modules
     compile project(':react-native-vector-icons')
     compile project(':react-native-smart-splashscreen')
-    compile project(':react-native-smart-swipe-refresh-layout')
     compile project(':react-native-exception-handler')
     compile 'com.github.k0shk0sh:PermissionHelper:1.1.0'
     compile project(':react-native-restart')

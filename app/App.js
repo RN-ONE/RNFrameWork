@@ -112,7 +112,6 @@ const getModalStyle = () => {
 };
 
 
-
 //热更新配置
 import codePush from "react-native-code-push";
 import DialogMessage from "./component/DialogMessage";
@@ -131,6 +130,9 @@ let codePushOptions = {
         optionalUpdateMessage: '安装方式:热更新\n'
     }
 };
+
+//配置进入的table的下标
+global.tableIndex = 0;
 
 
 /**
@@ -192,7 +194,7 @@ class App extends Component {
                 backAndroidHandler={() => backAndroidHandler()}
                 createReducer={reducerCreate}
                 getSceneStyle={getSceneStyle}>
-                <Scene key="modal" modal lightbox >
+                <Scene key="modal" modal lightbox>
                     <Scene key="root">
                         <Scene key="tabbar">
                             <Router

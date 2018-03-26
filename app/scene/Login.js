@@ -8,7 +8,7 @@ import React, {Component} from 'react';
 import {
     Text,
     View,
-    Dimensions,
+    PixelRatio,
     Platform,
     NativeModules
 } from 'react-native';
@@ -47,7 +47,7 @@ class Login extends Component {
                 style={{
                     flex: 1,
                     backgroundColor: this.props.colors.COLOR_THEME,
-                    paddingTop: Platform.OS === 'android' ? this.state.barHeight :
+                    paddingTop: Platform.OS === 'android' ? global.BARANDROIDHEIGHT / PixelRatio.get() :
                         IphoneXUtil.isIphoneX() ? 44 : 20,
                 }}>
 

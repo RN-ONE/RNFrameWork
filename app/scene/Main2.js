@@ -14,10 +14,7 @@ import {
 } from 'react-native';
 import {connect} from "react-redux";
 import TitleBar from "../component/TitleBar";
-import PullToRefreshListView from 'react-native-smart-pull-to-refresh-listview';
-import RLHeaderAndFooter from "../component/RLHeaderAndFooter";
 import * as TestAction from "../actions/TestAction";
-import ListViewPullAndLoad from "../component/ListViewPullAndLoad";
 
 class Main extends Component {
     constructor(props) {
@@ -47,30 +44,6 @@ class Main extends Component {
                     colors={this.props.colors}
                     onPress={() => {
                     }}/>
-
-                <ListViewPullAndLoad
-                    dataList={this.state.dataList}
-                    ref={(component) => this._pullToRefreshListView = component}
-                    renderRow={this._renderRow}
-                    onRefresh={this._onRefresh}
-                    onLoadMore={this._onLoadMore}
-                />
-                {/*<PullToRefreshListView*/}
-                {/*ref={(component) => this._pullToRefreshListView = component}*/}
-                {/*viewType={PullToRefreshListView.constants.viewType.listView}*/}
-                {/*initialListSize={20}*/}
-                {/*enableEmptySections={true}*/}
-                {/*dataSource={this.state.dataSource}*/}
-                {/*renderRow={this._renderRow}*/}
-                {/*renderHeader={(viewState) => RLHeaderAndFooter.renderHeader(viewState)}*/}
-                {/*renderFooter={(viewState) => RLHeaderAndFooter.renderFooter(viewState)}*/}
-                {/*onRefresh={this._onRefresh}*/}
-                {/*onLoadMore={this._onLoadMore}*/}
-                {/*pullUpDistance={80}*/}
-                {/*pullUpStayDistance={50}*/}
-                {/*pullDownDistance={80}*/}
-                {/*pullDownStayDistance={50}*/}
-                {/*/>*/}
 
             </View>
         )

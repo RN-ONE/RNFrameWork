@@ -11,10 +11,14 @@ import {
     Text,
     Image,
     Platform,
+    Dimensions,
     ActivityIndicator
 } from 'react-native';
 import ProgressView from '../native/ProgressView';
 import * as AppConfig from "../config/AppConfig";
+
+let {height, width} = Dimensions.get('window');
+
 
 export default class MyImage extends Component {
     STATUS_LOADING = 0;
@@ -43,11 +47,12 @@ export default class MyImage extends Component {
 
     render() {
         return (
-            <View style={[this.props.style, {
-                backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : AppConfig.COLOR_BG,
-                alignItems: 'center',
-                justifyContent: 'center'
-            }]}>
+            <View
+                style={[this.props.style, {
+                    backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : AppConfig.COLOR_BG,
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }]}>
                 {
                     this.state.status === this.STATUS_LOADING ?
                         Platform.OS === 'android' ?
@@ -61,10 +66,12 @@ export default class MyImage extends Component {
                         :
                         this.state.status === this.STATUS_FAIL ?
                             <Image
+                                resizeMode={this.props.style.width ? "contain" : "center"}
                                 source={require('../img/img_load_fail.png')}
                                 style={{
-                                    width: this.props.style.width,
-                                    height: this.props.style.height
+                                    resizeMode: this.props.style.width ? "contain" : "center",
+                                    width: this.props.style.width ? this.props.style.width : width,
+                                    height: this.props.style.height ? this.props.style.height : height
                                 }}/>
                             : null
                 }
@@ -74,7 +81,7 @@ export default class MyImage extends Component {
                     style={[this.props.style, {
                         marginLeft: 0,
                         opacity: this.state.status === this.STATUS_SUCCESS ? 1 : 0,
-                        position: 'absolute'
+                        position: 'absolute',
                     }]}
                     onLoad={() => {
                         this.success = true;

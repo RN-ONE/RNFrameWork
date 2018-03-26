@@ -15,21 +15,8 @@ import {
 } from 'react-native';
 import IphoneXUtil from "../util/IphoneXUtil";
 
-
-type Rect = {
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-};
-type ScreenRect = {
-    screenX: number,
-    screenY: number,
-    width: number,
-    height: number,
-};
-
 export default class KeyboardView extends Component {
+
     // 构造
     constructor(props) {
         super(props);
@@ -80,7 +67,7 @@ export default class KeyboardView extends Component {
         }
 
 
-        const {startCoordinates, endCoordinates} = event;
+        const {startCoordinates, endCoordinates, duration, easing} = event;
         console.log({event});
 
         let height = 0;
@@ -102,6 +89,17 @@ export default class KeyboardView extends Component {
         if (height < 0) {
             height = 0;
         }
+
+        if (duration && easing) {
+            LayoutAnimation.configureNext({
+                duration: duration,
+                update: {
+                    duration: duration,
+                    type: LayoutAnimation.Types[easing] || 'keyboard',
+                },
+            });
+        }
+
 
         this.setState({bottom: height});
     }

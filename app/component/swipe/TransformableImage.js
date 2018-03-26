@@ -5,7 +5,7 @@
  */
 
 import React, {Component, PropTypes} from 'react';
-import {Image} from 'react-native';
+import {Image, Dimensions} from 'react-native';
 
 import ViewTransformer from 'react-native-view-transformer';
 import MyImage from "../MyImage";
@@ -87,7 +87,6 @@ export default class TransformableImage extends Component {
             }
         }
 
-
         return (
             <ViewTransformer
                 ref='viewTransformer'
@@ -164,7 +163,7 @@ export default class TransformableImage extends Component {
                         }
                     },
                     (error) => {
-                        console.error('getImageSize...error=' + JSON.stringify(error) + ', source=' + JSON.stringify(source));
+                        //console.error('getImageSize...error=' + JSON.stringify(error) + ', source=' + JSON.stringify(source));
                     })
             } else {
                 console.warn('getImageSize...please provide pixels prop for local images');

@@ -6,6 +6,7 @@ import {
 import ViewPager from '@ldn0x7dc/react-native-view-pager';
 import {createResponder} from 'react-native-gesture-responder';
 import Image from "./TransformableImage";
+import ToastAI from "../ToastAI";
 
 
 export default class Gallery extends Component {
@@ -205,6 +206,10 @@ export default class Gallery extends Component {
     onPageSelected(page) {
         this.currentPage = page;
         this.props.onPageSelected && this.props.onPageSelected(page);
+    }
+
+    scrollToPage(page) {
+        this.refs['galleryViewPager'].setPage(page, false);
     }
 
     onPageScrollStateChanged(state) {

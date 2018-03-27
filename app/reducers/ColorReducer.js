@@ -60,11 +60,6 @@ export default handleActions({
             }
         };
 
-        if (Platform.OS === "android") {
-            //修改原生的
-            //NativeModules.BarColorModule.setColor(newState.colors.COLOR_THEME);
-        }
-
         //保存到本地
         SaveLocalUtil.save(Const.COLOR_LOCAL, JSON.stringify(newState.colors));
         return newState;

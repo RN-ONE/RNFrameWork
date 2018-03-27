@@ -18,6 +18,7 @@ import * as TestAction from "../actions/TestAction";
 import StepIndicator from "react-native-step-indicator";
 import TouchableButton from "../component/TouchableButton";
 import ThemeButton from "../component/ThemeButton";
+import * as AppConfig from '../config/AppConfig';
 
 
 const labels = ["Cart", "Delivery Address", "Order Summary", "Payment Method", "Track"];
@@ -43,7 +44,7 @@ const customStyles = {
     labelColor: '#999999',
     labelSize: 13,
     currentStepLabelColor: '#fe7013'
-}
+};
 
 class Main extends Component {
     constructor(props) {
@@ -65,51 +66,34 @@ class Main extends Component {
                     colors={this.props.colors}
                     onPress={() => {
                     }}/>
-                <StepIndicator
-                    customStyles={customStyles}
-                    currentPosition={this.state.currentPosition}
-                    labels={labels}
-                />
+                <View
+                    style={{paddingTop: AppConfig.DISTANCE_SAFE}}>
+                    <StepIndicator
+                        customStyles={customStyles}
+                        currentPosition={this.state.currentPosition}
+                        labels={labels}/>
 
 
-                <ThemeButton textColor={'#FFFFFF'} text={'上一个'} onPress={() => {
-                    this.setState({
-                        currentPosition: this.state.currentPosition - 1 >= 0
-                            ? this.state.currentPosition - 1 : labels.length - 1
-                    });
-                }}/>
+                    <ThemeButton textColor={'#FFFFFF'} text={'上一个'} onPress={() => {
+                        this.setState({
+                            currentPosition: this.state.currentPosition - 1 >= 0
+                                ? this.state.currentPosition - 1 : labels.length - 1
+                        });
+                    }}/>
 
-                <ThemeButton textColor={'#FFFFFF'} text={'下一个'} onPress={() => {
-                    this.setState({
-                        currentPosition: this.state.currentPosition + 1 >= labels.length
-                            ? 0 : this.state.currentPosition + 1
-                    });
-                }}/>
+                    <ThemeButton textColor={'#FFFFFF'} text={'下一个'} onPress={() => {
+                        this.setState({
+                            currentPosition: this.state.currentPosition + 1 >= labels.length
+                                ? 0 : this.state.currentPosition + 1
+                        });
+                    }}/>
+                </View>
+
             </View>
         )
     }
 
 }
-
-
-const styles = StyleSheet.create({
-
-    thumbnail: {
-        padding: 6,
-        flexDirection: 'row',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: '#ccc',
-        overflow: 'hidden',
-    },
-
-    textContainer: {
-        padding: 20,
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
-})
-
 
 export default connect(state => ({
     text: state.TestReducer.text,

@@ -12,9 +12,9 @@ import {
 import TouchableButton from "./TouchableButton";
 import * as AppConfig from "../config/AppConfig";
 import * as AppStyles from '../config/AppStyles';
-import ToastAI from "./ToastAI";
+import {connect} from "react-redux";
 
-export default class ThemeButton extends Component {
+class ThemeButton extends Component {
     static propTypes = {
         radius: PropTypes.int,
         text: PropTypes.string,
@@ -40,7 +40,7 @@ export default class ThemeButton extends Component {
                         style={{
                             alignItems: 'center',
                             justifyContent: 'center',
-                            backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : AppConfig.COLOR_THEME,
+                            backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : this.props.colors.COLOR_THEME,
                             paddingVertical: AppConfig.DISTANCE_SAFE / 2,
                             paddingHorizontal: AppConfig.DISTANCE_SAFE,
                             flex: 1,
@@ -62,3 +62,7 @@ export default class ThemeButton extends Component {
         )
     }
 }
+
+export default connect(state => ({
+    colors: state.ColorReducer.colors,
+}))(ThemeButton);

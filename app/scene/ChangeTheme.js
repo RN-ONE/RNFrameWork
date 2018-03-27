@@ -4,37 +4,21 @@
  * @E-Mail:528489389@qq.com
  * @Describe:
  */
-
 import React, {Component} from 'react';
 import {
-    AppRegistry,
-    StyleSheet,
-    Text,
     View,
     Dimensions,
-    ToastAndroid, FlatList,
+    FlatList,
 } from 'react-native';
 import {
-    Modal,
-    Router,
-    Scene,
-    Reducer,
-    Actions,
-    ActionConst,
     Switch,
 } from 'react-native-router-flux';
-import DialogMessage from "../component/DialogMessage";
 import * as AppConfig from "../config/AppConfig";
 import TitleBar from "../component/TitleBar";
 import {connect} from "react-redux";
-import ThemeButton from "../component/ThemeButton";
 import * as ChangeColorAction from "../actions/ChangeColorAction";
-import MoreMenu from "../component/moreMenu/MoreMenu";
-import ToastAI from "../component/ToastAI";
-import PhotoGallery from "../component/photoGallery/BasePhotoGallery";
 import TouchableButton from "../component/TouchableButton";
 import IphoneXView from "../component/IphoneXView";
-
 let {height, width} = Dimensions.get('window');
 
 
@@ -61,10 +45,10 @@ let data = [
         }
     },
     {
-        color: '#CC7833',
+        color: '#FE7013',
         params: {
             COLOR_BG: AppConfig.COLOR_BG,
-            COLOR_THEME: "#CC7833"
+            COLOR_THEME: "#FE7013"
         }
     },
     {

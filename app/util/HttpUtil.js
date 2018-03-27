@@ -30,7 +30,7 @@ const CodeMessages = [
 var cancel;
 
 export default class HttpUtil {
-    static BASE = "http://101.207.135.239:31483";
+    static BASE = "http://10.17.31.106:8080";
     static BASE_URL = HttpUtil.BASE + "/controller/";
     static instance = new Axios({
         baseURL: HttpUtil.BASE_URL,
@@ -78,7 +78,6 @@ export default class HttpUtil {
             params.userName = global.userInfo.userName;
         }
 
-
         let postData = JSON.stringify(params);
         let map = {};
         map = {
@@ -107,6 +106,7 @@ export default class HttpUtil {
                     if (response.data.errorcode) {
                         //框架的错误，直接提示
                         ToastAI.showShortBottom(response.data.error);
+                        callBack({success: false, response: response.data});
                     } else {
                         //框架判断,登录的特殊处理
                         if (map.actionName === 'sys-user-login') {
@@ -200,17 +200,37 @@ export default class HttpUtil {
      * @E-Mail: 528489389@qq.com
      */
     static uploadFileArrayPost(url, map, params, callBack) {
+        console.log({params});
+        params.network = 0;
+        params.timestamp = Date.parse(new Date());
+        params.timeZone = "Asia/Shanghai";
+        params.userLocaleId = "zh_CN";
+        if (global.userInfo) {
+            params.userId = global.userInfo.userId;
+            params.userName = global.userInfo.userName;
+        }
+
+        let postData = JSON.stringify(params);
+        let mapParams = {};
+        mapParams = {
+            "actionName": params.actionName,
+            "postData": postData,
+            "limit": params.limit ? params.limit : 15,
+            "start": params.start ? params.start : 1
+        };
+
+
         // 创建一个formData（虚拟表单）
         var formData = new FormData();
         map.forEach((item) => {
-            formData = HttpUtil.appendToFormData(formData, item.path, item.key);
+            formData = HttpUtil.appendArrayToFromData(formData, item.path, item.key);
         });
 
         // 请求头文件
         const config = {
             Accept: 'Application/json',
             'Content-Type': 'multipart/form-data',
-            params: params ? params : {},
+            params: mapParams ? mapParams : {},
             onUploadProgress: (progressEvent) => {
                 console.log(progressEvent);
             },
@@ -244,16 +264,12 @@ export default class HttpUtil {
                             //框架的错误，直接提示
                             ToastAI.showShortBottom(response.data.error);
                         } else {
-                            //框架判断,登录的特殊处理
-                            if (map.actionName === 'sys-user-login') {
+
+                            if (response.data.code === Const.CODE.success) {
                                 callBack({success: true, response: response.data});
                             } else {
-                                if (response.data.code === Const.CODE.success) {
-                                    callBack({success: true, response: response.data});
-                                } else {
-                                    HttpUtil.showMessage(response.data.codeDesc);
-                                    callBack({success: false, response: response.data});
-                                }
+                                HttpUtil.showMessage(response.data.codeDesc);
+                                callBack({success: false, response: response.data});
                             }
                         }
                     } else {
@@ -292,6 +308,8 @@ export default class HttpUtil {
         var strS = fileUri.split("/");
         const file = {uri: fileUri, type: 'multipart/form-data', name: strS[strS.length - 1]};   // 这里的key(uri和type和name)不能改变,
         formData.append(key, file);   // 这里的files就是后台需要的key
+
+        return formData;
     }
 
     /**
@@ -307,14 +325,15 @@ export default class HttpUtil {
      * @E-Mail: 528489389@qq.com
      */
     static appendArrayToFromData(formData, fileUriS, key) {
-        let dataS = [];
         for (let fileUri of fileUriS) {
             var strS = fileUri.split("/");
             const file = {uri: fileUri, type: 'multipart/form-data', name: strS[strS.length - 1]};   // 这里的key(uri和type和name)不能改变,
-            dataS.push(file);
+
+            //数组：key如果是files，那么可以就应该是files[]
+            formData.append(key, file);
         }
 
-        formData.append(key, dataS);
+        return formData;
     }
 
 

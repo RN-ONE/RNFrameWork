@@ -468,6 +468,7 @@ export default class HttpUtil {
         return pswHash;
     }
 
+
     static SHA1(input) {
         var hash = new SHA1('SHA-1', 'TEXT');
         hash.update(input);

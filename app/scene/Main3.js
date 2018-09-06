@@ -42,8 +42,7 @@ class Main extends Component {
                 <ThemeButton backgroundColor={this.props.colors.COLOR_THEME}
                              radius={5}
                              text={this.props.text} onPress={() => {
-                    var map = [{path: "", key: "file"}];
-                    HttpUtil.uploadFilePost("http://172.10.31.127:8888/home/login.action", map, null);
+                                 Actions.reset("login");
                 }}/>
 
 

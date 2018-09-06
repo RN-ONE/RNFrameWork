@@ -118,6 +118,7 @@ import DialogMessage from "./component/DialogMessage";
 import TipMessageModal from "./modal/TipMessageModal";
 import IphoneXUtil from "./util/IphoneXUtil";
 import Login from "./scene/Login";
+import NXTableIcon from "./component/NXTableIcon";
 
 let codePushOptions = {
     checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,

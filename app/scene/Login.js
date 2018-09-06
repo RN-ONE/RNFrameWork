@@ -55,7 +55,7 @@ class Login extends Component {
                 <ThemeButton
                     backgroundColor={'white'}
                     onPress={()=>{
-                        Actions.tabbar();
+                        Actions.reset("tabbar");
                     }}
                     text={'登录'}
                     textColor={'black'}/>

@@ -34,7 +34,11 @@ class TabIcon extends Component {
     constructor(props) {
         super(props);
         // 初始状态
-        this.state = {selectIndex: global.tableIndex};
+        this.state = {selectIndex: props.navigationState.index};
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({selectIndex: nextProps.navigationState.index});
     }
 
     render() {
@@ -60,8 +64,6 @@ class TabIcon extends Component {
                                 btnContent.push(
                                     <TouchableWithoutFeedback style={{flex: 1}} onPress={() => {
                                         this.props.jumpToIndex(index);
-                                        global.tableIndex = index;
-                                        this.setState({selectIndex: index});
                                     }}>
                                         <View style={{
                                             alignItems: 'center',

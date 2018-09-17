@@ -16,6 +16,7 @@ import RNRestart from 'react-native-restart';
 import ToastAI from "./component/ToastAI";
 
 
+
 const store = CreateStore();
 // Error: ${(isFatal) ? 'Fatal:' : ''} ${e.name} ${e.message} ${e.stack}
 

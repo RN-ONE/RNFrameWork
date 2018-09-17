@@ -435,7 +435,7 @@ export default class HttpUtil {
                 console.log({e});
             },
         }).then(function (response) {
-            if (response.status == 200) {
+            if (response.status === 200) {
                 let str = JSON.stringify(response);
                 str = str.replace("content-length", "contentLength");
                 let json = JSON.parse(str);

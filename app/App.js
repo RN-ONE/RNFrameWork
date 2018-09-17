@@ -132,10 +132,6 @@ let codePushOptions = {
     }
 };
 
-//配置进入的table的下标
-global.tableIndex = 0;
-
-
 /**
  * lightbox:才可以让背景透明
  * */

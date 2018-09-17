@@ -23,6 +23,7 @@ import * as AppConfig from '../config/AppConfig';
 import * as AppStyles from "../config/AppStyles";
 import TouchableButton from "./TouchableButton";
 import IphoneXUtil from "../util/IphoneXUtil";
+import {COLOR_BLACK} from "../config/AppConfig";
 
 let {height, width} = Dimensions.get('window');
 
@@ -65,6 +66,7 @@ export default class TitleBar extends Component {
                     backgroundColor: this.props.colors ? this.props.colors.COLOR_THEME : AppConfig.COLOR_THEME,
                     paddingTop: Platform.OS === 'android' ? this.state.barHeight :
                         IphoneXUtil.isIphoneX() ? 44 : 20,
+                    elevation: 4,
                 }}>
                 <View
                     style={{

@@ -118,7 +118,7 @@ import DialogMessage from "./component/DialogMessage";
 import TipMessageModal from "./modal/TipMessageModal";
 import IphoneXUtil from "./util/IphoneXUtil";
 import Login from "./scene/Login";
-import NXTableIcon from "./component/NXTableIcon";
+import FlatListScene from "./scene/FlatListScene";
 
 let codePushOptions = {
     checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
@@ -217,6 +217,9 @@ class App extends Component {
                                 <Route hideNavBar
                                        key="main3" title="main3">
                                     <Scene key="main3" component={Main3}/>
+
+
+                                    <Scene key="flatListScene" hideTabBar component={FlatListScene}/>
                                 </Route>
                             </Router>
                         </Scene>
@@ -252,7 +255,8 @@ class App extends Component {
     }
 }
 
-App = codePush(codePushOptions)(App);
+//测试不需要热更新
+//App = codePush(codePushOptions)(App);
 export default connect(state => ({}), dispatch => ({
     changeColor: (data) => dispatch(ChangeColorAction.changeColor(data)),
 }))(App);

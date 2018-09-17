@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {
     Text,
     View,
+    Platform,
     TouchableWithoutFeedback,
     Dimensions
 } from 'react-native';
@@ -46,15 +47,20 @@ class TabIcon extends Component {
             <View style={{
                 backgroundColor: this.props.colors.COLOR_WHITE,
                 height: IphoneXUtil.isIphoneX() ? 60 + IphoneXUtil.iphoneXBottom() : 60,
+                elevation: 10,
             }}>
-                <View style={{flexDirection: 'row'}}>
-                    <View
-                        style={{
-                            flex: 1,
-                            backgroundColor: this.props.colors.COLOR_LINE,
-                            height: AppConfig.LINE_HEIGHT
-                        }}/>
-                </View>
+                {Platform.OS === 'android' ?
+                    null :
+                    <View style={{flexDirection: 'row'}}>
+                        <View
+                            style={{
+                                flex: 1,
+                                backgroundColor: this.props.colors.COLOR_LINE,
+                                height: AppConfig.LINE_HEIGHT
+                            }}/>
+                    </View>
+                }
+
 
                 <View style={{flexDirection: 'row', flexGrow: 1,}}>
                     {

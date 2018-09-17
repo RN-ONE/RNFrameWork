@@ -42,10 +42,14 @@ class Main extends Component {
                 <ThemeButton backgroundColor={this.props.colors.COLOR_THEME}
                              radius={5}
                              text={this.props.text} onPress={() => {
-                                 Actions.reset("login");
+                    Actions.reset("login");
                 }}/>
 
-
+                <ThemeButton backgroundColor={this.props.colors.COLOR_THEME}
+                             radius={5}
+                             text={"测试FlatList"} onPress={() => {
+                    Actions.flatListScene();
+                }}/>
 
                 <DialogMessage ref={(dialogbox) => {
                     this.dialogbox = dialogbox;

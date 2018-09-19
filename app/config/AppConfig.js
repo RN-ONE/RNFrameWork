@@ -29,6 +29,9 @@ export const OPACITY = 0.6;
 //title高度
 export const TITLE_HEIGHT = 50;
 //线条高度
-export const LINE_HEIGHT = 1;
+export const LINE_HEIGHT = 0.5;
 //一般的安全距离
 export const DISTANCE_SAFE = 10;
+//分割线的高度
+export const SEPARATOR_HEIGHT =5;
+

@@ -12,6 +12,7 @@ import {connect} from "react-redux";
 import {View, Dimensions, Text, StyleSheet} from "react-native";
 import RefreshableFlatList from '../component/rlFlatList/index';
 import TitleBar from "../component/TitleBar";
+import MyFlatList from "../component/MyFlatList";
 
 
 const {width} = Dimensions.get('window');
@@ -49,7 +50,7 @@ class FlatListScene extends Component {
     constructor(props) {
         super(props);
         // 初始状态
-        this.state = {data: new Array(3).fill(1).map((x, i) => ({id: i, text: `Item No. ${i}`})),};
+        this.state = {data: [],};
     }
 
     render() {
@@ -61,33 +62,34 @@ class FlatListScene extends Component {
                     leftText="返回"
                     colors={this.props.colors}/>
 
-                <RefreshableFlatList
+                <MyFlatList
                     data={this.state.data}
+                    total={20}
                     renderItem={({item}) => (
                         <View key={item.id} style={styles.row}>
                             <Text style={styles.text}>{item.text}</Text>
                         </View>
                     )}
-                    ref={(ref) => {
-                        this.flatList = ref;
-                    }}
-                    onRefreshing={() => new Promise((r) => {
+                    onRefreshing={(resolve) => {
                         setTimeout(() => {
-                            r();
+                            this.setState({
+                                data: new Array(15).fill(1).map((x, i) =>
+                                    ({id: i, text: `Item No. ${i}`})),
+                            });
+                            resolve();
                         }, 3000);
-                    })}
-                    onLoadMore={() => new Promise((r) => {
+                    }}
+                    onLoadMore={(resolve) => {
                         setTimeout(() => {
                             const no = this.state.data.length;
-                            const newArr = new Array(4).fill(1).map((x, i) => ({
+                            const newArr = new Array(5).fill(1).map((x, i) => ({
                                 id: i + no,
                                 text: `Item No. ${i + no}`
                             }));
                             this.setState({data: this.state.data.concat(newArr)});
-                            r();
-                        }, 2500);
-                    })}
-                    keyExtractor={item => item.id}
+                            resolve();
+                        }, 3000);
+                    }}
                 />
             </View>
         );

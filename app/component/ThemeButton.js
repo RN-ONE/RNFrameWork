@@ -4,7 +4,7 @@
  * @E-Mail:528489389@qq.com
  * @Describe: 默认主题色按钮
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import {
     View,
     Text,
@@ -12,6 +12,7 @@ import {
 import TouchableButton from "./TouchableButton";
 import * as AppConfig from "../config/AppConfig";
 import * as AppStyles from '../config/AppStyles';
+import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 
 class ThemeButton extends Component {

@@ -7,7 +7,8 @@
  * @E-Mail:528489389@qq.com
  * @Describe:
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import BasePhotoGallery from "./BasePhotoGallery";
 
 export default class PhotoGallery extends Component {

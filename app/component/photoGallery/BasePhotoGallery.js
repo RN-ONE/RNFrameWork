@@ -6,7 +6,8 @@
  *@Date: 2018/2/28 15:32
  *@E-Mail: 528489389@qq.com
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {
     View,
     Text,
@@ -245,7 +246,7 @@ class BasePhotoGallery extends Component {
     }
 }
 
-const PicItem = React.createClass({
+class PicItem extends Component{
     render() {
 
         return (
@@ -285,7 +286,7 @@ const PicItem = React.createClass({
             </View>
         );
     }
-});
+}
 
 
 export default connect(state => ({

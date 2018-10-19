@@ -5,7 +5,8 @@
  * @Date:2018/3/21 16:03
  * @E-Mail:528489389@qq.com
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {
     View,
     Text,

@@ -4,10 +4,11 @@
  * @E-Mail:528489389@qq.com
  */
 
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Image, Dimensions} from 'react-native';
 
-import ViewTransformer from 'react-native-view-transformer';
+import ViewTransformer from '../transformer/index';
 import MyImage from "../MyImage";
 
 let DEV = false;

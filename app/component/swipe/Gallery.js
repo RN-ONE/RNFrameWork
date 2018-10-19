@@ -1,9 +1,10 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {
     View
 } from 'react-native';
 
-import ViewPager from '@ldn0x7dc/react-native-view-pager';
+import ViewPager from '../photoGallery/ViewPager';
 import {createResponder} from 'react-native-gesture-responder';
 import Image from "./TransformableImage";
 import ToastAI from "../ToastAI";

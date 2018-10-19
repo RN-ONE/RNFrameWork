@@ -18,7 +18,8 @@ import {
 import {
     Actions,
 } from 'react-native-router-flux';
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import * as AppConfig from '../config/AppConfig';
 import * as AppStyles from "../config/AppStyles";
 import TouchableButton from "./TouchableButton";

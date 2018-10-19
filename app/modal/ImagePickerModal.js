@@ -4,7 +4,8 @@
  * @E-Mail:528489389@qq.com
  * @Describe: 图片选择的modal
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {
     View,
     Text,
@@ -204,8 +205,7 @@ export default class ImagePickerModal extends React.Component {
     }
 
 }
-
-const Item = React.createClass({
+class Item extends Component{
     render() {
         return (
             <TouchableButton onPress={this.props.onPress ? this.props.onPress : () => {
@@ -222,7 +222,7 @@ const Item = React.createClass({
             </TouchableButton>
         );
     }
-});
+}
 
 // export default connect(state => ({
 //     colors: state.ColorReducer.colors,

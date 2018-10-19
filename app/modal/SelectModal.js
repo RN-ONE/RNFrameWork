@@ -4,7 +4,8 @@
  * @E-Mail:528489389@qq.com
  * @Describe: 显示选择的modal
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {
     View,
     Text,
@@ -148,8 +149,8 @@ class SelectModal extends React.Component {
         );
     }
 }
+class Item extends Component{
 
-const Item = React.createClass({
     render() {
         return (
             <TouchableButton onPress={() => {
@@ -185,7 +186,8 @@ const Item = React.createClass({
             </TouchableButton>
         );
     }
-});
+}
+
 
 
 export default connect(state => ({

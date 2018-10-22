@@ -102,7 +102,7 @@ export default class HttpUtil {
             console.log({response});
             //请求的结果
             if (callBack) {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     if (response.data.errorcode) {
                         //框架的错误，直接提示
                         ToastAI.showShortBottom(response.data.error);

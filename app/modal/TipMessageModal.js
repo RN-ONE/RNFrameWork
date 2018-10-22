@@ -1,6 +1,6 @@
 /**
  *
- * 人更新的提示dialog
+ * 更新的提示dialog
  *
  *@Author: JACK-GU
  *@Date: 2018/2/28 10:54
@@ -92,5 +92,4 @@ export default connect(state => ({
     text: state.TestReducer.text,
     colors: state.ColorReducer.colors,
 }), dispatch => ({
-    getMoveList: (data) => dispatch(TestAction.testGetMoves(data)),
 }))(TipMessageModal);

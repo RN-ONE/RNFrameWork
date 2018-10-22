@@ -29,9 +29,6 @@ export default class MyImage extends Component {
 
     static propTypes = {
         ...Image.propTypes,
-        total: PropTypes.number.isRequired,//总共条数
-        onRefresh: PropTypes.func,//刷新回调,不传不显示指示器
-        onLoadMore: PropTypes.func,//加载更多回调，携带参数，true表示没有更多了,不传不显示指示器
         backgroundColor: PropTypes.string,//背景色
     };
 

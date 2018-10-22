@@ -16,11 +16,14 @@ export default class IphoneXUtil {
      */
     static isIphoneX() {
         let {height, width} = Dimensions.get('window');
+        console.log({height, width});
         return (
             Platform.OS === 'ios' &&
             !Platform.isPad &&
             !Platform.isTVOS &&
-            (height === 812 || width === 812)
+            (height === 812 || width === 812 //X XS
+                || height === 896 || width === 896//XS MAX  XR
+            )
         );
     }
 

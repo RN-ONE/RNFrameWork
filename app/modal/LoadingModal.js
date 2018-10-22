@@ -33,7 +33,12 @@ export default class LoadingModal extends React.Component {
 
         this.state = {
             opacity: new Animated.Value(0),
+            message: props.message,
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({message: nextProps.refresh.message});
     }
 
     componentDidMount() {
@@ -79,7 +84,7 @@ export default class LoadingModal extends React.Component {
                                     marginTop: AppConfig.DISTANCE_SAFE,
                                 }
                             ]}>
-                            {this.props.message ? this.props.message : '加载中...'}
+                            {this.state.message ? this.state.message : '加载中...'}
                         </Text>
                     </View>
                 </View>

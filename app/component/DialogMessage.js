@@ -44,6 +44,7 @@ import {
     Platform,
 } from 'react-native';
 import * as AppConfig from '../config/AppConfig';
+import {Actions} from "react-native-router-flux";
 
 let dontHide = false;
 
@@ -81,16 +82,16 @@ class PopContent extends Component {
                                 if (index > 9) {
                                     return;
                                 }
-                                item && ( tipContent[index] = (
+                                item && (tipContent[index] = (
                                     <Text
                                         style={[styles.tipContent, {color: contentColor ? contentColor : AppConfig.COLOR_BLACK}]}
-                                        key={'tipContent' + index}>{item}</Text>) );
+                                        key={'tipContent' + index}>{item}</Text>));
                             });
                         } else {
-                            content && ( tipContent[0] = (
+                            content && (tipContent[0] = (
                                 <Text
                                     style={[styles.tipContent, {color: contentColor ? contentColor : AppConfig.COLOR_BLACK}]}
-                                    key={'tipContent'}>{content}</Text>) );
+                                    key={'tipContent'}>{content}</Text>));
                         }
                         return tipContent;
                     })()}
@@ -158,7 +159,6 @@ class DisplayPopup extends Component {
                 <TouchableWithoutFeedback onPress={() => {
                     if (this.props.isOverlayClickClose) {
                         if (dontHide) {
-
                         } else {
                             this.close();
                         }
@@ -220,7 +220,7 @@ export default class DialogMessage extends Component {
 
     _pop(args) {
         this.setState({
-            content: ( <PopContent {...args}/> ),
+            content: (<PopContent {...args}/>),
             isVisible: true,
         });
     }
@@ -299,8 +299,12 @@ export default class DialogMessage extends Component {
             return (
                 <TouchableWithoutFeedback onPress={() => {
                     if (this.state.isOverlayClickClose) {
-                        if (!dontHide)
+                        if (!dontHide){
                             this.close();
+                            if (this.props.dismissCallBack) {
+                                this.props.dismissCallBack();
+                            }
+                        }
                     }
                 }}>
                     <View style={styles.overlay}></View>
@@ -328,6 +332,9 @@ export default class DialogMessage extends Component {
                     onRequestClose={() => {
                         if (!dontHide) {
                             this.setState({isVisible: false});
+                            if (this.props.dismissCallBack) {
+                                this.props.dismissCallBack();
+                            }
                         }
                     }}>
                     <View style={styles.popupContainer}>

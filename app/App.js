@@ -119,60 +119,14 @@ import TipMessageModal from "./modal/TipMessageModal";
 import IphoneXUtil from "./util/IphoneXUtil";
 import Login from "./scene/Login";
 import FlatListScene from "./scene/FlatListScene";
+import CheckCodePushUpdateUtil from "./util/CheckCodePushUpdateUtil";
+import MessageDialogModal from "./modal/MessageDialogModal";
 
-let codePushOptions = {
-    checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-    updateDialog: {
-        appendReleaseDescription: true,
-        descriptionPrefix: '更新日志:\n',
-        optionalIgnoreButtonLabel: '取消',
-        optionalInstallButtonLabel: '安装',
-        title: '有新版本了',
-        optionalUpdateMessage: '安装方式:热更新\n'
-    }
-};
 
 /**
  * lightbox:才可以让背景透明
  * */
 class App extends Component {
-    codePushStatusDidChange(status) {
-        console.log({status});
-        switch (status) {
-            case codePush.SyncStatus.CHECKING_FOR_UPDATE:
-                console.log("Checking for updates.");
-                break;
-            case codePush.SyncStatus.DOWNLOADING_PACKAGE:
-                console.log("Downloading package.");
-                Actions.loading({message: "更新中..."});
-                break;
-            case codePush.SyncStatus.INSTALLING_UPDATE:
-                console.log("Installing update.");
-                break;
-            case codePush.SyncStatus.UP_TO_DATE:
-                console.log("Up to date.");
-                break;
-            case codePush.SyncStatus.UNKNOWN_ERROR:
-                Actions.pop();
-                console.log("UNKNOWN_ERROR.");
-                Actions.tipMessage({
-                    message: '更新出错，请联系管理员！', callBack: () => {
-                    }
-                });
-                break;
-            case codePush.SyncStatus.UPDATE_INSTALLED:
-                console.log("Update installed.");
-                Actions.pop();
-
-                Actions.tipMessage({
-                    message: '更新完成！', callBack: () => {
-                        codePush.restartApp(true)
-                    }
-                });
-                break;
-        }
-    }
-
 
 // 构造
     constructor(props) {
@@ -186,6 +140,8 @@ class App extends Component {
 
 
     render() {
+        //测试不需要热更新，屏蔽
+        //CheckCodePushUpdateUtil.checkUpdate();
         return (
             <Router
                 backAndroidHandler={() => backAndroidHandler()}
@@ -219,7 +175,8 @@ class App extends Component {
                                     <Scene key="main3" component={Main3}/>
 
 
-                                    <Scene key="flatListScene" hideTabBar component={FlatListScene}/>
+                                    <Scene key="flatListScene" hideTabBar
+                                           component={FlatListScene}/>
                                 </Route>
                             </Router>
                         </Scene>
@@ -240,6 +197,11 @@ class App extends Component {
                            component={TipMessageModal}
                            getSceneStyle={getModalStyle}/>
 
+                    <Scene key="messageDialogModal"
+                           hideNavBar
+                           component={MessageDialogModal}
+                           getSceneStyle={getModalStyle}/>
+
                     <Scene key="selectModal"
                            hideNavBar
                            component={SelectModal}
@@ -255,8 +217,6 @@ class App extends Component {
     }
 }
 
-//测试不需要热更新
-//App = codePush(codePushOptions)(App);
 export default connect(state => ({}), dispatch => ({
     changeColor: (data) => dispatch(ChangeColorAction.changeColor(data)),
 }))(App);

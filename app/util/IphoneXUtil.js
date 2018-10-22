@@ -16,7 +16,6 @@ export default class IphoneXUtil {
      */
     static isIphoneX() {
         let {height, width} = Dimensions.get('window');
-        console.log({height, width});
         return (
             Platform.OS === 'ios' &&
             !Platform.isPad &&

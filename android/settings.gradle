@@ -1,7 +1,6 @@
-rootProject.name = 'FrameWork'
+rootProject.name = 'RNFramework'
 
-include ':app'
-include ':android'
+include ':app', ':imagepicker'
 include ':react-native-code-push'
 project(':react-native-code-push').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-code-push/android/app')
 include ':react-native-restart'

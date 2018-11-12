@@ -16,9 +16,8 @@ import {
     Scene,
     Reducer,
     Actions,
-    Stack,
     TabBar,
-    Route, Tabs
+    Route,
 } from 'react-native-router-flux';
 import {connect} from "react-redux";
 import Main from "./scene/Main";
@@ -39,7 +38,6 @@ this.isEnd = true;
 const reducerCreate = params => {
     const defaultReducer = new Reducer(params);
     return (state, action) => {
-        console.log({action});
         this.isEnd = false;
         this.loading = false;
         if (action.routeName) {
@@ -51,6 +49,7 @@ const reducerCreate = params => {
                 this.isEnd = true;
             }
         }
+
         return defaultReducer(state, action);
     };
 };
@@ -103,7 +102,7 @@ const getSceneStyle = () => {
 const getModalStyle = () => {
     const style = {
         flex: 1,
-        backgroundColor: 'transparent',
+        backgroundColor: 'transport',
         shadowColor: null,
         shadowOffset: null,
         shadowOpacity: null,
@@ -149,47 +148,44 @@ class App extends Component {
                 createReducer={reducerCreate}
                 getSceneStyle={getSceneStyle}>
                 <Scene key="modal" modal lightbox>
-                    <Tabs key="tabbar"
-                          tabs
-                          tabBarComponent={TabIcon}
-                          swipeEnabled={true}
-                          tabBarPosition="bottom">
+                    <Scene key="root">
+                        <Scene key="tabbar">
+                            <Router
+                                tabs
+                                tabBarComponent={TabIcon}
+                                swipeEnabled={false}
+                                tabBarPosition="bottom">
+                                <Route hideNavBar
+                                       key="main" title="main">
+                                    <Scene key="main" component={Main}/>
+                                    <Scene
+                                        hideTabBar
+                                        key="changeTheme"
+                                        component={ChangeTheme}/>
 
-                        <Stack hideNavBar
-                               lazy
-                               key="main" title="main">
-                            <Scene key="main" component={Main}/>
+                                </Route>
 
-                            <Scene
-                                key="changeTheme"
-                                hideTabBar
-                                component={ChangeTheme}/>
-                        </Stack>
+                                <Route hideNavBar
+                                       key="main2" title="main2">
+                                    <Scene key="main2" component={Main2}/>
+                                </Route>
 
-
-                        <Stack hideNavBar
-                               lazy
-                               key="main2" title="main2">
-                            <Scene key="main2" component={Main2}/>
-
-                        </Stack>
-
-                        <Stack hideNavBar
-                               lazy
-                               key="main3" title="main3">
-                            <Scene key="main3" component={Main3}/>
+                                <Route hideNavBar
+                                       key="main3" title="main3">
+                                    <Scene key="main3" component={Main3}/>
 
 
-                            <Scene key="flatListScene" hideTabBar
-                                   component={FlatListScene}/>
-                        </Stack>
-                    </Tabs>
+                                    <Scene key="flatListScene" hideTabBar
+                                           component={FlatListScene}/>
+                                </Route>
+                            </Router>
+                        </Scene>
 
-                    <Scene key="login"
-                           initial
-                           hideNavBar
-                           component={Login}/>
-
+                        <Scene key="login"
+                               initial
+                               hideNavBar
+                               component={Login}/>
+                    </Scene>
 
                     <Scene key="loading"
                            hideNavBar

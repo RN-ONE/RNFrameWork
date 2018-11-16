@@ -45,6 +45,7 @@ const reducerCreate = params => {
                 this.loading = true;
             }
 
+
             if (action.routeName === 'main') {
                 this.isEnd = true;
             }

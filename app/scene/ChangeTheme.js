@@ -8,9 +8,10 @@ import React, {Component} from 'react';
 import {
     View,
     Dimensions,
-    FlatList,
+    FlatList, Text,
 } from 'react-native';
 import {
+    Actions,
     Switch,
 } from 'react-native-router-flux';
 import * as AppConfig from "../config/AppConfig";
@@ -19,6 +20,7 @@ import {connect} from "react-redux";
 import * as ChangeColorAction from "../actions/ChangeColorAction";
 import TouchableButton from "../component/TouchableButton";
 import IphoneXView from "../component/IphoneXView";
+
 let {height, width} = Dimensions.get('window');
 
 
@@ -67,14 +69,13 @@ let data = [
     }
 ];
 let itemSeparator = AppConfig.DISTANCE_SAFE;
-let itemWidth = (width - itemSeparator * 3 ) / 2;
+let itemWidth = (width - itemSeparator * 3) / 2;
 
 class Main2 extends Component {
 
     // 构造
     constructor(props) {
         super(props);
-        // 初始状态
     }
 
     render() {

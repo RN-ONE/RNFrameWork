@@ -186,8 +186,8 @@ class App extends Component {
                     </Tabs>
 
                     <Scene key="login"
-                           initial
                            hideNavBar
+                           initial
                            component={Login}/>
 
 

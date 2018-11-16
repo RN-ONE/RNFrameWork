@@ -16,7 +16,6 @@ import RNRestart from 'react-native-restart';
 import ToastAI from "./component/ToastAI";
 
 
-
 const store = CreateStore();
 // Error: ${(isFatal) ? 'Fatal:' : ''} ${e.name} ${e.message} ${e.stack}
 
@@ -55,6 +54,7 @@ class Index extends Component {
         super(props);
         global.BARANDROIDHEIGHT = Platform.OS === "android" ? -1 : 0;
 
+        //获取android状态栏的高度，因为框架使用的是沉浸式状态栏，布局是从上面开始的
         if (Platform.OS === "android") {
             NativeModules.BarHeightModule.getHeight((height) => {
                 global.BARANDROIDHEIGHT = height;
